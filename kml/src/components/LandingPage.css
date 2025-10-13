@@ -1,0 +1,85 @@
+/* Basic Reset and Variables (Optional but recommended) */
+:root {
+    --primary-color: #007bff; /* A nice blue for cleaning/freshness */
+    --secondary-color: #28a745; /* A green for 'clean' */
+    --text-color: #333;
+    --light-bg: #f8f9fa;
+  }
+  
+  /* LANDING PAGE CONTAINER */
+  .landing-page {
+    font-family: Arial, sans-serif;
+    color: var(--text-color);
+  }
+  
+  /* NAVIGATION/HEADER */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+    background-color: white;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  }
+  
+  .logo {
+    font-size: 1.5em;
+    font-weight: bold;
+    color: var(--primary-color);
+  }
+  
+  .navbar ul {
+    list-style: none;
+    display: flex;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar li {
+    margin-left: 20px;
+  }
+  
+  .navbar a {
+    text-decoration: none;
+    color: var(--text-color);
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  
+  .navbar a:hover {
+    color: var(--primary-color);
+  }
+  
+  
+  /* HERO SECTION */
+  .hero {
+    background-color: var(--light-bg);
+    padding: 80px 5%;
+    text-align: center;
+  }
+  
+  .hero h1 {
+    font-size: 3em;
+    color: var(--primary-color);
+    margin-bottom: 15px;
+  }
+  
+  .hero p {
+    font-size: 1.2em;
+    margin-bottom: 30px;
+  }
+  
+  .cta-button {
+    background-color: var(--secondary-color);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    font-size: 1.1em;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+  }
+  
+  .cta-button:hover {
+    background-color: #218838; /* Darker green on hover */
+  }

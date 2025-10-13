@@ -1,31 +1,68 @@
-/* Basic Reset and Variables (Optional but recommended) */
-:root {
-    --primary-color: #007bff; /* A nice blue for cleaning/freshness */
-    --secondary-color: #28a745; /* A green for 'clean' */
-    --text-color: #333;
-    --light-bg: #f8f9fa;
+/* GLOBAL RESET: Removes default browser margins/padding to achieve full-screen display */
+html, body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  overflow-x: hidden; /* Prevents horizontal scrollbar if elements slightly exceed viewport */
+}
+
+/* Ensure your main application container takes full height and width */
+#root, .landing-page {
+  width: 100%;
+  min-height: 100vh; /* Ensures it fills the viewport height */
+}
+
+/* ======================================================
+   1. COLOR PALETTE & ROOT STYLES
+   ====================================================== */
+   :root {
+    --brand-green: #014421;  /* Primary Color */
+    --light-bg: #FAFAFA;     /* Background Color */
+    --cta-yellow: #FFDD00;    /* Accent Color */
+    --text-color: #333;       /* Standard dark text color for contrast */
   }
   
-  /* LANDING PAGE CONTAINER */
+  /* LANDING PAGE CONTAINER (Remaining styles) */
   .landing-page {
     font-family: Arial, sans-serif;
     color: var(--text-color);
+    background-color: var(--light-bg); 
   }
+
   
-  /* NAVIGATION/HEADER */
+  /* ======================================================
+     2. NAVIGATION/HEADER STYLES (Inline Fix)
+     ====================================================== */
   .navbar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 15px 5%;
-    background-color: white;
+    /* background-color: white; */
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   }
   
+  /* Container for the SVG image and text brand name */
   .logo {
-    font-size: 1.5em;
+    display: flex; 
+    align-items: center; 
+    font-size: 1em; /* Adjusted font size for better fit */
     font-weight: bold;
-    color: var(--primary-color);
+    color: var(--brand-green);
+  }
+  
+  .logo-svg {
+    /* Adjusted from 250px, which is likely too large for a header logo, back to a functional size */
+    height: 250px; 
+    width: auto;
+    margin-right: 15px; /* Increased space */
+  }
+  
+  .logo-text {
+    margin: 0; 
+    line-height: 1.3; 
+    font-size: 1.2em; 
+    white-space: nowrap; 
   }
   
   .navbar ul {
@@ -36,7 +73,8 @@
   }
   
   .navbar li {
-    margin-left: 20px;
+    margin-left: 15px; /* Reduced margin to fit all links */
+    line-height: 1.1; 
   }
   
   .navbar a {
@@ -47,39 +85,336 @@
   }
   
   .navbar a:hover {
-    color: var(--primary-color);
+    color: var(--brand-green);
   }
   
   
-  /* HERO SECTION */
+  /* ======================================================
+     3. HERO SECTION STYLES (Full-Width Image Fix)
+     ====================================================== */
   .hero {
-    background-color: var(--light-bg);
-    padding: 80px 5%;
+    background-image: url('../assets/robert.avif'); 
+    background-size: cover; 
+    background-position: center top; 
+    background-repeat: no-repeat; 
+    
+    /* --- FULL WIDTH FIX --- */
+    padding: 100px 0; /* REMOVED horizontal padding here */
+    /* --- /FULL WIDTH FIX --- */
+    
     text-align: center;
+    position: relative; 
+    color: white; 
+    min-height: 500px; 
+    display: flex; 
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  /* New wrapper to keep text centered and readable */
+  .hero-content-wrapper {
+      max-width: 1200px; 
+      width: 100%;
+      margin: 0 auto; 
+      padding: 0 5%; /* Padding applied here to ensure text doesn't hit edges */
+      box-sizing: border-box; 
+  }
+  
+  
+  /* Overlay and Z-index handling */
+  .hero::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5); 
+      z-index: 1; 
+  }
+  
+  .hero > * {
+      position: relative;
+      z-index: 2; 
   }
   
   .hero h1 {
     font-size: 3em;
-    color: var(--primary-color);
-    margin-bottom: 15px;
+    color: white; 
+    margin-bottom: 10px;
   }
   
-  .hero p {
-    font-size: 1.2em;
-    margin-bottom: 30px;
+  .tagline {
+    font-size: 1.5em; 
+    font-weight: 300; 
+    color: white; 
+    margin-bottom: 40px;
+    max-width: 800px; 
   }
   
+  .tagline-strong {
+      color: var(--cta-yellow); 
+      font-weight: 600;
+  }
+  
+  /* Call-to-Action Button */
   .cta-button {
-    background-color: var(--secondary-color);
-    color: white;
+    background-color: var(--cta-yellow);
+    color: var(--brand-green); 
     border: none;
-    padding: 12px 25px;
+    padding: 12px 30px;
     font-size: 1.1em;
+    font-weight: bold;
     border-radius: 5px;
     cursor: pointer;
     transition: background-color 0.3s;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
   }
   
   .cta-button:hover {
-    background-color: #218838; /* Darker green on hover */
+    background-color: #EEDD33; 
+  }
+  
+  
+  /* ======================================================
+     4. CONTENT SECTIONS (Basic Placeholder Styles)
+     ====================================================== */
+  .services, .about {
+      padding: 60px 5%;
+      text-align: center;
+  }
+  
+  .services h2, .about h2 {
+      color: var(--brand-green);
+      font-size: 2em;
+      margin-bottom: 15px;
+  }
+  
+  
+  /* ======================================================
+     5. CONTACT SECTION STYLES
+     ====================================================== */
+  .contact-section {
+      padding: 40px 0 0 0; 
+  }
+  
+  .contact-heading {
+      text-align: center;
+      max-width: 800px;
+      margin: 0 auto 40px;
+      padding: 0 5%;
+  }
+  
+  .contact-heading h1 {
+      font-size: 2.5em;
+      color: var(--brand-green);
+      margin-bottom: 10px;
+  }
+  
+  .contact-content {
+      display: flex;
+      max-width: 1400px; 
+      margin: 0 auto;
+  }
+  
+  .contact-visual {
+      flex: 1; 
+      position: relative;
+      overflow: hidden; 
+  }
+  
+  .placeholder-image {
+      width: 100%;
+      height: 100%;
+      min-height: 700px; 
+      background-color: #ccc; 
+      background-size: cover;
+      background-position: center;
+  }
+  
+  .contact-form-container {
+      flex: 1; 
+      background-color: var(--brand-green); 
+      padding: 50px 5%;
+      color: white; 
+  }
+  
+  .contact-form label {
+      display: block;
+      margin-top: 20px;
+      margin-bottom: 5px;
+      font-size: 1.1em;
+  }
+  
+  .form-row {
+      display: flex;
+      gap: 15px; 
+      margin-bottom: 15px;
+  }
+  
+  .form-row input {
+      flex: 1;
+  }
+  
+  .contact-form input[type="text"],
+  .contact-form input[type="tel"],
+  .contact-form input[type="email"],
+  .contact-form textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 15px;
+      border: none;
+      border-radius: 4px;
+      box-sizing: border-box; 
+      font-size: 1em;
+      background-color: rgba(0, 0, 0, 0.2); 
+      color: white;
+  }
+  
+  .contact-form textarea {
+      resize: vertical; 
+  }
+  
+  .form-submit-button {
+      background-color: var(--cta-yellow);
+      color: var(--brand-green);
+      border: none;
+      padding: 12px 30px;
+      font-size: 1.1em;
+      font-weight: bold;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      margin: 20px auto 0 0; 
+  }
+  
+  .form-submit-button:hover {
+      background-color: #EEDD33;
+  }
+  
+  .contact-info {
+      border-top: 1px solid rgba(255, 255, 255, 0.3); 
+      padding-top: 30px;
+      margin-top: 40px;
+      font-size: 0.9em;
+  }
+  
+  .contact-info p {
+      margin-bottom: 8px;
+  }
+  
+  /* ======================================================
+     6. MEDIA QUERIES (RESPONSIVENESS)
+     ====================================================== */
+  
+  /* --- TABLETS & SMALLER DESKTOPS (Max width: 992px) --- */
+  @media (max-width: 992px) {
+      
+    .navbar, .services, .about {
+        padding-left: 3%;
+        padding-right: 3%;
+    }
+  
+    /* Reduce logo size slightly */
+    .logo-svg {
+      height: 50px; 
+    }
+  
+    /* Ensure hero wrapper padding is adjusted */
+    .hero-content-wrapper {
+      padding: 0 3%;
+    }
+  
+    .navbar li {
+      margin-left: 10px; 
+      font-size: 0.9em;
+    }
+  
+    .hero h1 {
+        font-size: 2.5em;
+    }
+  
+    .tagline {
+        font-size: 1.3em;
+    }
+  
+    /* Contact Section: Stack the content vertically */
+    .contact-content {
+        flex-direction: column;
+    }
+    
+    .contact-visual,
+    .contact-form-container {
+        flex: 0 0 100%;
+        width: 100%;
+    }
+  
+    .placeholder-image {
+        min-height: 400px;
+    }
+  }
+  
+  /* --- MOBILE PHONES (Max width: 600px) --- */
+  @media (max-width: 600px) {
+  
+    /* Navigation Bar: Stack logo/text and links */
+    .navbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+  
+    /* Allow the long logo text to wrap on very small screens */
+    .logo-text {
+      white-space: normal; 
+      line-height: 1.2;
+      font-size: 1.1em;
+    }
+    
+    .logo {
+      margin-bottom: 10px;
+    }
+  
+    .navbar nav {
+        width: 100%;
+        margin-top: 5px;
+        padding-top: 5px;
+        border-top: 1px solid #eee;
+    }
+
+    .navbar ul {
+        justify-content: space-around;
+    }
+  
+    .navbar li {
+        margin-left: 0;
+        font-size: 0.85em;
+    }
+    
+    .hero {
+        min-height: 350px;
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+  
+    .hero h1 {
+        font-size: 2em;
+    }
+  
+    .tagline {
+        font-size: 1.1em;
+    }
+    
+    .contact-form-container {
+        padding: 30px 5%; 
+    }
+  
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+  
+    .placeholder-image {
+        min-height: 250px; 
+    }
   }

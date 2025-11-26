@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import "./Services.css";
 
 // Images
-import carpetImg from "../assets/cleaning/services/carpet_clean.jpg";
 import couchImg from "../assets/cleaning/services/couch_cushion.jpg";
 import tileImg from "../assets/cleaning/services/office.jpg";
 import teamImg from "../assets/cleaning/services/team.jpg";

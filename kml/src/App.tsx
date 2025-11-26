@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import { useEffect } from "react";
 
 import Navbar from "./components/Navbar";
@@ -36,18 +36,7 @@ export default function App() {
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<LandingPage />} />
         <Route path="/before-after" element={<BeforeAfter />} />
-
       </Routes>
-      {/* <MobileCTA /> */}
       <Footer />
     </Router>  );
-}
-
-function MobileCTA() {
-  return (
-    <div className="mobile-cta">
-      <a href="tel:2623341881">📞 Call</a>
-      <Link to="/contact">✉️ Get Quote</Link>
-    </div>
-  );
 }

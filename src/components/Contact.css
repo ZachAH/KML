@@ -55,8 +55,15 @@
 }
 
 @keyframes bounce {
-  0%, 100% { transform: translate(-50%, -60%); }
-  50% { transform: translate(-50%, -50%); }
+
+  0%,
+  100% {
+    transform: translate(-50%, -60%);
+  }
+
+  50% {
+    transform: translate(-50%, -50%);
+  }
 }
 
 /* Get Directions Button */
@@ -71,7 +78,7 @@
   font-weight: bold;
   border-radius: 6px;
   text-decoration: none;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
   transition: 0.25s ease-in-out;
 }
 
@@ -96,7 +103,8 @@
 .contact-form textarea {
   width: 100%;
   padding: 14px;
-  background: #0e2d20; /* deep clean green */
+  background: #0e2d20;
+  /* deep clean green */
   border: 2px solid #01371b;
   border-radius: 8px;
   font-size: 1rem;
@@ -107,7 +115,7 @@
 
 .contact-form input::placeholder,
 .contact-form textarea::placeholder {
-  color: rgba(255,255,255,0.6);
+  color: rgba(255, 255, 255, 0.6);
   font-weight: 500;
 }
 
@@ -164,5 +172,117 @@
 
   .map-wrapper {
     height: 260px;
+  }
+}
+
+/* MOBILE RESPONSIVE */
+@media (max-width: 700px) {
+
+  /* Stack content cleanly */
+  .contact-content {
+    display: flex !important;
+    flex-direction: column;
+    width: 100%;
+    gap: 28px;
+    align-items: center;
+  }
+
+  .contact-section {
+    padding: 110px 20px 80px !important;
+    align-items: center;
+  }
+
+  /* Intro spacing */
+  .contact-section h2 {
+    font-size: 1.7rem !important;
+    margin-bottom: 12px !important;
+    text-align: left;
+    width: 100%;
+  }
+
+  .contact-section p {
+    margin-bottom: 18px !important;
+    font-size: 1rem;
+    text-align: left;
+    width: 100%;
+  }
+
+  /* Map */
+  .map-wrapper {
+    width: 100% !important;
+    height: 250px !important;
+    margin-bottom: 1.25rem;
+    border-radius: 14px;
+  }
+
+  /* Form */
+  .contact-form {
+    width: 100% !important;
+    padding: 0 4px;
+    /* prevents input edge-touch */
+    gap: 14px;
+  }
+
+  .form-row {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .contact-form input,
+  .contact-form textarea {
+    width: 100%;
+    font-size: 1rem !important;
+    border-radius: 10px;
+    background: #114b31;
+    border: 2px solid #01371b;
+  }
+
+  .contact-form textarea {
+    min-height: 120px;
+  }
+
+  /* Send Button */
+  .form-submit-button {
+    width: 70%;
+    margin: 16px auto 0 !important;
+    display: block;
+    font-size: 1.05rem;
+    border-radius: 10px;
+    text-align: center;
+  }
+}
+
+/* 🌎 Improved Map Button — Smaller Variant */
+.map-directions-btn {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 10px 20px; /* smaller */
+  font-size: 0.95rem; /* slightly smaller text */
+  background: var(--cta-yellow);
+  color: var(--brand-green);
+  font-weight: 700;
+  border-radius: 10px; /* softer */
+  text-decoration: none;
+  text-align: center;
+  box-shadow: 0px 4px 14px rgba(0, 0, 0, 0.25);
+  transition: transform 0.25s ease, background 0.25s ease;
+  z-index: 5;
+}
+
+/* Hover pop */
+.map-directions-btn:hover {
+  background: var(--cta-yellow-hover);
+  transform: translateX(-50%) translateY(-2px);
+}
+
+/* 📱 Mobile — size scaled down correctly */
+@media (max-width: 600px) {
+  .map-directions-btn {
+    width: 70%;
+    padding: 10px 0;
+    font-size: 0.9rem;
+    border-radius: 8px;
   }
 }

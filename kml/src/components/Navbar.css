@@ -1,85 +1,228 @@
-/* Layout: 3 columns on desktop */
+:root {
+  --brand-green: #014421;
+  --light-bg: #f6f4e8;
+  --cta-yellow: #FFDD00;
+  --cta-yellow-hover: #E5C400;
+  --text-light: #ffffff;
+  --text-dark: #111D10;
+}
+
+/* Header Base */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  background: var(--light-bg);
+  border-bottom: 2px solid var(--brand-green);
+  z-index: 9999;
+  display: flex;
+  justify-content: center;
+  padding: 14px 2rem;
+  transition: 0.3s ease;
+}
+
+.navbar.scrolled {
+  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+}
+
+/* Layout: Logo - Center Nav - CTA Right */
 .nav-content {
   display: grid;
   grid-template-columns: auto 1fr auto;
   align-items: center;
   width: 100%;
   max-width: 1400px;
-  gap: 2rem;
 }
 
-/* Centers nav items */
+/* Logo + Tagline */
+.nav-logo {
+  height: 60px;
+  cursor: pointer;
+}
+.nav-tagline {
+  margin-left: 12px;
+  font-size: 0.9rem;
+  color: var(--brand-green);
+  font-weight: 600;
+}
+
+/* Desktop Nav Links */
 .nav-links {
   display: flex;
   justify-content: center;
-  gap: 35px;
+  align-items: center;
+  gap: 32px;
 }
 
-/* CTA always visible on desktop */
+.nav-links a {
+  text-decoration: none;
+  color: var(--brand-green);
+  font-size: 1.05rem;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+  color: #0A5A33;
+}
+
+/* Desktop CTA */
 .nav-cta {
   display: inline-flex;
+  background: var(--cta-yellow);
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 800;
+  color: var(--brand-green) !important;
+  text-decoration: none;
+  transition: 0.25s;
 }
 
-/* --- Mobile Rules --- */
-@media (max-width: 900px) {
-
-  .nav-content {
-    grid-template-columns: auto 1fr auto;
-  }
-
-  /* Only show nav-links when menu open */
-  .nav-links {
-    position: absolute;
-    top: 80px;
-    left: 0;
-    width: 100%;
-    flex-direction: column;
-    background: var(--brand-green);
-    padding: 20px 0;
-    max-height: 0;
-    overflow: hidden;
-    opacity: 0;
-    transition: max-height .35s ease, opacity .25s ease;
-    pointer-events: none;
-  }
-
-  .nav-links.open {
-    max-height: 280px;
-    opacity: 1;
-    pointer-events: auto;
-  }
-
-  .nav-links a {
-    color: var(--text-light) !important;
-  }
-
-  /* Hide CTA from desktop spot */
-  .nav-cta {
-    display: none;
-  }
-
-  /* CTA moves into menu */
-  .nav-links.open .nav-cta {
-    display: block;
-    background: var(--cta-yellow);
-    color: var(--brand-green);
-    padding: 10px 20px;
-    border-radius: 8px;
-    font-weight: 800;
-  }
-
-  .hamburger {
-    display: flex;
-  }
+.nav-cta:hover {
+  background: var(--cta-yellow-hover);
+  transform: translateY(-1px);
 }
 
-/* Burger animation */
+/* Mobile Menu Button */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  border: none;
+  background: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: var(--text-dark);
+  transition: 0.35s;
+}
+
+/* Hamburger icon animation */
 .hamburger.open span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
+  transform: translateY(8px) rotate(45deg);
 }
 .hamburger.open span:nth-child(2) {
   opacity: 0;
 }
 .hamburger.open span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
+  transform: translateY(-8px) rotate(-45deg);
+}
+
+/* -------- MOBILE MENU STYLES -------- */
+@media (max-width: 900px) {
+
+  /* Align hamburger right */
+  .hamburger {
+    display: flex;
+    justify-self: end;
+    margin-right: 8px;
+  }
+
+  /* Hide desktop CTA */
+  .nav-cta {
+    display: none !important;
+  }
+
+  /* Dropdown Nav */
+  .nav-links {
+    position: absolute;
+    top: 84px;
+    left: 0;
+    width: 100%;
+    flex-direction: column;
+    gap: 22px;
+    padding: 22px 0;
+    background: var(--brand-green);
+
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition: max-height .35s ease, opacity .3s ease;
+  }
+
+  .nav-links.open {
+    max-height: 300px;
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-links a {
+    font-size: 1.2rem;
+    color: var(--text-light) !important;
+  }
+
+  /* CTA appears here only */
+  .nav-links.open .nav-cta {
+    display: block !important;
+    font-size: 1.1rem;
+    padding: 12px 26px;
+    border-radius: 10px;
+    margin-top: 5px;
+  }
+
+  /* Hide tagline on mobile */
+  .nav-tagline {
+    display: none;
+  }
+}
+
+/* Prevent horizontal scrolling */
+html, body {
+  overflow-x: hidden;
+}
+
+/* --- FINAL CTA FIX --- */
+
+/* Desktop: CTA only visible outside menu */
+@media (min-width: 901px) {
+  .nav-links .nav-cta {
+    display: none !important;
+  }
+
+  .desktop-cta {
+    display: inline-flex !important;
+  }
+}
+
+/* Mobile: CTA only inside dropdown */
+@media (max-width: 900px) {
+  .desktop-cta {
+    display: none !important;
+  }
+
+  .nav-links.open .nav-cta {
+    display: block !important;
+  }
+}
+
+/* Desktop layout refined */
+@media (min-width: 901px) {
+  .navbar {
+    padding: 14px clamp(1rem, 4vw, 3rem);
+  }
+
+  .nav-content {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: center;
+    width: 100%;
+    max-width: 1400px;
+    gap: clamp(1rem, 3vw, 2.5rem);
+  }
+
+  .nav-links {
+    gap: clamp(1.2rem, 2.5vw, 2.5rem);
+    justify-content: center;
+  }
+
+  /* Ensure CTA never gets clipped */
+  .desktop-cta {
+    white-space: nowrap;
+    margin-left: clamp(0.5rem, 2vw, 2rem);
+  }
 }

@@ -31,7 +31,7 @@ const Navbar = () => {
 
         {/* Desktop Links */}
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/" className={isActive("/") ? "active" : ""}>Services</Link>
+          <Link to="/" className={isActive("/") ? "active" : ""}>Home</Link>
           <Link to="/about" className={isActive("/about") ? "active" : ""}>About</Link>
           <Link to="/contact" className={isActive("/contact") ? "active" : ""}>Contact</Link>
           <Link to="/before-after" className={isActive("/before-after") ? "active" : ""}>

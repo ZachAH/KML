@@ -1,47 +1,75 @@
 .about-section {
-    background: var(--brand-green-light);
-    color: var(--text-light);
-    padding: 100px 6%;
-    text-align: center;
-  }
-  
-  .about-content {
-    max-width: 850px;
-    margin: 0 auto;
-  }
-  
-  .about-section h2 {
-    font-size: 2.6rem;
-    font-weight: 800;
-    margin-bottom: 24px;
-  }
-  
-  .about-section p {
-    font-size: 1.1rem;
-    line-height: 1.6;
-    margin-bottom: 18px;
-  }
-  
-  .about-list {
-    list-style: none;
-    margin: 25px auto 0;
-    padding: 0;
-    max-width: 650px;
-    text-align: left;
-  }
-  
-  .about-list li {
-    margin-bottom: 10px;
-    font-size: 1.1rem;
-    position: relative;
-    padding-left: 26px;
-  }
-  
-  .about-list li::before {
-    content: "✔";
-    position: absolute;
-    left: 0;
-    color: var(--cta-yellow);
-    font-size: 1.2rem;
-  }
-  
+  background: var(--brand-green-light);
+  color: var(--text-light);
+  padding: 100px 6%;
+  text-align: center;
+}
+
+.about-content {
+  max-width: 850px;
+  margin: 0 auto;
+}
+
+.about-section h2 {
+  font-size: 2.6rem;
+  font-weight: 800;
+  margin-bottom: 24px;
+}
+
+.about-section p {
+  font-size: 1.1rem;
+  line-height: 1.6;
+  margin-bottom: 18px;
+}
+
+.about-list {
+  list-style: none;
+  margin: 25px auto 0;
+  padding: 0;
+  max-width: 650px;
+  text-align: left;
+}
+
+.about-list li {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+  position: relative;
+  padding-left: 26px;
+}
+
+.about-list li::before {
+  content: "✔";
+  position: absolute;
+  left: 0;
+  color: var(--cta-yellow);
+  font-size: 1.2rem;
+}
+
+.about-section {
+  min-height: 100vh;
+  /* fills viewport */
+  background: var(--brand-green);
+  color: var(--text-light);
+  padding: 140px 6% 120px;
+  /* room for sticky navbar */
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.about-container {
+  max-width: 900px;
+  text-align: center;
+  margin: 0 auto;
+}
+
+.about-container h1 {
+  font-size: 2.4rem;
+  margin-bottom: 24px;
+}
+
+.about-container ul {
+  margin-top: 24px;
+  text-align: left;
+  line-height: 1.6;
+}

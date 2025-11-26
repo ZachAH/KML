@@ -33,3 +33,28 @@
 .read-the-docs {
   color: #888;
 }
+
+.mobile-cta {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--brand-green);
+  display: none;
+  justify-content: space-around;
+  padding: 12px 0;
+  z-index: 9999;
+}
+
+.mobile-cta a {
+  color: var(--cta-yellow);
+  font-weight: 700;
+  font-size: 1rem;
+  text-decoration: none;
+}
+
+@media (max-width: 750px) {
+  .mobile-cta {
+    display: flex;
+  }
+}

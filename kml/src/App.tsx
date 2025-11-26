@@ -1,26 +1,24 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import { useEffect } from "react";
 
 import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
-import Services from "./components/Services";
 import Contact from "./components/Contact";
 import About from "./components/About";
 
 // Smooth scrolling for hash navigation (/#services)
 function ScrollToHash() {
-  const { hash } = window.location;
-
   useEffect(() => {
+    const hash = window.location.hash;
     if (hash) {
       const element = document.querySelector(hash);
       if (element) {
         setTimeout(() => {
           element.scrollIntoView({ behavior: "smooth" });
-        }, 80); // slight delay for router load
+        }, 80);
       }
     }
-  }, [hash]);
+  }, [window.location.hash]);
 
   return null;
 }
@@ -35,10 +33,18 @@ export default function App() {
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-
-        {/* Optional: direct services page route (can reuse same component) */}
         <Route path="/services" element={<LandingPage />} />
       </Routes>
+      <MobileCTA />
     </Router>
+  );
+}
+
+function MobileCTA() {
+  return (
+    <div className="mobile-cta">
+      <a href="tel:2623341881">📞 Call</a>
+      <Link to="/contact">✉️ Get Quote</Link>
+    </div>
   );
 }

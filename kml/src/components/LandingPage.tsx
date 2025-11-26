@@ -1,12 +1,10 @@
 import "./LandingPage.css";
-import Navbar from "./Navbar";
 import Services from "./Services";
 import heroVideo from "../assets/cleaning/carpet_cleaning.mp4";
 
 const LandingPage: React.FC = () => {
   return (
     <div className="landing-page">
-      <Navbar />
 
       {/* Hero Section */}
       <section className="hero">

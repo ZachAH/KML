@@ -16,7 +16,8 @@ html, body {
   --brand-green: #014421;
   --brand-green-light: #1A5E34;
   --light-bg: #F3F6F4;
-  --cta-yellow: #FFDD00;
+  --cta-yellow: #E7C600; /* Softer, less neon */
+  --cta-yellow-hover: #D2B400;
   --text-light: #ffffff;
   --text-dark: #1D1D1D;
   --text-color: var(--text-dark);
@@ -122,75 +123,6 @@ html, body {
 }
 .cta.secondary:hover {
   background-color: rgba(255,255,255,0.25);
-}
-
-/* ======================================================
-   CONTACT SECTION
-   ====================================================== */
-.contact-section {
-  padding: 80px 0 0;
-}
-
-.contact-heading {
-  text-align: center;
-  max-width: 800px;
-  margin: 0 auto 40px;
-  padding: 0 5%;
-}
-
-.contact-heading h1 {
-  font-size: 2.5em;
-  color: var(--brand-green);
-}
-
-.contact-content {
-  display: flex;
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-.contact-visual,
-.placeholder-image {
-  flex: 1;
-  background: #ddd;
-  min-height: 600px;
-}
-
-.contact-form-container {
-  flex: 1;
-  background-color: var(--brand-green);
-  padding: 50px 5%;
-  color: white;
-}
-
-.contact-form label {
-  margin-bottom: 8px;
-}
-
-.form-row {
-  display: flex;
-  gap: 15px;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 100%;
-  padding: 12px 15px;
-  border: none;
-  margin-bottom: 12px;
-  border-radius: 4px;
-  background-color: rgba(0,0,0,0.2);
-  color: white;
-}
-
-.form-submit-button {
-  background: var(--cta-yellow);
-  color: var(--brand-green);
-  padding: 12px 30px;
-  border-radius: 5px;
-  cursor: pointer;
-  border: none;
-  font-weight: bold;
 }
 
 /* ======================================================

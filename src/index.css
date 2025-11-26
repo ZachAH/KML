@@ -112,23 +112,3 @@ html {
   }
 }
 
-/* Center scrub animation */
-.scrub-animation {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  width: 55vw;
-  max-width: 280px;
-  pointer-events: none;
-}
-
-/* Slightly larger animation on small screens */
-/* Mobile-only adjustment for sponge/scrub animation */
-@media (max-width: 600px) {
-  .scrub-animation {
-    left: 65%;
-    top: 48%;
-    width: 75vw;
-  }
-}

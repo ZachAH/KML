@@ -23,7 +23,6 @@ export default function BeforeAfterImage({ before, after, label }: Props) {
     const startX = scrubberBounds.left - frameBounds.left + scrubberBounds.width / 2;
     const startY = scrubberBounds.top - frameBounds.top + scrubberBounds.height / 2;
 
-    // 🫧 Create 3 bubbles per update instead of 1
     for (let i = 0; i < 3; i++) {
       const bubble = document.createElement("div");
       bubble.className = "bubble";
@@ -50,7 +49,6 @@ export default function BeforeAfterImage({ before, after, label }: Props) {
     }
   };
 
-
   const handleClean = () => {
     const dirt = dirtRef.current;
     const sponge = scrubberRef.current;
@@ -58,80 +56,78 @@ export default function BeforeAfterImage({ before, after, label }: Props) {
 
     if (!dirt || !sponge || !frame) return;
 
-    // Reset state so animation can replay
     frame.classList.remove("cleaned");
+
     gsap.set(dirt, { opacity: 1, filter: "blur(0px)" });
-    gsap.set(sponge, { x: -40, y: 0 });
+
+    // 🧽 Make sponge visible only during animation
+    gsap.set(sponge, { opacity: 1 });
 
     const w = frame.offsetWidth;
     const h = frame.offsetHeight;
 
-    // 📱 Mobile-friendly logic
-    const rows = w < 500 ? 2 : 3; // fewer sweeps on phones
-    const radius = h * (w < 500 ? 0.12 : 0.18);
+    const isMobile = w < 600;
+
+    const rows = isMobile ? 2 : 3;
     const margin = h * 0.15;
     const rowHeight = (h * 0.7) / rows;
-    const leftX = w * 0.1;
-    const rightX = w * 0.9;
+
+    // 🧼 Mobile = MUCH further across the frame
+    const leftX = isMobile ? w * 0.02 : w * 0.1;
+    const rightX = isMobile ? w * 1.05 : w * 0.9;
 
     const tl = gsap.timeline({
       onComplete: () => {
         gsap.to(dirt, { opacity: 0, filter: "blur(6px)", duration: 0.4 });
-        frame.classList.add("cleaned"); // triggers sparkles ✨
-      }
+        gsap.to(sponge, { opacity: 0, duration: 0.3 }); // fade out when done
+        frame.classList.add("cleaned");
+      },
     });
 
     for (let i = 0; i < rows; i++) {
       const yPos = margin + i * rowHeight;
 
-      // Sweep left → right
       tl.to(sponge, {
-        duration: 0.26,
+        duration: 0.32,
         x: rightX,
         y: yPos,
         ease: "power2.inOut",
         onUpdate: spawnBubble,
       });
 
-      // Fade dirt as we scrub
       tl.to(
         dirt,
         {
           opacity: 1 - (i + 1) / rows,
-          duration: 0.22,
+          duration: 0.26,
           ease: "none",
         },
-        "<" // perfectly overlaps
+        "<"
       );
 
-      // Sweep right → left
       tl.to(sponge, {
-        duration: 0.26,
+        duration: 0.32,
         x: leftX,
-        y: yPos + radius * 0.05, // tiny tilt
+        y: yPos + 10,
         ease: "power2.inOut",
         onUpdate: spawnBubble,
       });
     }
   };
 
-
   return (
     <div className="ba-frame" ref={frameRef} onClick={handleClean}>
-      {/* Sparkles */}
       <span className="sparkle"></span>
       <span className="sparkle"></span>
       <span className="sparkle"></span>
       <span className="sparkle"></span>
 
-      {/* Images */}
       <img src={after} className="ba-img clean-layer" alt="After clean" />
       <img src={before} className="ba-img dirt-layer" ref={dirtRef} alt="Before dirty" />
 
-      {/* Sponge Cleanser */}
+      {/* 🧽 Sponge appears only on clean interaction */}
       <div className="scrubber" ref={scrubberRef}>🧽</div>
 
-      {/* Bubble Trail Container */}
       <div className="bubble-container" ref={bubbleContainerRef}></div>
 
       <p className="ba-label">{label}</p>

@@ -234,3 +234,14 @@
         margin-bottom: 1rem !important;
     }
 }
+
+@media (max-width: 600px) {
+    .scrubber {
+        opacity: 0;
+        /* hidden until clicking */
+        top: 55%;
+        left: 0%;
+        font-size: 2.4rem;
+        transform: translateY(-50%);
+    }
+}

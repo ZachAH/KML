@@ -5,6 +5,8 @@ import Navbar from "./components/Navbar";
 import LandingPage from "./components/LandingPage";
 import Contact from "./components/Contact";
 import About from "./components/About";
+import Footer from "./components/Footer";
+import BeforeAfter from "./components/BeforeAfter";
 
 // Smooth scrolling for hash navigation (/#services)
 function ScrollToHash() {
@@ -28,16 +30,17 @@ export default function App() {
     <Router>
       <Navbar />
       <ScrollToHash />
-
       <Routes>
         <Route path="/" element={<LandingPage />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<LandingPage />} />
+        <Route path="/before-after" element={<BeforeAfter />} />
+
       </Routes>
-      <MobileCTA />
-    </Router>
-  );
+      {/* <MobileCTA /> */}
+      <Footer />
+    </Router>  );
 }
 
 function MobileCTA() {

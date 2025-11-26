@@ -197,3 +197,16 @@
     height: 240px;
   }
 }
+
+@media (max-width: 600px) {
+  .services-section {
+    margin-top: 4.5rem !important;
+  }
+}
+
+@media (max-width: 600px) {
+  h2,
+  .services-title {
+    padding-top: 1rem;
+  }
+}

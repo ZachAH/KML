@@ -11,40 +11,54 @@ const Navbar = () => {
   const isActive = (path: string) => location.pathname === path;
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    const onScroll = () => setScrolled(window.scrollY > 50);
+    window.addEventListener("scroll", onScroll);
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  // Close menu when changing routes
   useEffect(() => setMenuOpen(false), [location.pathname]);
 
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
-      <div className="nav-content">
+      <nav className="nav-content">
 
-        {/* Logo */}
+        {/* Logo + Tagline */}
         <Link to="/" className="nav-left">
           <img src={KmlLogo} alt="KML Logo" className="nav-logo" />
           <span className="nav-tagline">Clean You Can Trust</span>
         </Link>
 
+        {/* Desktop Links */}
+        <div className={`nav-links ${menuOpen ? "open" : ""}`}>
+          <Link to="/" className={isActive("/") ? "active" : ""}>Services</Link>
+          <Link to="/about" className={isActive("/about") ? "active" : ""}>About</Link>
+          <Link to="/contact" className={isActive("/contact") ? "active" : ""}>Contact</Link>
+          <Link to="/before-after" className={isActive("/before-after") ? "active" : ""}>
+            Before & After
+          </Link>
+
+          {/* CTA moves inside here only on mobile */}
+          <a href="tel:2623341881" className="nav-cta mobile-only">
+            Call Us
+          </a>
+        </div>
+
+        {/* Desktop CTA — visible only on large screens */}
+        <a href="tel:2623341881" className="nav-cta desktop-only">
+          Call Us
+        </a>
+
         {/* Hamburger */}
         <button
           className={`hamburger ${menuOpen ? "open" : ""}`}
           onClick={() => setMenuOpen(!menuOpen)}
+          aria-label="Toggle menu"
         >
           <span></span><span></span><span></span>
         </button>
 
-        {/* Links */}
-        <nav className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/" className={isActive("/") ? "active" : ""}>Services</Link>
-          <Link to="/about" className={isActive("/about") ? "active" : ""}>About</Link>
-          <Link to="/contact" className={isActive("/contact") ? "active" : ""}>Contact</Link>
-          <a href="tel:2623341881" className="nav-cta">Call Us</a>
-        </nav>
-
-      </div>
+      </nav>
     </header>
   );
 };

@@ -127,8 +127,8 @@ html {
 /* Mobile-only adjustment for sponge/scrub animation */
 @media (max-width: 600px) {
   .scrub-animation {
-    left: 45%;
+    left: 65%;
     top: 48%;
-    width: 70vw;
+    width: 75vw;
   }
 }

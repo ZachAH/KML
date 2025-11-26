@@ -21,9 +21,7 @@ html, body {
   --text-light: #ffffff;
   --text-dark: #1D1D1D;
   --text-color: var(--text-dark);
-
 }
-
 
 .landing-page {
   font-family: Arial, sans-serif;
@@ -34,7 +32,6 @@ html, body {
 /* ======================================================
    ✨ HERO SECTION
    ====================================================== */
-/* Remove background image since video replaces it */
 .hero {
   position: relative;
   width: 100%;
@@ -46,7 +43,7 @@ html, body {
   overflow: hidden;
 }
 
-/* Dark overlay remains */
+/* Overlay for readability */
 .hero::before {
   content: "";
   position: absolute;
@@ -55,31 +52,43 @@ html, body {
   z-index: 1;
 }
 
-/* Video layer */
+/* Background Video */
 .hero-video {
   position: absolute;
   top: 50%;
   left: 50%;
-  width: 100%;
-  height: 100%;
+  width: 110vw;
+  height: 110vh;
+  min-width: 100%;
+  min-height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
   z-index: 0;
+  filter: brightness(0.9);
 }
 
-/* Text content stays above */
+/* iPhone viewport fix */
+@supports (-webkit-touch-callout: none) {
+  .hero-video {
+    height: 100vh;
+  }
+}
+
+/* Hero Content */
 .hero-content {
   z-index: 2;
   text-align: center;
-  max-width: 750px;
+  max-width: 90%;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
-
 
 @keyframes fadeUp {
   0% { opacity: 0; transform: translateY(20px); }
   100% { opacity: 1; transform: translateY(0); }
 }
 
+/* Typography */
 .hero-title {
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
@@ -90,9 +99,11 @@ html, body {
 .hero-subtext {
   color: #ffffffdd;
   font-size: 1.25rem;
+  line-height: 1.4;
   margin-bottom: 35px;
 }
 
+/* CTA Group */
 .hero-cta-group {
   display: flex;
   gap: 18px;
@@ -112,8 +123,9 @@ html, body {
   background-color: var(--cta-yellow);
   color: var(--brand-green);
 }
+
 .cta.primary:hover {
-  background-color: #f5cb00;
+  background-color: var(--cta-yellow-hover);
 }
 
 .cta.secondary {
@@ -121,13 +133,15 @@ html, body {
   color: #fff;
   border: 2px solid rgba(255,255,255,0.4);
 }
+
 .cta.secondary:hover {
   background-color: rgba(255,255,255,0.25);
 }
 
 /* ======================================================
-   RESPONSIVE
+   📱 RESPONSIVE OPTIMIZATION
    ====================================================== */
+
 @media (max-width: 768px) {
   .nav-tagline {
     display: none;
@@ -136,16 +150,31 @@ html, body {
 
 @media (max-width: 600px) {
   .hero {
-    min-height: 70vh;
-    padding-top: 110px;
+    min-height: 75vh;
+    padding-top: 100px;
   }
+
+  .hero-title {
+    font-size: clamp(1.8rem, 6vw, 2.3rem);
+    line-height: 1.2;
+    margin-bottom: 12px;
+  }
+
+  .hero-subtext {
+    font-size: 1.05rem;
+    line-height: 1.35;
+    margin-bottom: 25px;
+  }
+
   .hero-cta-group {
     flex-direction: column;
+    gap: 12px;
+    width: 100%;
   }
-  .contact-content {
-    flex-direction: column;
-  }
-  .contact-visual {
-    min-height: 300px;
+
+  .cta {
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
   }
 }

@@ -1,0 +1,73 @@
+:root {
+  --brand-green: #014421;
+  --light-bg: #f6f4e8; /* Warm cream */
+  --cta-yellow: #FFDD00;
+  --text-color: #ffffff;
+}
+
+/* Navbar Container */
+.navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  padding: 12px 5%;
+  background: var(--light-bg);
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+  transition: background .3s ease-in-out, box-shadow .3s ease-in-out;
+  border-bottom: 2px solid var(--brand-green);
+}
+
+/* When scrolling: soft drop shadow only */
+.navbar.scrolled {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
+}
+
+/* Navbar content layout */
+.nav-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  max-width: 1400px;
+}
+
+/* Logo */
+.nav-logo {
+  height: 60px;
+  width: auto;
+  cursor: pointer;
+}
+
+/* Links */
+.nav-links {
+  display: flex;
+  gap: 30px;
+  align-items: center;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: var(--brand-green);
+  font-weight: 600;
+  font-size: 1.05rem;
+  transition: color .25s ease-in-out;
+}
+
+.nav-links a:hover {
+  color: #0A5A33;
+}
+
+/* Call to Action */
+.nav-cta {
+  background: var(--cta-yellow);
+  padding: 8px 16px;
+  border-radius: 6px;
+  color: var(--brand-green) !important;
+  font-weight: 800;
+}
+
+.nav-cta:hover {
+  background: #f5c900;
+}

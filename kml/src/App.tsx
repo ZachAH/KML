@@ -1,37 +1,44 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
-import LandingPage from './components/LandingPage';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { useEffect } from "react";
 
-function App() {
-  const [count, setCount] = useState(0)
+import Navbar from "./components/Navbar";
+import LandingPage from "./components/LandingPage";
+import Services from "./components/Services";
+import Contact from "./components/Contact";
+import About from "./components/About";
 
-  return (
-    <>
-      <LandingPage />
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+// Smooth scrolling for hash navigation (/#services)
+function ScrollToHash() {
+  const { hash } = window.location;
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.querySelector(hash);
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: "smooth" });
+        }, 80); // slight delay for router load
+      }
+    }
+  }, [hash]);
+
+  return null;
 }
 
-export default App
+export default function App() {
+  return (
+    <Router>
+      <Navbar />
+      <ScrollToHash />
+
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+
+        {/* Optional: direct services page route (can reuse same component) */}
+        <Route path="/services" element={<LandingPage />} />
+      </Routes>
+    </Router>
+  );
+}

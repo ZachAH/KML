@@ -1,459 +1,219 @@
-/* GLOBAL RESET: Removes default browser margins/padding to achieve full-screen display */
+/* GLOBAL RESET */
 html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  overflow-x: hidden; /* Prevents horizontal scrollbar if elements slightly exceed viewport */
+  overflow-x: hidden;
 }
 
-/* Ensure your main application container takes full height and width */
 #root, .landing-page {
   width: 100%;
-  min-height: 100vh; /* Ensures it fills the viewport height */
+  min-height: 100vh;
 }
 
-/* ======================================================
-   1. COLOR PALETTE & ROOT STYLES
-   ====================================================== */
-   :root {
-    --brand-green: #014421;  /* Primary Color */
-    --light-bg: #FAFAFA;     /* Background Color */
-    --cta-yellow: #FFDD00;    /* Accent Color */
-    --text-color: #333;       /* Standard dark text color for contrast */
-  }
-  
-  /* LANDING PAGE CONTAINER (Remaining styles) */
-  .landing-page {
-    font-family: Arial, sans-serif;
-    color: var(--text-color);
-    background-color: var(--light-bg); 
-  }
+/* ROOT COLORS */
+:root {
+  --brand-green: #014421;
+  --brand-green-light: #1A5E34;
+  --light-bg: #F3F6F4;
+  --cta-yellow: #FFDD00;
+  --text-light: #ffffff;
+  --text-dark: #1D1D1D;
+  --text-color: var(--text-dark);
 
-  
-/* ======================================================
-   2. HEADER STYLES (New Two-Tier Layout)
-   ====================================================== */
-/* Main header container */
-.site-header {
-  background-color: white;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width: 100%;
 }
 
-/* Top bar with logo and contact info */
-.top-bar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 90px 5%; /* Adjusted padding */
-  border-bottom: 1px solid #e0e0e0; /* Separator line */
-}
 
-/* Logo container styling */
-.logo {
-  display: flex; 
-  align-items: center; 
-  gap: 15px; /* Spaces the logo and the text */
-  color: var(--brand-green);
-}
-
-/* --- CRITICAL FIX: Your logo was far too large --- */
-.logo-svg {
-  height: 300px; /* Changed from 80px to make it larger */
-  width: auto;
-}
-
-.logo-text {
-  margin: 0; 
-  line-height: 1.3; 
-  font-size: 1.1em;
-  font-weight: bold;
-  white-space: nowrap; 
-}
-
-/* Container for phone and map icon */
-.header-contact-info {
-  display: flex;
-  align-items: center;
-  gap: 20px; /* Space between phone and map icon */
-}
-
-.header-phone {
-  font-size: 1.2em;
-  font-weight: bold;
-  color: var(--brand-green);
-  text-decoration: none;
-  transition: color 0.3s;
-}
-
-.header-phone:hover {
-  color: #333;
-}
-
-.header-map-link svg {
-  color: var(--brand-green);
-  transition: transform 0.3s ease, color 0.3s;
-}
-
-.header-map-link:hover svg {
-  transform: scale(1.1); /* Nice hover effect */
-  color: #333;
-}
-
-/* Main navigation bar below the top bar */
-.main-nav {
-  display: flex;
-  justify-content: center; /* Centers the nav items */
-  padding: 15px 5%;
-}
-
-.main-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 30px; /* Space between nav items */
-  margin: 0;
-  padding: 0;
-}
-
-.main-nav a {
-  text-decoration: none;
+.landing-page {
+  font-family: Arial, sans-serif;
   color: var(--text-color);
-  font-weight: 500;
-  transition: color 0.3s;
-  font-size: 1.1em;
+  background-color: var(--light-bg);
 }
 
-.main-nav a:hover {
+/* ======================================================
+   ✨ HERO SECTION
+   ====================================================== */
+/* Remove background image since video replaces it */
+.hero {
+  position: relative;
+  width: 100%;
+  min-height: 80vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 60px 5%;
+  overflow: hidden;
+}
+
+/* Dark overlay remains */
+.hero::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.45);
+  z-index: 1;
+}
+
+/* Video layer */
+.hero-video {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: translate(-50%, -50%);
+  z-index: 0;
+}
+
+/* Text content stays above */
+.hero-content {
+  z-index: 2;
+  text-align: center;
+  max-width: 750px;
+}
+
+
+@keyframes fadeUp {
+  0% { opacity: 0; transform: translateY(20px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+.hero-title {
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-weight: 800;
+  color: #fff;
+  margin-bottom: 15px;
+}
+
+.hero-subtext {
+  color: #ffffffdd;
+  font-size: 1.25rem;
+  margin-bottom: 35px;
+}
+
+.hero-cta-group {
+  display: flex;
+  gap: 18px;
+  justify-content: center;
+}
+
+.cta {
+  padding: 14px 32px;
+  font-size: 1rem;
+  border-radius: 8px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: 0.25s ease-in-out;
+}
+
+.cta.primary {
+  background-color: var(--cta-yellow);
   color: var(--brand-green);
 }
-  
-  
-  /* ======================================================
-     3. HERO SECTION STYLES (Full-Width Image Fix)
-     ====================================================== */
-  .hero {
-    background-image: url('../assets/robert.avif'); 
-    background-size: cover; 
-    background-position: center top; 
-    background-repeat: no-repeat; 
-    
-    /* --- FULL WIDTH FIX --- */
-    padding: 100px 0; /* REMOVED horizontal padding here */
-    /* --- /FULL WIDTH FIX --- */
-    
-    text-align: center;
-    position: relative; 
-    color: white; 
-    min-height: 500px; 
-    display: flex; 
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  /* New wrapper to keep text centered and readable */
-  .hero-content-wrapper {
-      max-width: 1200px; 
-      width: 100%;
-      margin: 0 auto; 
-      padding: 0 5%; /* Padding applied here to ensure text doesn't hit edges */
-      box-sizing: border-box; 
-  }
-  
-  
-  /* Overlay and Z-index handling */
-  .hero::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      background-color: rgba(0, 0, 0, 0.5); 
-      z-index: 1; 
-  }
-  
-  .hero > * {
-      position: relative;
-      z-index: 2; 
-  }
-  
-  .hero h1 {
-    font-size: 3em;
-    color: white; 
-    margin-bottom: 10px;
-  }
-  
-  .tagline {
-    font-size: 1.5em; 
-    font-weight: 300; 
-    color: white; 
-    margin-bottom: 40px;
-    max-width: 800px; 
-  }
-  
-  .tagline-strong {
-      color: var(--cta-yellow); 
-      font-weight: 600;
-  }
-  
-  /* Call-to-Action Button */
-  .cta-button {
-    background-color: var(--cta-yellow);
-    color: var(--brand-green); 
-    border: none;
-    padding: 12px 30px;
-    font-size: 1.1em;
-    font-weight: bold;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-  }
-  
-  .cta-button:hover {
-    background-color: #EEDD33; 
-  }
-  
-  
-  /* ======================================================
-     4. CONTENT SECTIONS (Basic Placeholder Styles)
-     ====================================================== */
-  .services, .about {
-      padding: 60px 5%;
-      text-align: center;
-  }
-  
-  .services h2, .about h2 {
-      color: var(--brand-green);
-      font-size: 2em;
-      margin-bottom: 15px;
-  }
-  
-  
-  /* ======================================================
-     5. CONTACT SECTION STYLES
-     ====================================================== */
-  .contact-section {
-      padding: 40px 0 0 0; 
-  }
-  
-  .contact-heading {
-      text-align: center;
-      max-width: 800px;
-      margin: 0 auto 40px;
-      padding: 0 5%;
-  }
-  
-  .contact-heading h1 {
-      font-size: 2.5em;
-      color: var(--brand-green);
-      margin-bottom: 10px;
-  }
-  
-  .contact-content {
-      display: flex;
-      max-width: 1400px; 
-      margin: 0 auto;
-  }
-  
-  .contact-visual {
-      flex: 1; 
-      position: relative;
-      overflow: hidden; 
-  }
-  
-  .placeholder-image {
-      width: 100%;
-      height: 100%;
-      min-height: 700px; 
-      background-color: #ccc; 
-      background-size: cover;
-      background-position: center;
-  }
-  
-  .contact-form-container {
-      flex: 1; 
-      background-color: var(--brand-green); 
-      padding: 50px 5%;
-      color: white; 
-  }
-  
-  .contact-form label {
-      display: block;
-      margin-top: 20px;
-      margin-bottom: 5px;
-      font-size: 1.1em;
-  }
-  
-  .form-row {
-      display: flex;
-      gap: 15px; 
-      margin-bottom: 15px;
-  }
-  
-  .form-row input {
-      flex: 1;
-  }
-  
-  .contact-form input[type="text"],
-  .contact-form input[type="tel"],
-  .contact-form input[type="email"],
-  .contact-form textarea {
-      width: 100%;
-      padding: 12px 15px;
-      margin-bottom: 15px;
-      border: none;
-      border-radius: 4px;
-      box-sizing: border-box; 
-      font-size: 1em;
-      background-color: rgba(0, 0, 0, 0.2); 
-      color: white;
-  }
-  
-  .contact-form textarea {
-      resize: vertical; 
-  }
-  
-  .form-submit-button {
-      background-color: var(--cta-yellow);
-      color: var(--brand-green);
-      border: none;
-      padding: 12px 30px;
-      font-size: 1.1em;
-      font-weight: bold;
-      border-radius: 5px;
-      cursor: pointer;
-      transition: background-color 0.3s;
-      margin: 20px auto 0 0; 
-  }
-  
-  .form-submit-button:hover {
-      background-color: #EEDD33;
-  }
-  
-  .contact-info {
-      border-top: 1px solid rgba(255, 255, 255, 0.3); 
-      padding-top: 30px;
-      margin-top: 40px;
-      font-size: 0.9em;
-  }
-  
-  .contact-info p {
-      margin-bottom: 8px;
-  }
-  
-  /* ======================================================
-     6. MEDIA QUERIES (RESPONSIVENESS)
-     ====================================================== */
-  
-  /* --- TABLETS & SMALLER DESKTOPS (Max width: 992px) --- */
-  @media (max-width: 992px) {
-      
-    .navbar, .services, .about {
-        padding-left: 3%;
-        padding-right: 3%;
-    }
-  
-    /* Reduce logo size slightly */
-    .logo-svg {
-      height: 50px; 
-    }
-  
-    /* Ensure hero wrapper padding is adjusted */
-    .hero-content-wrapper {
-      padding: 0 3%;
-    }
-  
-    .navbar li {
-      margin-left: 10px; 
-      font-size: 0.9em;
-    }
-  
-    .hero h1 {
-        font-size: 2.5em;
-    }
-  
-    .tagline {
-        font-size: 1.3em;
-    }
-  
-    /* Contact Section: Stack the content vertically */
-    .contact-content {
-        flex-direction: column;
-    }
-    
-    .contact-visual,
-    .contact-form-container {
-        flex: 0 0 100%;
-        width: 100%;
-    }
-  
-    .placeholder-image {
-        min-height: 400px;
-    }
-  }
-  
-  /* --- MOBILE PHONES (Max width: 600px) --- */
-  @media (max-width: 600px) {
-  
-    /* Navigation Bar: Stack logo/text and links */
-    .navbar {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-  
-    /* Allow the long logo text to wrap on very small screens */
-    .logo-text {
-      white-space: normal; 
-      line-height: 1.2;
-      font-size: 1.1em;
-    }
-    
-    .logo {
-      margin-bottom: 10px;
-    }
-  
-    .navbar nav {
-        width: 100%;
-        margin-top: 5px;
-        padding-top: 5px;
-        border-top: 1px solid #eee;
-    }
+.cta.primary:hover {
+  background-color: #f5cb00;
+}
 
-    .navbar ul {
-        justify-content: space-around;
-    }
-  
-    .navbar li {
-        margin-left: 0;
-        font-size: 0.85em;
-    }
-    
-    .hero {
-        min-height: 350px;
-        padding-top: 60px;
-        padding-bottom: 60px;
-    }
-  
-    .hero h1 {
-        font-size: 2em;
-    }
-  
-    .tagline {
-        font-size: 1.1em;
-    }
-    
-    .contact-form-container {
-        padding: 30px 5%; 
-    }
-  
-    .form-row {
-        flex-direction: column;
-        gap: 0;
-    }
-  
-    .placeholder-image {
-        min-height: 250px; 
-    }
+.cta.secondary {
+  background-color: rgba(255,255,255,0.15);
+  color: #fff;
+  border: 2px solid rgba(255,255,255,0.4);
+}
+.cta.secondary:hover {
+  background-color: rgba(255,255,255,0.25);
+}
+
+/* ======================================================
+   CONTACT SECTION
+   ====================================================== */
+.contact-section {
+  padding: 80px 0 0;
+}
+
+.contact-heading {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px;
+  padding: 0 5%;
+}
+
+.contact-heading h1 {
+  font-size: 2.5em;
+  color: var(--brand-green);
+}
+
+.contact-content {
+  display: flex;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.contact-visual,
+.placeholder-image {
+  flex: 1;
+  background: #ddd;
+  min-height: 600px;
+}
+
+.contact-form-container {
+  flex: 1;
+  background-color: var(--brand-green);
+  padding: 50px 5%;
+  color: white;
+}
+
+.contact-form label {
+  margin-bottom: 8px;
+}
+
+.form-row {
+  display: flex;
+  gap: 15px;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 100%;
+  padding: 12px 15px;
+  border: none;
+  margin-bottom: 12px;
+  border-radius: 4px;
+  background-color: rgba(0,0,0,0.2);
+  color: white;
+}
+
+.form-submit-button {
+  background: var(--cta-yellow);
+  color: var(--brand-green);
+  padding: 12px 30px;
+  border-radius: 5px;
+  cursor: pointer;
+  border: none;
+  font-weight: bold;
+}
+
+/* ======================================================
+   RESPONSIVE
+   ====================================================== */
+@media (max-width: 768px) {
+  .nav-tagline {
+    display: none;
   }
+}
+
+@media (max-width: 600px) {
+  .hero {
+    min-height: 70vh;
+    padding-top: 110px;
+  }
+  .hero-cta-group {
+    flex-direction: column;
+  }
+  .contact-content {
+    flex-direction: column;
+  }
+  .contact-visual {
+    min-height: 300px;
+  }
+}

@@ -1,0 +1,236 @@
+/* ---- Before/After Premium Frame Styling ---- */
+
+.ba-frame {
+    position: relative;
+    max-width: 900px;
+    width: 100%;
+    aspect-ratio: 16 / 9;
+    margin: 4rem auto;
+    border-radius: 18px;
+    overflow: hidden;
+    background: #1a1c1e;
+
+    /* Luxe border */
+    border: 3px solid rgba(255, 255, 255, 0.08);
+    box-shadow:
+        0 0 25px rgba(0, 0, 0, 0.7),
+        0 12px 45px rgba(0, 0, 0, 0.55);
+
+    transition:
+        transform 0.35s ease,
+        box-shadow 0.35s ease,
+        border-color 0.35s ease;
+    cursor: pointer;
+}
+
+/* Hover effect: premium shine */
+.ba-frame:hover {
+    transform: translateY(-6px);
+    border-color: rgba(255, 255, 255, 0.18);
+    box-shadow:
+        0 0 45px rgba(255, 255, 0, 0.25),
+        /* Yellow glow */
+        0 18px 55px rgba(0, 0, 0, 0.7);
+}
+
+
+/* Subtle spotlight behind image */
+.ba-frame::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(circle at center,
+            rgba(255, 255, 255, 0.08) 0%,
+            rgba(0, 0, 0, 0.65) 90%);
+    z-index: 0;
+}
+
+/* Ensure images look crisp */
+.ba-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 1;
+}
+
+/* Label styling */
+.ba-label {
+    position: absolute;
+    bottom: -32px;
+    width: 100%;
+    text-align: center;
+    font-weight: 700;
+    font-size: 1.25rem;
+    color: #fff;
+    letter-spacing: 0.5px;
+    text-shadow: 0px 2px 8px rgba(0, 0, 0, 0.7);
+    pointer-events: none;
+}
+
+
+/* Sparkles */
+.sparkle {
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: radial-gradient(circle, #fff 40%, rgba(255, 255, 255, 0) 60%);
+    opacity: 0;
+    animation: sparkle 2s infinite;
+    pointer-events: none;
+}
+
+@keyframes sparkle {
+
+    0%,
+    100% {
+        transform: scale(0.5);
+        opacity: 0;
+    }
+
+    50% {
+        transform: scale(1.4);
+        opacity: 1;
+    }
+}
+
+.sparkle:nth-child(1) {
+    top: -12px;
+    left: 20%;
+    animation-delay: 0.2s;
+}
+
+.sparkle:nth-child(2) {
+    top: 40%;
+    left: -12px;
+    animation-delay: 0.6s;
+}
+
+.sparkle:nth-child(3) {
+    bottom: -12px;
+    right: 25%;
+    animation-delay: 1.0s;
+}
+
+.sparkle:nth-child(4) {
+    top: 20%;
+    right: -12px;
+    animation-delay: 1.4s;
+}
+
+.ba-img {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.dirt-layer {
+    z-index: 2;
+    opacity: 1;
+}
+
+.clean-layer {
+    z-index: 1;
+}
+
+
+/* After cleaning - shine + sparkles */
+.ba-frame.cleaned .dirt-layer {
+    opacity: 0;
+}
+
+.ba-frame.cleaned .clean-layer::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(120deg,
+            rgba(255, 255, 255, 0) 0%,
+            rgba(255, 255, 255, 0.6) 40%,
+            rgba(255, 255, 255, 0) 80%);
+    transform: translateX(-150%);
+    animation: shine 1.2s ease-out forwards;
+}
+
+@keyframes shine {
+    to {
+        transform: translateX(150%);
+    }
+}
+
+/* Sponge */
+.scrubber {
+    position: absolute;
+    top: 45%;
+    left: -60px;
+    font-size: 5rem;
+    /* 🧽 Bigger Sponge! */
+    pointer-events: none;
+    z-index: 3;
+    transform: translate(-50%, -50%);
+}
+
+/* Label */
+.ba-label {
+    position: absolute;
+    bottom: -30px;
+    width: 100%;
+    text-align: center;
+    font-weight: bold;
+    color: white;
+    text-shadow: 0 0 10px rgba(0, 0, 0, 0.6);
+}
+
+.scrubber {
+    transition: transform 0.2s ease-in-out;
+}
+
+.bubble-container {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    z-index: 2;
+}
+
+.bubble {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.9) 40%, rgba(255, 255, 255, 0.1) 70%);
+    filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.4));
+    opacity: 0;
+}
+
+/* 📱 Mobile Responsiveness Fixes */
+@media (max-width: 600px) {
+    .ba-frame {
+        max-width: 95vw;
+        margin: 0 auto 2rem;
+    }
+
+    .scrubber {
+        font-size: 1.4rem;
+        /* smaller sponge */
+    }
+
+    .ba-label {
+        font-size: 0.9rem;
+    }
+}
+
+/* Fix Services top spacing on mobile */
+@media (max-width: 600px) {
+
+    .services-section,
+    .before-after-section {
+        padding-top: 1rem !important;
+    }
+
+    .services-section h2,
+    .before-after-section h2 {
+        margin-bottom: 1rem !important;
+    }
+}

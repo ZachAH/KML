@@ -1,6 +1,6 @@
 import "./LandingPage.css";
 import Services from "./Services";
-import heroVideo from "../assets/cleaning/carpet_cleaning.mp4";
+import heroVideo from "../assets/cleaning/carpet_cleaning.webm";
 
 const LandingPage: React.FC = () => {
   return (

@@ -85,3 +85,48 @@ html {
   scroll-padding-top: 110px;
   /* navbar height */
 }
+
+/* Improve spacing and centering on mobile */
+@media (max-width: 640px) {
+  .services-section {
+    padding: 1.25rem 0;
+  }
+
+  .service-card {
+    margin-bottom: 1.25rem;
+  }
+
+  .service-card img {
+    width: 100%;
+    height: auto;
+    object-fit: cover;
+  }
+
+  .hero-text {
+    padding: 0 1rem;
+    margin-top: 3.5rem;
+  }
+
+  .navbar {
+    padding: 12px 1rem;
+  }
+}
+
+/* Center scrub animation */
+.scrub-animation {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 55vw;
+  max-width: 280px;
+  pointer-events: none;
+}
+
+/* Slightly larger animation on small screens */
+@media (max-width: 480px) {
+  .scrub-animation {
+    width: 65vw;
+    max-width: 260px;
+  }
+}

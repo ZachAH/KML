@@ -1,13 +1,13 @@
 import BeforeAfterImage from "./BeforeAfterImage";
 
-import dirty_bathroom from "../assets/cleaning/before-after/dirty_bathroom.png";
-import clean_bathroom from "../assets/cleaning/before-after/clean_bathroom.png";
+import dirty_bathroom from "../assets/cleaning/before-after/dirty_bathroom.webp";
+import clean_bathroom from "../assets/cleaning/before-after/clean_bathroom.webp";
 
-import dirty_livingroom from "../assets/cleaning/before-after/dirty_livingroom.png";
-import clean_livingroom from "../assets/cleaning/before-after/clean_livingroom.png";
+import dirty_livingroom from "../assets/cleaning/before-after/dirty_livingroom.webp";
+import clean_livingroom from "../assets/cleaning/before-after/clean_livingroom.webp";
 
-import dirty_office from "../assets/cleaning/before-after/dirty_office.png";
-import clean_office from "../assets/cleaning/before-after/clean_office.png";
+import dirty_office from "../assets/cleaning/before-after/dirty_office.webp";
+import clean_office from "../assets/cleaning/before-after/clean_office.webp";
 
 export default function BeforeAfter() {
   return (

@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import "./Services.css";
 
-// Images
-import couchImg from "../assets/cleaning/services/couch_cushion.jpg";
-import tileImg from "../assets/cleaning/services/office.jpg";
-import teamImg from "../assets/cleaning/services/team.jpg";
+// Images (keep as-is, no styling changes)
+import couchImg from "../assets/cleaning/services/van.webp";
+import tileImg from "../assets/cleaning/services/office.webp";
+import teamImg from "../assets/cleaning/services/team.webp";
 
 const servicesData = [
   {
@@ -90,7 +90,7 @@ const Services = () => {
     const reveal = () => {
       const trigger = window.innerHeight * 0.85;
 
-      cards.forEach(card => {
+      cards.forEach((card) => {
         const top = card.getBoundingClientRect().top;
         if (top < trigger) {
           card.classList.add("visible");
@@ -106,7 +106,7 @@ const Services = () => {
   const toggleService = (id: number) => {
     const isClosing = expanded === id;
     setExpanded(isClosing ? null : id);
-  
+
     if (!isClosing) {
       setTimeout(() => {
         const element = document.getElementById(`service-${id}`);
@@ -119,7 +119,6 @@ const Services = () => {
       }, 450); // matches CSS expand animation timing
     }
   };
-  
 
   return (
     <section className="services-section" id="services">
@@ -130,10 +129,18 @@ const Services = () => {
           <div
             key={service.id}
             id={`service-${service.id}`}
-            className={`service-card ${expanded === service.id ? "expanded" : ""}`}
+            className={`service-card ${
+              expanded === service.id ? "expanded" : ""
+            }`}
             onClick={() => toggleService(service.id)}
           >
-            <img src={service.image} alt={service.title} className="service-img" />
+            {/* Lazy-load + responsive styling */}
+            <img
+              src={service.image}
+              alt={service.title}
+              loading="lazy"
+              className="service-img"
+            />
 
             <div className="service-overlay">
               <h3>{service.title}</h3>
@@ -144,7 +151,6 @@ const Services = () => {
             <div className="service-details">{service.details}</div>
           </div>
         ))}
-
       </div>
     </section>
   );

@@ -22,7 +22,7 @@
 }
 
 .navbar.scrolled {
-  box-shadow: 0 4px 12px rgba(0,0,0,.15);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .15);
 }
 
 /* Layout: Logo - Center Nav - CTA Right */
@@ -39,6 +39,7 @@
   height: 60px;
   cursor: pointer;
 }
+
 .nav-tagline {
   margin-left: 12px;
   font-size: 0.9rem;
@@ -105,9 +106,11 @@
 .hamburger.open span:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
+
 .hamburger.open span:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger.open span:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
@@ -115,11 +118,44 @@
 /* -------- MOBILE MENU STYLES -------- */
 @media (max-width: 900px) {
 
-  /* Align hamburger right */
+  /* Adjust mobile navbar layout */
+  .nav-content {
+    grid-template-columns: auto auto;
+    justify-content: space-between;
+    width: 100%;
+    padding-right: 1rem;
+  }
+
+  /* Align hamburger right & visible */
   .hamburger {
     display: flex;
     justify-self: end;
     margin-right: 8px;
+    flex-direction: column;
+    gap: 5px;
+    border: none;
+    background: none;
+    cursor: pointer;
+  }
+
+  .hamburger span {
+    width: 26px;
+    height: 3px;
+    background: var(--text-dark);
+    transition: 0.35s;
+  }
+
+  /* Hamburger animation */
+  .hamburger.open span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+  }
+
+  .hamburger.open span:nth-child(2) {
+    opacity: 0;
+  }
+
+  .hamburger.open span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
   }
 
   /* Hide desktop CTA */
@@ -127,7 +163,7 @@
     display: none !important;
   }
 
-  /* Dropdown Nav */
+  /* Mobile dropdown */
   .nav-links {
     position: absolute;
     top: 84px;
@@ -156,7 +192,7 @@
     color: var(--text-light) !important;
   }
 
-  /* CTA appears here only */
+  /* Show CTA inside open mobile menu */
   .nav-links.open .nav-cta {
     display: block !important;
     font-size: 1.1rem;
@@ -165,16 +201,18 @@
     margin-top: 5px;
   }
 
-  /* Hide tagline on mobile */
+  /* Remove tagline to save space */
   .nav-tagline {
     display: none;
   }
 }
 
 /* Prevent horizontal scrolling */
-html, body {
+html,
+body {
   overflow-x: hidden;
 }
+
 
 /* --- FINAL CTA FIX --- */
 

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
-import KmlLogo from "../assets/KML.svg";
 import "./Navbar.css";
 
 const Navbar = () => {
@@ -23,12 +22,6 @@ const Navbar = () => {
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <nav className="nav-content">
 
-        {/* Logo + Tagline */}
-        <Link to="/" className="nav-left">
-          <img src={KmlLogo} alt="KML Logo" className="nav-logo" />
-          <span className="nav-tagline">Clean You Can Trust</span>
-        </Link>
-
         {/* Desktop Links */}
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           <Link to="/" className={isActive("/") ? "active" : ""}>Home</Link>
@@ -38,13 +31,13 @@ const Navbar = () => {
             Before & After
           </Link>
 
-          {/* CTA moves inside here only on mobile */}
+          {/* CTA inside menu for mobile */}
           <a href="tel:2623341881" className="nav-cta mobile-only">
             Call Us
           </a>
         </div>
 
-        {/* Desktop CTA — visible only on large screens */}
+        {/* CTA — visible only on desktop */}
         <a href="tel:2623341881" className="nav-cta desktop-only">
           Call Us
         </a>

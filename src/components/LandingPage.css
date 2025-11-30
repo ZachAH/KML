@@ -1,12 +1,14 @@
 /* GLOBAL RESET */
-html, body {
+html,
+body {
   margin: 0;
   padding: 0;
   width: 100%;
   overflow-x: hidden;
 }
 
-#root, .landing-page {
+#root,
+.landing-page {
   width: 100%;
   min-height: 100vh;
 }
@@ -16,21 +18,19 @@ html, body {
   --brand-green: #014421;
   --brand-green-light: #1A5E34;
   --light-bg: #F3F6F4;
-  --cta-yellow: #E7C600; /* Softer, less neon */
+  --cta-yellow: #E7C600;
   --cta-yellow-hover: #D2B400;
   --text-light: #ffffff;
   --text-dark: #1D1D1D;
-  --text-color: var(--text-dark);
 }
 
 .landing-page {
   font-family: Arial, sans-serif;
-  color: var(--text-color);
   background-color: var(--light-bg);
 }
 
 /* ======================================================
-   ✨ HERO SECTION
+   HERO SECTION
    ====================================================== */
 .hero {
   position: relative;
@@ -39,16 +39,16 @@ html, body {
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 60px 5%;
+  padding: 100px 5% 60px;
   overflow: hidden;
 }
 
-/* Overlay for readability */
+/* Overlay for readability (lightened slightly) */
 .hero::before {
   content: "";
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.45);
+  background: rgba(0, 0, 0, 0.34);
   z-index: 1;
 }
 
@@ -59,38 +59,44 @@ html, body {
   left: 50%;
   width: 110vw;
   height: 110vh;
-  min-width: 100%;
-  min-height: 100%;
   object-fit: cover;
   transform: translate(-50%, -50%);
   z-index: 0;
   filter: brightness(0.9);
 }
 
-/* iPhone viewport fix */
 @supports (-webkit-touch-callout: none) {
   .hero-video {
     height: 100vh;
   }
 }
 
-/* Hero Content */
+/* ======================================================
+   ✍ HERO TEXT
+   ====================================================== */
 .hero-content {
-  z-index: 2;
+  z-index: 3;
   text-align: center;
-  max-width: 90%;
+  max-width: 900px;
   margin: 0 auto;
-  padding: 0 1rem;
+  animation: fadeContent 0.8s ease-out forwards;
+  opacity: 0;
 }
 
-@keyframes fadeUp {
-  0% { opacity: 0; transform: translateY(20px); }
-  100% { opacity: 1; transform: translateY(0); }
+@keyframes fadeContent {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-/* Typography */
 .hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.2rem);
+  font-size: clamp(2.2rem, 5vw, 3.3rem);
   font-weight: 800;
   color: #fff;
   margin-bottom: 15px;
@@ -103,7 +109,9 @@ html, body {
   margin-bottom: 35px;
 }
 
-/* CTA Group */
+/* ======================================================
+   CTA BUTTONS
+   ====================================================== */
 .hero-cta-group {
   display: flex;
   gap: 18px;
@@ -112,10 +120,10 @@ html, body {
 
 .cta {
   padding: 14px 32px;
-  font-size: 1rem;
   border-radius: 8px;
   font-weight: 700;
   text-decoration: none;
+  font-size: 1rem;
   transition: 0.25s ease-in-out;
 }
 
@@ -126,55 +134,110 @@ html, body {
 
 .cta.primary:hover {
   background-color: var(--cta-yellow-hover);
+  transform: translateY(-2px);
 }
 
 .cta.secondary {
-  background-color: rgba(255,255,255,0.15);
+  background-color: rgba(255, 255, 255, 0.15);
   color: #fff;
-  border: 2px solid rgba(255,255,255,0.4);
+  border: 2px solid rgba(255, 255, 255, 0.4);
 }
 
 .cta.secondary:hover {
-  background-color: rgba(255,255,255,0.25);
+  background-color: rgba(255, 255, 255, 0.25);
+  transform: translateY(-2px);
 }
 
 /* ======================================================
-   📱 RESPONSIVE OPTIMIZATION
+   📱 MOBILE RESPONSIVE
    ====================================================== */
+@media (max-width: 600px) {
+  .hero {
+    min-height: 75vh;
+    padding-top: 120px;
+  }
 
-@media (max-width: 768px) {
-  .nav-tagline {
+  .hero-cta-group {
+    margin-top: 220px;
+    /* adjust as needed */
+  }
+
+  .cta {
+    padding: 16px 32px;
+    font-size: 1.05rem;
+  }
+
+  /* Hide long text & reduce headline */
+  .hero-title {
+    display: none;
+    /* remove large headline entirely */
+  }
+
+  .hero-subtext {
+    display: none;
+    /* remove descriptive text */
+  }
+
+  /* Center CTAs higher on screen */
+  .hero-cta-group {
+    margin-top: 470px;
+  }
+
+  .hero {
+    min-height: 92vh;
+    padding-top: 120px;
+    padding-bottom: 60px;
+  }
+
+  /* 🔆 Lighten overlay only on mobile */
+  @media (max-width: 600px) {
+    .hero::before {
+      background: rgba(0, 0, 0, 0.15);
+      /* was 0.38 or higher */
+    }
+  }
+
+}
+
+/* Default state */
+.desktop-video {
+  display: block;
+}
+
+.tablet-video {
+  display: none;
+}
+
+.phone-video {
+  display: none;
+}
+
+/* Tablet & large phones */
+@media (max-width: 1024px) {
+  .desktop-video {
+    display: none;
+  }
+
+  .tablet-video {
+    display: block;
+  }
+
+  .phone-video {
     display: none;
   }
 }
 
-@media (max-width: 600px) {
-  .hero {
-    min-height: 75vh;
-    padding-top: 100px;
+/* Small phones */
+@media (max-width: 480px) {
+  .desktop-video {
+    display: none;
   }
 
-  .hero-title {
-    font-size: clamp(1.8rem, 6vw, 2.3rem);
-    line-height: 1.2;
-    margin-bottom: 12px;
+  .tablet-video {
+    display: none;
   }
 
-  .hero-subtext {
-    font-size: 1.05rem;
-    line-height: 1.35;
-    margin-bottom: 25px;
-  }
-
-  .hero-cta-group {
-    flex-direction: column;
-    gap: 12px;
-    width: 100%;
-  }
-
-  .cta {
-    width: 100%;
-    max-width: 300px;
-    margin: 0 auto;
+  .phone-video {
+    display: block;
   }
 }

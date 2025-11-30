@@ -28,23 +28,10 @@
 /* Layout: Logo - Center Nav - CTA Right */
 .nav-content {
   display: grid;
-  grid-template-columns: auto 1fr auto;
+  grid-template-columns: 1fr auto; /* 2 columns now */
   align-items: center;
   width: 100%;
   max-width: 1400px;
-}
-
-/* Logo + Tagline */
-.nav-logo {
-  height: 60px;
-  cursor: pointer;
-}
-
-.nav-tagline {
-  margin-left: 12px;
-  font-size: 0.9rem;
-  color: var(--brand-green);
-  font-weight: 600;
 }
 
 /* Desktop Nav Links */
@@ -240,27 +227,20 @@ body {
 
 /* Desktop layout refined */
 @media (min-width: 901px) {
-  .navbar {
-    padding: 14px clamp(1rem, 4vw, 3rem);
-  }
-
   .nav-content {
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    align-items: center;
-    width: 100%;
-    max-width: 1400px;
-    gap: clamp(1rem, 3vw, 2.5rem);
+    grid-template-columns: 1fr auto; /* Clean 2-column layout */
   }
 
   .nav-links {
-    gap: clamp(1.2rem, 2.5vw, 2.5rem);
-    justify-content: center;
+    justify-content: flex-start;
   }
 
-  /* Ensure CTA never gets clipped */
-  .desktop-cta {
-    white-space: nowrap;
-    margin-left: clamp(0.5rem, 2vw, 2rem);
+  .desktop-only {
+    display: inline-flex !important;
   }
+}
+
+.navbar.scrolled {
+  backdrop-filter: blur(10px);
+  background: rgba(246, 244, 232, 0.85);
 }

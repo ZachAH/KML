@@ -65,6 +65,7 @@ body {
   filter: brightness(0.9);
 }
 
+
 @supports (-webkit-touch-callout: none) {
   .hero-video {
     height: 100vh;
@@ -159,7 +160,6 @@ body {
 
   .hero-cta-group {
     margin-top: 220px;
-    /* adjust as needed */
   }
 
   .cta {
@@ -167,18 +167,14 @@ body {
     font-size: 1.05rem;
   }
 
-  /* Hide long text & reduce headline */
   .hero-title {
     display: none;
-    /* remove large headline entirely */
   }
 
   .hero-subtext {
     display: none;
-    /* remove descriptive text */
   }
 
-  /* Center CTAs higher on screen */
   .hero-cta-group {
     margin-top: 470px;
   }
@@ -189,55 +185,16 @@ body {
     padding-bottom: 60px;
   }
 
-  /* 🔆 Lighten overlay only on mobile */
+  /* MOBILE FIX — show lower portion of the video */
   @media (max-width: 600px) {
-    .hero::before {
-      background: rgba(0, 0, 0, 0.15);
-      /* was 0.38 or higher */
+    .hero-video {
+      object-position: 60% 100%;
+      /* <— X then Y */
+      transform: translate(-50%, -50%);
+    }
+    .hero-cta-group {
+      display: none;      
     }
   }
 
-}
-
-/* Default state */
-.desktop-video {
-  display: block;
-}
-
-.tablet-video {
-  display: none;
-}
-
-.phone-video {
-  display: none;
-}
-
-/* Tablet & large phones */
-@media (max-width: 1024px) {
-  .desktop-video {
-    display: none;
-  }
-
-  .tablet-video {
-    display: block;
-  }
-
-  .phone-video {
-    display: none;
-  }
-}
-
-/* Small phones */
-@media (max-width: 480px) {
-  .desktop-video {
-    display: none;
-  }
-
-  .tablet-video {
-    display: none;
-  }
-
-  .phone-video {
-    display: block;
-  }
 }

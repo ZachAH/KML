@@ -43,7 +43,7 @@ body {
   overflow: hidden;
 }
 
-/* Overlay for readability (lightened slightly) */
+/* Overlay for readability */
 .hero::before {
   content: "";
   position: absolute;
@@ -65,7 +65,6 @@ body {
   filter: brightness(0.9);
 }
 
-
 @supports (-webkit-touch-callout: none) {
   .hero-video {
     height: 100vh;
@@ -73,7 +72,7 @@ body {
 }
 
 /* ======================================================
-   ✍ HERO TEXT
+   ✍ HERO TEXT (DESKTOP)
    ====================================================== */
 .hero-content {
   z-index: 3;
@@ -111,7 +110,7 @@ body {
 }
 
 /* ======================================================
-   CTA BUTTONS
+   CTA BUTTONS (HIDDEN ON MOBILE)
    ====================================================== */
 .hero-cta-group {
   display: flex;
@@ -149,52 +148,90 @@ body {
   transform: translateY(-2px);
 }
 
-/* ======================================================
-   📱 MOBILE RESPONSIVE
-   ====================================================== */
+/* Hide CTA buttons on mobile */
 @media (max-width: 600px) {
-  .hero {
-    min-height: 75vh;
-    padding-top: 120px;
-  }
-
   .hero-cta-group {
-    margin-top: 220px;
+    display: none !important;
   }
-
-  .cta {
-    padding: 16px 32px;
-    font-size: 1.05rem;
-  }
-
-  .hero-title {
-    display: none;
-  }
-
-  .hero-subtext {
-    display: none;
-  }
-
-  .hero-cta-group {
-    margin-top: 470px;
-  }
-
-  .hero {
-    min-height: 92vh;
-    padding-top: 120px;
-    padding-bottom: 60px;
-  }
-
-  /* MOBILE FIX — show lower portion of the video */
-  @media (max-width: 600px) {
-    .hero-video {
-      object-position: 60% 100%;
-      /* <— X then Y */
-      transform: translate(-50%, -50%);
-    }
-    .hero-cta-group {
-      display: none;      
-    }
-  }
-
 }
+
+/* ======================================================
+   📱 MOBILE HERO BRAND TITLE
+   ====================================================== */
+
+@media (max-width: 600px) {
+
+  .mobile-hero-title {
+    display: block;
+    position: absolute;
+    top: 20%;
+    /* Adjust for perfect placement */
+    left: 46%;
+    transform: translateX(-50%);
+    z-index: 4;
+
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    color: #ffffff;
+
+    width: 90%;
+    line-height: 1.3;
+
+    text-shadow:
+      0 3px 10px rgba(0, 0, 0, 0.6),
+      0 1px 2px rgba(0, 0, 0, 0.9);
+
+    opacity: 0;
+    animation: fadeMobileHeroTitle 1s ease-out forwards;
+  }
+
+
+
+  /* ⭐ MOBILE HERO MAIN HEADLINE */
+  .hero-title {
+    font-size: 1.75rem;
+    line-height: 1.22;
+    margin-top: 40%;
+    /* was 48% — this pushes it down a little */
+    padding: 0 14px;
+    width: 100%;
+    text-align: center;
+    font-weight: 800;
+    transform: translateX(-6%);
+    /* <— nudge left slightly */
+    text-shadow:
+    0 4px 14px rgba(0,0,0,0.55),
+    0 2px 4px rgba(0,0,0,0.8);
+  }
+
+  /* ⭐ MOBILE PARAGRAPH */
+  .hero-subtext {
+    font-size: 1rem;
+    line-height: 1.35;
+    padding: 0 24px;
+    margin-top: 10px;
+    /* was 14px — brings it UP slightly */
+    width: 100%;
+    max-width: 360px;
+    /* prevents right-side cutoff */
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    overflow-wrap: break-word;
+    transform: translate(-4%);
+  }
+}
+
+@keyframes fadeMobileHeroTitle {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -10%);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
+

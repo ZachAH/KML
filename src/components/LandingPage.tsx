@@ -1,8 +1,7 @@
 import "./LandingPage.css";
 import Services from "./Services";
 
-import heroVideo from "../assets/cleaning/landing_page.mp4";
-
+import heroVideo from "../assets/cleaning/hero_video.webm";
 
 const LandingPage: React.FC = () => {
   return (
@@ -23,7 +22,12 @@ const LandingPage: React.FC = () => {
           <source src={heroVideo} type="video/webm" />
         </video>
 
-        {/* Hero Content */}
+        {/* MOBILE BRAND TITLE */}
+        <h2 className="mobile-hero-title">
+          Kettle Moraine Professional Cleaners, Inc.
+        </h2>
+
+        {/* Hero Content (Desktop Only) */}
         <div className="hero-content">
           <h1 className="hero-title">
             Family-Owned. Community Trusted. Four Decades Strong.
@@ -43,7 +47,6 @@ const LandingPage: React.FC = () => {
         </div>
       </section>
 
-      {/* Services Section */}
       <Services />
     </div>
   );

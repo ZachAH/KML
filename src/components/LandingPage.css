@@ -207,11 +207,11 @@ body {
 
   .mobile-hero-logo {
     position: absolute;
-    top: 65%;
+    top: 60%;
     /* Adjust as needed */
     left: 48%;
     transform: translateX(-50%);
-    width: 180px;
+    width: 250px;
     /* Perfect size for mobile hero */
     max-width: 60%;
     z-index: 4;

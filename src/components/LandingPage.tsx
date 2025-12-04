@@ -27,13 +27,6 @@ const LandingPage: React.FC = () => {
           <img src={heroLogo} alt="KML Logo" className="mobile-hero-logo" />
         </div>
 
-
-
-        {/* MOBILE BRAND TITLE */}
-        <h2 className="mobile-hero-title">
-          Kettle Moraine Professional Cleaners, Inc.
-        </h2>
-
         {/* Hero Content (Desktop Only) */}
         <div className="hero-content">
           <h1 className="hero-title">

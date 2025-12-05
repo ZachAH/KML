@@ -1,212 +1,273 @@
-.services-section {
-  padding: 100px 6% 130px;
-  background: var(--light-bg);
-  text-align: center;
+/* ===============================
+GLOBAL FIXES
+=============================== */
+
+html,
+body {
+  overflow-x: hidden;
 }
 
-.services-title {
-  font-size: 2.6rem;
-  color: var(--brand-green);
-  margin-bottom: 60px;
-  font-weight: 800;
+/* ===============================
+  FULL PANEL LAYOUT
+  =============================== */
+
+.services-panels {
+  width: 100%;
+  overflow-x: hidden;
+  overflow-y: visible;
 }
 
-/* Grid */
-.services-grid {
+.panel {
+  height: 100vh;
+  width: 100%;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 38px;
-  max-width: 1400px;
-  margin: 0 auto;
-  align-items: start;
-}
-
-/* Card Base */
-.service-card {
-  position: relative;
-  border-radius: 14px;
-  overflow: hidden;
-  background: #000;
-  cursor: pointer;
-  transform: translateY(40px);
-  opacity: 0;
-  transition: transform .6s ease, opacity .6s ease, box-shadow .4s ease, height .4s ease;
-}
-
-.service-card.visible {
-  transform: translateY(0);
-  opacity: 1;
-}
-
-.service-card:hover {
-  box-shadow: 0 16px 40px rgba(0, 0, 0, .25);
-}
-
-/* Card Images */
-.service-img {
-  width: 100%;
-  height: auto;
-  object-fit: cover;
-  transition: transform .45s ease, height .45s ease;
-}
-
-.service-card:hover .service-img {
-  transform: scale(1.13);
-}
-
-/* Green Overlay */
-.service-overlay {
-  position: absolute;
-  inset: 0;
-  background: linear-gradient(to top, rgba(1, 68, 33, .95), rgba(1, 68, 33, .05));
-  color: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  padding: 20px;
-  transition: opacity .45s ease;
-  opacity: 0;
-}
-
-.service-card:hover .service-overlay {
-  opacity: 1;
-}
-
-.service-overlay h3 {
-  margin: 0;
-  font-size: 1.35rem;
-  font-weight: 800;
-}
-
-.service-overlay p {
-  font-size: .96rem;
-  margin: 6px 0 12px;
-}
-
-.service-btn {
-  background: var(--cta-yellow);
-  color: var(--brand-green);
-  font-weight: 700;
-  text-decoration: none;
-  padding: 9px 18px;
-  border-radius: 6px;
-  font-size: 0.92rem;
-  transition: 0.25s ease;
-}
-
-.service-btn:hover {
-  background: #f5d303;
-  transform: translateY(-2px);
-}
-
-/* Expanded Card - CLEAN + MERGED */
-.service-card.expanded {
-  grid-column: 1 / -1;
-  width: 100%;
-  max-width: 950px;
-  margin: 40px auto;
-  height: auto;
-
-  background: #fffdf7; /* slight warmth, easier on eyes */
-  border: 2px solid var(--brand-green);
-  border-radius: 14px;
-  box-shadow: 0 22px 50px rgba(0, 0, 0, 0.15);
-  overflow: visible;
-  padding-bottom: 30px;
-  transform: translateY(-10px);
-}
-
-/* Expanded Image */
-.service-card.expanded .service-img {
-  height: 260px;
-  border-radius: 12px 12px 0 0;
-  margin-bottom: 0;
-  object-fit: cover;
-  transform: none;
-}
-
-/* Hide overlay when expanded */
-.service-card.expanded .service-overlay {
-  display: none;
-}
-
-/* Expandable Details */
-.service-details {
-  max-height: 0;
-  overflow: hidden;
-  background: #ffffff;
-  padding: 0 24px;
-  border-radius: 0 0 14px 14px;
-  transition: max-height .5s ease, padding .4s ease;
-  display: flex;
-  flex-direction: column;
+  grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   align-items: center;
-  gap: 12px;
+  gap: 60px;
+  padding: 60px 6%;
+  scroll-snap-align: start;
+  background: var(--light-bg);
 }
 
-.service-card.expanded .service-details {
-  max-height: 700px;
-  padding: 24px 28px 32px;
+.service-panel--reverse {
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
 }
 
-/* Details typography */
-.service-details p {
-  color: var(--text-color);
-  font-size: .95rem;
-  line-height: 1.55;
-  margin-bottom: 10px;
+.service-panel--reverse .service-panel-media {
+  order: 2;
 }
 
-.service-details ul {
-  text-align: left;
-  margin: 10px auto 18px;
-  max-width: 480px;
-  padding-left: 18px;
-  line-height: 1.45;
+.service-panel--reverse .service-panel-copy {
+  order: 1;
 }
 
-.service-details li {
-  margin-bottom: 7px;
+/* ===============================
+  IMAGE SECTION
+  =============================== */
+
+.service-panel-media {
+  display: flex;
 }
 
-/* CTA button inside expanded */
-.service-cta-btn {
-  padding: 12px 26px;
-  background: var(--cta-yellow);
-  border: none;
-  border-radius: 6px;
+.service-image-frame {
+  width: 100%;
+  height: 80vh;
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+}
+
+.service-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ===============================
+  TEXT CONTENT
+  =============================== */
+
+.service-panel-copy {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  max-width: 540px;
+}
+
+.service-eyebrow {
+  font-size: 0.85rem;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
   color: var(--brand-green);
-  font-weight: 700;
-  font-size: 1rem;
+  opacity: 0.8;
+}
+
+.service-heading {
+  font-size: 2.6rem;
+  font-weight: 800;
+  color: var(--brand-green);
+  line-height: 1.15;
+}
+
+.service-heading-line {
+  display: block;
+  overflow: hidden;
+  opacity: 0;
+  transform: translateY(100%);
+}
+
+.service-intro {
+  font-size: 1.05rem;
+  line-height: 1.65;
+  color: #374037;
+}
+
+.service-list {
+  padding-left: 0;
+  list-style: none;
+}
+
+.service-list li::before {
+  content: "•";
+  color: var(--brand-green);
+  margin-right: 7px;
+}
+
+.service-list li {
+  color: #374037;
+  margin-bottom: 6px;
+}
+
+.service-cta-btn {
+  padding: 14px 32px;
+  background: var(--cta-yellow);
+  color: var(--brand-green);
+  border: none;
+  border-radius: 8px;
+  font-weight: 800;
   cursor: pointer;
-  transition: 0.3s ease;
+  transition: 0.2s ease;
 }
 
 .service-cta-btn:hover {
-  background: #e5c400;
+  background: var(--cta-yellow-hover);
   transform: translateY(-2px);
 }
 
-/* Mobile Adjustments */
-@media (max-width: 600px) {
-  .services-title {
-    font-size: 2.15rem;
+/* ===============================
+  GALLERY PANEL
+  =============================== */
+
+.gallery-panel.panel {
+  height: auto !important;
+  padding-top: 140px;
+  padding-bottom: 160px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--light-bg);
+}
+
+.gallery-title {
+  font-size: 2.4rem;
+  color: var(--brand-green);
+  font-weight: 800;
+  margin-bottom: 10px;
+  text-align: center;
+  /* Added for better centering */
+}
+
+.gallery-subtitle {
+  font-size: 1rem;
+  max-width: 600px;
+  color: #3a463a;
+  margin-bottom: 60px;
+  text-align: center;
+  /* Added for better centering */
+}
+
+/* ===============================
+   PREMIUM 3D CAROUSEL
+=============================== */
+#kml-carousel {
+  width: 900px;
+  height: 360px;
+  margin: 80px auto 0 auto;
+  position: relative;
+  transform-style: preserve-3d;
+  /* 🔥 INCREASED PERSPECTIVE for better 3D depth */
+  perspective: 3000px;
+  /* Set back to visible to avoid clipping */
+  overflow: visible;
+  cursor: grab;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+
+.carousel-3d-image {
+  width: 240px;
+  height: 160px;
+  border-radius: 16px;
+  background-size: cover;
+  background-position: center;
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
+  /* Ensure backface-visibility is present */
+  backface-visibility: hidden;
+  transform-style: preserve-3d;
+  transition: all 0.35s ease;
+
+  /* These were the critical fixes from before, keep them */
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 100;
+
+  opacity: 1; /* Reset opacity */
+  filter: none; /* Reset filter */
+}
+
+/* Highlight the front-facing image */
+.carousel-3d-image.is-front {
+  transform: scale(1.06);
+  /* The filter and scale will be set by GSAP based on Z-depth, 
+     but we can keep the box-shadow for a nice pop. */
+  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.35);
+  z-index: 999;
+}
+
+/* Dim side & back cards */
+.carousel-3d-image.is-dimmed {
+  opacity: 0.55;
+  filter: brightness(0.75);
+}
+
+/* ===============================
+   MOBILE
+=============================== */
+
+@media (max-width: 900px) {
+  #kml-carousel {
+    /* Reduced size for better viewing on small screens */
+    width: 300px;
+    height: 200px;
+    margin-top: 40px;
   }
 
-  .service-img {
-    height: 240px;
+  .carousel-3d-image {
+    width: 220px;
+    height: 150px;
   }
 }
 
-@media (max-width: 600px) {
-  .services-section {
-    margin-top: 4.5rem !important;
-  }
+/* ======================================
+   🔥 FIX DOUBLE SCROLLBARS
+====================================== */
+
+html,
+body {
+  overflow-x: hidden !important;
 }
 
-@media (max-width: 600px) {
-  h2,
-  .services-title {
-    padding-top: 1rem;
-  }
+/* Do NOT force overflow from panels */
+.services-panels,
+.panel,
+.gallery-panel {
+  overflow: visible;
+}
+
+/* Keep carousel large but prevent horizontal scroll */
+#kml-carousel {
+  max-width: 100%;
+  overflow: hidden;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Ensure carousel images never push outside container */
+.carousel-3d-image {
+  backface-visibility: hidden;
+  will-change: transform;
 }

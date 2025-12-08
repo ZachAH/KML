@@ -9,47 +9,81 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
+  /* Add shadow on scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Close menu when changing routes
-  useEffect(() => setMenuOpen(false), [location.pathname]);
+  /* Close menu on route change */
+  useEffect(() => {
+    setMenuOpen(false);
+    document.body.classList.remove("nav-open");
+  }, [location.pathname]);
+
+  /* Toggle menu */
+  const toggleMenu = () => {
+    const next = !menuOpen;
+    setMenuOpen(next);
+    document.body.classList.toggle("nav-open", next);
+  };
 
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <nav className="nav-content">
 
-        {/* Desktop Links */}
+        {/* NAV LINKS (desktop + mobile) */}
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
-          <Link to="/" className={isActive("/") ? "active" : ""}>Home</Link>
-          <Link to="/about" className={isActive("/about") ? "active" : ""}>About</Link>
-          <Link to="/contact" className={isActive("/contact") ? "active" : ""}>Contact</Link>
-          <Link to="/before-after" className={isActive("/before-after") ? "active" : ""}>
+          <Link to="/" className={isActive("/") ? "active" : ""} onClick={toggleMenu}>
+            Home
+          </Link>
+          <Link to="/about" className={isActive("/about") ? "active" : ""} onClick={toggleMenu}>
+            About
+          </Link>
+          <Link to="/contact" className={isActive("/contact") ? "active" : ""} onClick={toggleMenu}>
+            Contact
+          </Link>
+          <Link
+            to="/before-after"
+            className={isActive("/before-after") ? "active" : ""}
+            onClick={toggleMenu}
+          >
             Before & After
           </Link>
 
-          {/* CTA inside menu for mobile */}
+          {/* CTA in menu */}
           <a href="tel:2623341881" className="nav-cta mobile-only">
             Call Us
           </a>
         </div>
 
-        {/* CTA — visible only on desktop */}
+        {/* Desktop CTA */}
         <a href="tel:2623341881" className="nav-cta desktop-only">
           Call Us
         </a>
 
-        {/* Hamburger */}
-        <button
-          className={`hamburger ${menuOpen ? "open" : ""}`}
-          onClick={() => setMenuOpen(!menuOpen)}
-          aria-label="Toggle menu"
-        >
-          <span></span><span></span><span></span>
-        </button>
+        {/* Hamburger Button */}
+        {!menuOpen && (
+          <button
+            className="hamburger"
+            onClick={toggleMenu}
+            aria-label="Open menu"
+          >
+            <span></span><span></span><span></span>
+          </button>
+        )}
+
+        {/* Close Button (X) */}
+        {menuOpen && (
+          <button
+            className="close-mobile-nav"
+            onClick={toggleMenu}
+            aria-label="Close menu"
+          >
+            ×
+          </button>
+        )}
 
       </nav>
     </header>

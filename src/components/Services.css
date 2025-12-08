@@ -8,8 +8,8 @@ body {
 }
 
 /* ===============================
-  FULL PANEL LAYOUT
-  =============================== */
+  FULL PANEL LAYOUT (DESKTOP)
+=============================== */
 
 .services-panels {
   width: 100%;
@@ -42,8 +42,90 @@ body {
 }
 
 /* ===============================
-  IMAGE SECTION
-  =============================== */
+   MOBILE PANEL FIX
+   Fix overlapping + stacking
+=============================== */
+
+@media (max-width: 900px) {
+  .panel {
+    display: block !important;
+    /* FORCE collapse */
+    height: auto !important;
+    /* Prevent giant whitespace */
+    padding: 40px 22px;
+  }
+
+  .service-panel-media,
+  .service-panel-copy {
+    width: 100% !important;
+    max-width: 100%;
+  }
+
+  /* Fix giant image height from desktop (80vh) */
+  .service-image-frame {
+    height: 260px !important;
+    border-radius: 20px;
+  }
+
+  .service-heading {
+    font-size: 2rem;
+    text-align: center;
+    line-height: 1.25;
+    word-break: break-word;
+  }
+
+  .service-intro,
+  .service-list {
+    text-align: center;
+  }
+
+  .service-panel-copy {
+    align-items: center;
+    margin-top: 20px;
+  }
+
+  @media (max-width: 900px) {
+    .panel {
+      padding-left: 0 !important;
+      padding-right: 0 !important;
+    }
+
+    .service-image-frame {
+      width: 92%;
+      max-width: 92%;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .service-panel-copy {
+      padding-left: 20px;
+      padding-right: 20px;
+      /* add safe text padding */
+    }
+  }
+
+  @media (max-width: 900px) {
+    .service-heading {
+      font-size: 1.8rem !important;
+      line-height: 1.2 !important;
+      text-align: center;
+      word-break: break-word;
+      white-space: normal;
+    }
+
+    .service-panel-copy {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+  }
+
+
+
+}
+
+/* ===============================
+IMAGE SECTION
+=============================== */
 
 .service-panel-media {
   display: flex;
@@ -52,6 +134,7 @@ body {
 .service-image-frame {
   width: 100%;
   height: 80vh;
+  /* DESKTOP ONLY — mobile overrides this */
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
@@ -64,8 +147,8 @@ body {
 }
 
 /* ===============================
-  TEXT CONTENT
-  =============================== */
+TEXT CONTENT
+=============================== */
 
 .service-panel-copy {
   display: flex;
@@ -135,8 +218,8 @@ body {
 }
 
 /* ===============================
-  GALLERY PANEL
-  =============================== */
+GALLERY PANEL
+=============================== */
 
 .gallery-panel.panel {
   height: auto !important;
@@ -154,7 +237,6 @@ body {
   font-weight: 800;
   margin-bottom: 10px;
   text-align: center;
-  /* Added for better centering */
 }
 
 .gallery-subtitle {
@@ -163,21 +245,19 @@ body {
   color: #3a463a;
   margin-bottom: 60px;
   text-align: center;
-  /* Added for better centering */
 }
 
 /* ===============================
-   PREMIUM 3D CAROUSEL
+ 3D CAROUSEL — DESKTOP HERO
 =============================== */
+
 #kml-carousel {
-  width: 900px;
-  height: 360px;
-  margin: 80px auto 0 auto;
+  width: 1800px;
+  height: 670px;
+  margin: 110px auto 0 auto;
   position: relative;
   transform-style: preserve-3d;
-  /* 🔥 INCREASED PERSPECTIVE for better 3D depth */
-  perspective: 3000px;
-  /* Set back to visible to avoid clipping */
+  perspective: 5400px;
   overflow: visible;
   cursor: grab;
   display: flex;
@@ -185,65 +265,115 @@ body {
   align-items: center;
 }
 
-
 .carousel-3d-image {
-  width: 240px;
-  height: 160px;
-  border-radius: 16px;
+  width: 480px;
+  height: 340px;
+  border-radius: 26px;
   background-size: cover;
   background-position: center;
-  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.25);
-  /* Ensure backface-visibility is present */
+  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
   backface-visibility: hidden;
   transform-style: preserve-3d;
-  transition: all 0.35s ease;
 
-  /* These were the critical fixes from before, keep them */
   position: absolute;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, -50%);
-  z-index: 100;
 
-  opacity: 1; /* Reset opacity */
-  filter: none; /* Reset filter */
+  transition:
+    transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1),
+    box-shadow 0.6s ease,
+    opacity 0.4s ease;
+
+  transform: translate(-50%, -50%);
+  opacity: 0.88;
 }
 
-/* Highlight the front-facing image */
 .carousel-3d-image.is-front {
-  transform: scale(1.06);
-  /* The filter and scale will be set by GSAP based on Z-depth, 
-     but we can keep the box-shadow for a nice pop. */
-  box-shadow: 0 32px 70px rgba(0, 0, 0, 0.35);
+  transform: translate(-50%, -50%) scale(1.24);
+  box-shadow: 0 70px 140px rgba(0, 0, 0, 0.45);
+  opacity: 1;
   z-index: 999;
 }
 
-/* Dim side & back cards */
-.carousel-3d-image.is-dimmed {
-  opacity: 0.55;
-  filter: brightness(0.75);
-}
+/* ======================================
+ RESPONSIVE BREAKPOINTS FOR CAROUSEL
+====================================== */
 
-/* ===============================
-   MOBILE
-=============================== */
-
-@media (max-width: 900px) {
+@media (max-width: 399px) {
   #kml-carousel {
-    /* Reduced size for better viewing on small screens */
-    width: 300px;
-    height: 200px;
-    margin-top: 40px;
+    width: 280px;
+    height: 180px;
   }
 
   .carousel-3d-image {
-    width: 220px;
+    width: 200px;
+    height: 130px;
+  }
+}
+
+@media (min-width: 400px) and (max-width: 599px) {
+  #kml-carousel {
+    width: 330px;
+    height: 200px;
+  }
+
+  .carousel-3d-image {
+    width: 230px;
     height: 150px;
   }
 }
 
+@media (min-width: 600px) and (max-width: 899px) {
+  #kml-carousel {
+    width: 480px;
+    height: 280px;
+  }
+
+  .carousel-3d-image {
+    width: 320px;
+    height: 210px;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  #kml-carousel {
+    width: 850px;
+    height: 420px;
+  }
+
+  .carousel-3d-image {
+    width: 360px;
+    height: 260px;
+  }
+}
+
+@media (min-width: 1200px) and (max-width: 1599px) {
+  #kml-carousel {
+    width: 1300px;
+    height: 550px;
+  }
+
+  .carousel-3d-image {
+    width: 420px;
+    height: 300px;
+  }
+}
+
+/* Desktop mega stays as-is */
+@media (min-width: 1600px) {
+  #kml-carousel {
+    width: 1800px;
+    height: 670px;
+  }
+
+  .carousel-3d-image {
+    width: 480px;
+    height: 340px;
+  }
+}
+
 /* ======================================
-   🔥 FIX DOUBLE SCROLLBARS
+ FIX DOUBLE SCROLLBARS
 ====================================== */
 
 html,
@@ -251,14 +381,12 @@ body {
   overflow-x: hidden !important;
 }
 
-/* Do NOT force overflow from panels */
 .services-panels,
 .panel,
 .gallery-panel {
   overflow: visible;
 }
 
-/* Keep carousel large but prevent horizontal scroll */
 #kml-carousel {
   max-width: 100%;
   overflow: hidden;
@@ -266,7 +394,6 @@ body {
   margin-right: auto;
 }
 
-/* Ensure carousel images never push outside container */
 .carousel-3d-image {
   backface-visibility: hidden;
   will-change: transform;

@@ -395,3 +395,143 @@ body {
   backface-visibility: hidden;
   will-change: transform;
 }
+
+/* ============================================
+   SERVICES — MOBILE POLISH & FIXES
+============================================ */
+
+/* Reduce vertical spacing above mini-section titles */
+@media (max-width: 900px) {
+  .panel {
+    padding-top: 20px !important;
+  }
+
+  .service-panel-media {
+    margin-bottom: 18px;
+  }
+
+  .service-eyebrow,
+  .gallery-subtitle,
+  .gallery-title {
+    margin-top: 0 !important;
+  }
+}
+
+/* Fix the tiny subtitle ("RESIDENTIAL & COMMERCIAL") spacing */
+@media (max-width: 900px) {
+  .service-panel-copy .service-eyebrow {
+    margin-top: -10px !important;
+    /* pulls it closer to image */
+    margin-bottom: 8px !important;
+    letter-spacing: 0.22em;
+  }
+}
+
+/* Mobile heading size fix */
+@media (max-width: 600px) {
+  .service-heading {
+    font-size: 1.85rem !important;
+    line-height: 1.22 !important;
+    text-align: center;
+  }
+}
+
+/* Improve paragraph readability on mobile */
+@media (max-width: 600px) {
+  .service-intro {
+    font-size: 1rem !important;
+    line-height: 1.65 !important;
+    padding: 0 10px !important;
+    text-align: center;
+  }
+}
+
+/* Bullet list polish */
+@media (max-width: 600px) {
+  .service-list {
+    padding: 0 14px !important;
+    line-height: 1.55;
+  }
+
+  .service-list li {
+    margin-bottom: 10px !important;
+    font-size: 0.98rem !important;
+  }
+}
+
+/* Keep service containers centered */
+@media (max-width: 900px) {
+  .service-panel-copy {
+    align-items: center !important;
+    text-align: center !important;
+  }
+}
+
+/* ============================================
+   MOBILE BULLET LIST TIGHTENING + ALIGNMENT FIX
+============================================ */
+
+@media (max-width: 600px) {
+
+  /* Force bullets to wrap CLEANLY and stay centered */
+  .service-list {
+    max-width: 95%;
+    margin: 0 auto;
+    padding-left: 0 !important;
+    text-align: left;
+    /* looks better for bullets */
+  }
+
+  .service-list li {
+    margin-bottom: 6px !important;
+    font-size: 1rem !important;
+    line-height: 1.45 !important;
+    padding-left: 6px;
+    /* soft indent */
+  }
+
+  /* Nested bullets (like Area Rugs → IICRC → 8-Step) */
+  .service-list li li {
+    padding-left: 16px !important;
+    font-size: 0.97rem !important;
+    margin-bottom: 4px !important;
+  }
+
+  /* Fix weird long-line overflow on mobile */
+  .service-list,
+  .service-list li {
+    word-break: break-word;
+  }
+
+  /* ============================================
+   FIX FIRST PARAGRAPH WIDTH ON MOBILE
+============================================ */
+
+  @media (max-width: 600px) {
+    .service-description {
+      max-width: 90%;
+      margin: 0 auto 20px auto;
+      line-height: 1.45;
+      font-size: 1rem;
+      padding: 0 10px;
+      text-align: center;
+      /* keep your aesthetic */
+      word-break: break-word;
+    }
+  }
+}
+
+/* FINAL MOBILE PARAGRAPH FIX */
+@media (max-width: 900px) {
+  .service-panel-copy p {
+    max-width: 92%;
+    margin: 0 auto 18px auto;
+    padding: 0 6px;
+    font-size: 1rem;
+    line-height: 1.55;
+    text-align: center;
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+  }
+}

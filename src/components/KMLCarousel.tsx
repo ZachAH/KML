@@ -1,7 +1,6 @@
 import { useKeenSlider } from "keen-slider/react";
-import type { KeenSliderInstance } from "keen-slider";
 import "keen-slider/keen-slider.min.css";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 import "./KMLCarousel.css";
 
 type Props = {
@@ -10,76 +9,100 @@ type Props = {
 
 const KMLCarousel: React.FC<Props> = ({ images }) => {
   const middleIndex = Math.floor(images.length / 2);
+
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(middleIndex);
 
-  const sliderContainerRef = useRef<HTMLDivElement | null>(null);
-
+  // MAIN SLIDER INSTANCE
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
     renderMode: "performance",
     rubberband: true,
     dragSpeed: 0.9,
     mode: "free-snap",
+
     slides: {
       perView: window.innerWidth < 768 ? 1.2 : 3,
       spacing: window.innerWidth < 768 ? 12 : 24,
       origin: "center",
     },
+
     initial: middleIndex,
 
     slideChanged(sl) {
       const rel = sl.track.details.rel;
       setCurrentSlide(rel);
 
+      // remove card highlight
       sl.container
         .querySelectorAll(".kml-coverflow-card")
         .forEach((slide) => slide.classList.remove("is-active"));
 
+      // add highlight to active
       const active = sl.slides[rel];
       active?.classList.add("is-active");
     },
 
     created(sl) {
+      // highlight initial card
       const active = sl.slides[sl.track.details.rel];
       active?.classList.add("is-active");
 
+      // =====================================
+      // FIXED AUTO-PLAY LOGIC
+      // =====================================
       let timeout: any;
+      let mouseOver = false;
+      let dragging = false;
 
-      const startAutoplay = () => {
-        timeout = setTimeout(() => {
+      const clear = () => clearTimeout(timeout);
+
+      const next = () => {
+        if (!mouseOver && !dragging) {
           slider.current?.next();
-          startAutoplay();
-        }, 4500);
+        }
+        start(); // loop again
       };
 
-      const pauseAutoplay = () => clearTimeout(timeout);
+      const start = () => {
+        clear();
+        timeout = setTimeout(next, 4500);
+      };
 
-      startAutoplay();
-
-      const interactiveEvents = ["mousedown", "touchstart", "touchmove"];
-      interactiveEvents.forEach((ev) => {
-        sl.container.addEventListener(ev, () => {
-          pauseAutoplay();
-          startAutoplay();
-        });
+      // mouse events
+      sl.container.addEventListener("mouseover", () => {
+        mouseOver = true;
+        clear();
       });
 
-      sl.container.addEventListener("mouseover", pauseAutoplay);
-      sl.container.addEventListener("mouseout", startAutoplay);
+      sl.container.addEventListener("mouseout", () => {
+        mouseOver = false;
+        start();
+      });
+
+      // drag events
+      sl.on("dragStarted", () => {
+        dragging = true;
+        clear();
+      });
+
+      sl.on("dragEnded", () => {
+        dragging = false;
+        start();
+      });
+
+      start(); // fire first cycle
     },
   });
 
-  // Lightbox swipe to close
+  // SWIPE ANYWHERE ON LIGHTBOX TO CLOSE
   useEffect(() => {
     if (!lightbox) return;
 
-    const handler = (e: TouchEvent) => {
-      setLightbox(null);
-    };
+    const close = () => setLightbox(null);
 
-    window.addEventListener("touchstart", handler);
-    return () => window.removeEventListener("touchstart", handler);
+    window.addEventListener("touchstart", close);
+    return () => window.removeEventListener("touchstart", close);
   }, [lightbox]);
 
   return (
@@ -119,7 +142,7 @@ const KMLCarousel: React.FC<Props> = ({ images }) => {
           ›
         </button>
 
-        {/* DOT INDICATORS */}
+        {/* DOTS */}
         <div className="kml-dots">
           {images.map((_, i) => (
             <div
@@ -130,11 +153,11 @@ const KMLCarousel: React.FC<Props> = ({ images }) => {
           ))}
         </div>
 
+        {/* EDGE FADES */}
         <div className="kml-fade-left"></div>
         <div className="kml-fade-right"></div>
       </div>
 
-      {/* LIGHTBOX */}
       {lightbox && (
         <div className="kml-lightbox" onClick={() => setLightbox(null)}>
           <img src={lightbox} className="kml-lightbox-img" />

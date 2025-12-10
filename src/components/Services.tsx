@@ -3,14 +3,16 @@ import "./Services.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
-import { Observer } from "gsap/Observer";
+
+// NEW: Motion+ Coverflow Carousel
+import KMLCarousel from "..//components/KMLCarousel";
 
 // Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
 import tileImg from "../assets/cleaning/services/robert_extraction.webp";
 import teamImg from "../assets/cleaning/services/van.webp";
 
-// AUTO IMPORT CAROUSEL IMAGES
+// AUTO IMPORT GALLERY IMAGES
 const carouselImports = import.meta.glob("../assets/carasaoul/*.webp", {
   eager: true,
 });
@@ -18,7 +20,7 @@ const galleryImages: string[] = Object.values(carouselImports).map(
   (mod: any) => mod.default
 );
 
-gsap.registerPlugin(ScrollTrigger, Observer);
+gsap.registerPlugin(ScrollTrigger);
 
 /* =============================
    SERVICE DATA
@@ -86,18 +88,19 @@ const servicesData: Service[] = [
   },
 ];
 
+/* =============================
+   COMPONENT
+============================= */
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
-  const carouselRef = useRef<HTMLDivElement | null>(null);
 
   /* ==========================================================
-     GSAP EFFECTS (UPDATED CAROUSEL LOGIC)
+     GSAP PANEL ANIMATIONS (UNCHANGED)
   ========================================================== */
   useEffect(() => {
     if (!rootRef.current) return;
 
     const ctx = gsap.context(() => {
-      /* ================= PANEL ANIMATIONS (Unchanged) ================= */
       const panels = gsap.utils.toArray<HTMLElement>(".panel");
 
       panels.forEach((panel) => {
@@ -108,10 +111,7 @@ const Services: React.FC = () => {
         if (!media) return;
 
         gsap.from(media, {
-          scrollTrigger: {
-            trigger: panel,
-            start: "top 80%",
-          },
+          scrollTrigger: { trigger: panel, start: "top 80%" },
           y: 50,
           opacity: 0,
           duration: 0.7,
@@ -119,10 +119,7 @@ const Services: React.FC = () => {
         });
 
         gsap.to(headingLines, {
-          scrollTrigger: {
-            trigger: panel,
-            start: "top 75%",
-          },
+          scrollTrigger: { trigger: panel, start: "top 75%" },
           yPercent: 0,
           opacity: 1,
           duration: 0.6,
@@ -131,10 +128,7 @@ const Services: React.FC = () => {
         });
 
         gsap.from(bodyItems, {
-          scrollTrigger: {
-            trigger: panel,
-            start: "top 70%",
-          },
+          scrollTrigger: { trigger: panel, start: "top 70%" },
           y: 24,
           opacity: 0,
           duration: 0.5,
@@ -142,105 +136,6 @@ const Services: React.FC = () => {
           ease: "power2.out",
         });
       });
-
-      /* ================= PREMIUM 3D CAROUSEL (Refactored) ================= */
-      if (!carouselRef.current) return;
-
-      const carousel = document.getElementById("kml-carousel")!;
-      const images = gsap.utils.toArray<HTMLElement>(
-        "#kml-carousel .carousel-3d-image"
-      );
-
-      const total = images.length;
-      // Using the radius from your example for circular math
-      const radius = 242; 
-      const angleStep = 360 / total;
-      
-      // Progress object holds the current rotation state
-      const progress = { value: 0 }; 
-
-      // The core function that calculates the 3D position and rotation of every image
-      const animateCarousel = () => {
-        images.forEach((img, index) => {
-          // Calculate theta (angle) based on the continuous progress
-          const theta = index / total - progress.value;
-
-          // Calculate x and z (depth) using sin/cos of the angle
-          const x = -Math.sin(theta * Math.PI * 2) * radius;
-          const z = Math.cos(theta * Math.PI * 2) * radius;
-          
-          // Calculate the rotation angle for the image itself
-          const rotationY = 360 * -theta;
-
-          // Apply the transform using GSAP set
-          gsap.set(img, {
-            x: x,
-            z: z,
-            rotationY: rotationY,
-            // Dim and scale based on Z-depth for a more pronounced 3D look
-            opacity: z < -radius * 0.2 ? 0.35 : 1, 
-            filter: z < -radius * 0.2 ? "brightness(0.75)" : "brightness(1.12)",
-          });
-
-          // Custom class logic (for styling front card - uses rotationY)
-          const currentRotation = rotationY % 360;
-          if (Math.abs(currentRotation) < angleStep / 2 || Math.abs(currentRotation) > 360 - angleStep / 2) {
-             img.classList.add("is-front");
-          } else {
-             img.classList.remove("is-front");
-          }
-        });
-      };
-
-      // Auto rotation: continuous tween
-      const autoRotateTween = gsap.to(progress, {
-        value: "+=1", 
-        duration: 40, // Adjust speed here (higher duration = slower)
-        repeat: -1,
-        ease: "none",
-        paused: false,
-      });
-
-      // Update on every tick
-      gsap.ticker.add(animateCarousel);
-
-
-      // Drag + Wheel Observer (to override the auto-rotation)
-      Observer.create({
-        target: carouselRef.current,
-        type: "pointer,touch,wheel",
-        
-        onPress() {
-          autoRotateTween.pause(); // Pause auto-rotation
-          carousel.style.cursor = 'grabbing';
-        },
-        
-        onDrag(self) {
-          const delta = self.deltaX ?? 0;
-          const velocity = delta * 0.0005; // Adjust sensitivity for drag
-
-          // Apply immediate change based on drag
-          progress.value += velocity;
-          animateCarousel();
-        },
-        
-        onWheel(self) {
-          autoRotateTween.pause(); // Pause auto-rotation
-          
-          progress.value += self.deltaY * 0.0005; // Adjust sensitivity for wheel
-          animateCarousel();
-          
-          // Restart auto-rotate after short delay
-          gsap.delayedCall(2, () => autoRotateTween.resume());
-        },
-        
-        onRelease() {
-           carousel.style.cursor = 'grab';
-           // Restart auto-rotate after short delay
-           gsap.delayedCall(2, () => autoRotateTween.resume());
-        },
-      });
-      // END CAROUSEL LOGIC
     });
 
     return () => ctx.revert();
@@ -290,22 +185,16 @@ const Services: React.FC = () => {
         </article>
       ))}
 
-      {/* GALLERY CAROUSEL */}
-      <section className="panel gallery-panel" ref={carouselRef}>
+      {/* =============================
+          NEW COVERFLOW CAROUSEL
+      ============================= */}
+      <section className="panel gallery-panel">
         <h2 className="gallery-title">See the Difference</h2>
         <p className="gallery-subtitle">
           A look at real spaces we’ve helped refresh.
         </p>
 
-        <div className="carousel-3d" id="kml-carousel">
-          {galleryImages.map((src, index) => (
-            <div
-              key={index}
-              className="carousel-3d-image"
-              style={{ backgroundImage: `url(${src})` }}
-            ></div>
-          ))}
-        </div>
+        <KMLCarousel images={galleryImages} />
       </section>
     </section>
   );

@@ -43,15 +43,12 @@ body {
 
 /* ===============================
    MOBILE PANEL FIX
-   Fix overlapping + stacking
 =============================== */
 
 @media (max-width: 900px) {
   .panel {
     display: block !important;
-    /* FORCE collapse */
     height: auto !important;
-    /* Prevent giant whitespace */
     padding: 40px 22px;
   }
 
@@ -61,62 +58,30 @@ body {
     max-width: 100%;
   }
 
-  /* Fix giant image height from desktop (80vh) */
   .service-image-frame {
     height: 260px !important;
     border-radius: 20px;
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  .service-panel-copy {
+    align-items: center;
+    padding: 0 20px;
+    margin-top: 20px;
   }
 
   .service-heading {
-    font-size: 2rem;
+    font-size: 1.8rem !important;
     text-align: center;
-    line-height: 1.25;
+    line-height: 1.2 !important;
+    white-space: normal;
     word-break: break-word;
   }
 
   .service-intro,
   .service-list {
     text-align: center;
-  }
-
-  .service-panel-copy {
-    align-items: center;
-    margin-top: 20px;
-  }
-
-  @media (max-width: 900px) {
-    .panel {
-      padding-left: 0 !important;
-      padding-right: 0 !important;
-    }
-
-    .service-image-frame {
-      width: 92%;
-      max-width: 92%;
-      margin-left: auto;
-      margin-right: auto;
-    }
-
-    .service-panel-copy {
-      padding-left: 20px;
-      padding-right: 20px;
-      /* add safe text padding */
-    }
-  }
-
-  @media (max-width: 900px) {
-    .service-heading {
-      font-size: 1.8rem !important;
-      line-height: 1.2 !important;
-      text-align: center;
-      word-break: break-word;
-      white-space: normal;
-    }
-
-    .service-panel-copy {
-      padding-left: 20px;
-      padding-right: 20px;
-    }
   }
 }
 
@@ -131,7 +96,7 @@ IMAGE SECTION
 .service-image-frame {
   width: 100%;
   height: 80vh;
-  /* DESKTOP ONLY — mobile overrides this */
+  /* desktop */
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
@@ -245,162 +210,9 @@ GALLERY PANEL
 }
 
 /* ===============================
- 3D CAROUSEL — DESKTOP HERO
+ MOBILE POLISH — TYPOGRAPHY
 =============================== */
 
-#kml-carousel {
-  width: 1800px;
-  height: 670px;
-  margin: 110px auto 0 auto;
-  position: relative;
-  transform-style: preserve-3d;
-  perspective: 5400px;
-  overflow: visible;
-  cursor: grab;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.carousel-3d-image {
-  width: 480px;
-  height: 340px;
-  border-radius: 26px;
-  background-size: cover;
-  background-position: center;
-  box-shadow: 0 25px 65px rgba(0, 0, 0, 0.28);
-  backface-visibility: hidden;
-  transform-style: preserve-3d;
-
-  position: absolute;
-  top: 50%;
-  left: 50%;
-
-  transition:
-    transform 0.65s cubic-bezier(0.22, 0.61, 0.36, 1),
-    box-shadow 0.6s ease,
-    opacity 0.4s ease;
-
-  transform: translate(-50%, -50%);
-  opacity: 0.88;
-}
-
-.carousel-3d-image.is-front {
-  transform: translate(-50%, -50%) scale(1.24);
-  box-shadow: 0 70px 140px rgba(0, 0, 0, 0.45);
-  opacity: 1;
-  z-index: 999;
-}
-
-/* ======================================
- RESPONSIVE BREAKPOINTS FOR CAROUSEL
-====================================== */
-
-@media (max-width: 399px) {
-  #kml-carousel {
-    width: 280px;
-    height: 180px;
-  }
-
-  .carousel-3d-image {
-    width: 200px;
-    height: 130px;
-  }
-}
-
-@media (min-width: 400px) and (max-width: 599px) {
-  #kml-carousel {
-    width: 330px;
-    height: 200px;
-  }
-
-  .carousel-3d-image {
-    width: 230px;
-    height: 150px;
-  }
-}
-
-@media (min-width: 600px) and (max-width: 899px) {
-  #kml-carousel {
-    width: 480px;
-    height: 280px;
-  }
-
-  .carousel-3d-image {
-    width: 320px;
-    height: 210px;
-  }
-}
-
-@media (min-width: 900px) and (max-width: 1199px) {
-  #kml-carousel {
-    width: 850px;
-    height: 420px;
-  }
-
-  .carousel-3d-image {
-    width: 360px;
-    height: 260px;
-  }
-}
-
-@media (min-width: 1200px) and (max-width: 1599px) {
-  #kml-carousel {
-    width: 1300px;
-    height: 550px;
-  }
-
-  .carousel-3d-image {
-    width: 420px;
-    height: 300px;
-  }
-}
-
-/* Desktop mega stays as-is */
-@media (min-width: 1600px) {
-  #kml-carousel {
-    width: 1800px;
-    height: 670px;
-  }
-
-  .carousel-3d-image {
-    width: 480px;
-    height: 340px;
-  }
-}
-
-/* ======================================
- FIX DOUBLE SCROLLBARS
-====================================== */
-
-html,
-body {
-  overflow-x: hidden !important;
-}
-
-.services-panels,
-.panel,
-.gallery-panel {
-  overflow: visible;
-}
-
-#kml-carousel {
-  max-width: 100%;
-  overflow: hidden;
-  margin-left: auto;
-  margin-right: auto;
-}
-
-.carousel-3d-image {
-  backface-visibility: hidden;
-  will-change: transform;
-}
-
-/* ============================================
-   SERVICES — MOBILE POLISH & FIXES
-============================================ */
-
-/* Reduce vertical spacing above mini-section titles */
 @media (max-width: 900px) {
   .panel {
     padding-top: 20px !important;
@@ -417,26 +229,14 @@ body {
   }
 }
 
-/* Fix the tiny subtitle ("RESIDENTIAL & COMMERCIAL") spacing */
 @media (max-width: 900px) {
   .service-panel-copy .service-eyebrow {
     margin-top: -10px !important;
-    /* pulls it closer to image */
     margin-bottom: 8px !important;
     letter-spacing: 0.22em;
   }
 }
 
-/* Mobile heading size fix */
-@media (max-width: 600px) {
-  .service-heading {
-    font-size: 1.85rem !important;
-    line-height: 1.22 !important;
-    text-align: center;
-  }
-}
-
-/* Improve paragraph readability on mobile */
 @media (max-width: 600px) {
   .service-intro {
     font-size: 1rem !important;
@@ -446,40 +246,17 @@ body {
   }
 }
 
-/* Bullet list polish */
-@media (max-width: 600px) {
-  .service-list {
-    padding: 0 14px !important;
-    line-height: 1.55;
-  }
-
-  .service-list li {
-    margin-bottom: 10px !important;
-    font-size: 0.98rem !important;
-  }
-}
-
-/* Keep service containers centered */
-@media (max-width: 900px) {
-  .service-panel-copy {
-    align-items: center !important;
-    text-align: center !important;
-  }
-}
-
-/* ============================================
-   MOBILE BULLET LIST TIGHTENING + ALIGNMENT FIX
-============================================ */
+/* ===============================
+ MOBILE BULLET LIST FIXES
+=============================== */
 
 @media (max-width: 600px) {
-
-  /* Force bullets to wrap CLEANLY and stay centered */
   .service-list {
     max-width: 95%;
     margin: 0 auto;
-    padding-left: 0 !important;
+    padding: 0 14px !important;
     text-align: left;
-    /* looks better for bullets */
+    line-height: 1.55;
   }
 
   .service-list li {
@@ -487,41 +264,13 @@ body {
     font-size: 1rem !important;
     line-height: 1.45 !important;
     padding-left: 6px;
-    /* soft indent */
-  }
-
-  /* Nested bullets (like Area Rugs → IICRC → 8-Step) */
-  .service-list li li {
-    padding-left: 16px !important;
-    font-size: 0.97rem !important;
-    margin-bottom: 4px !important;
-  }
-
-  /* Fix weird long-line overflow on mobile */
-  .service-list,
-  .service-list li {
-    word-break: break-word;
-  }
-
-  /* ============================================
-   FIX FIRST PARAGRAPH WIDTH ON MOBILE
-============================================ */
-
-  @media (max-width: 600px) {
-    .service-description {
-      max-width: 90%;
-      margin: 0 auto 20px auto;
-      line-height: 1.45;
-      font-size: 1rem;
-      padding: 0 10px;
-      text-align: center;
-      /* keep your aesthetic */
-      word-break: break-word;
-    }
   }
 }
 
-/* FINAL MOBILE PARAGRAPH FIX */
+/* ===============================
+ FINAL MOBILE PARAGRAPH FIX
+=============================== */
+
 @media (max-width: 900px) {
   .service-panel-copy p {
     max-width: 92%;

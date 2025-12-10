@@ -4,15 +4,14 @@ import "./Services.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// NEW: Motion+ Coverflow Carousel
-import KMLCarousel from "..//components/KMLCarousel";
+import KMLCarousel from "../components/KMLCarousel";
 
-// Images
+// Service Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
 import tileImg from "../assets/cleaning/services/robert_extraction.webp";
 import teamImg from "../assets/cleaning/services/van.webp";
 
-// AUTO IMPORT GALLERY IMAGES
+// Auto-import carousel gallery images
 const carouselImports = import.meta.glob("../assets/carasaoul/*.webp", {
   eager: true,
 });
@@ -23,7 +22,7 @@ const galleryImages: string[] = Object.values(carouselImports).map(
 gsap.registerPlugin(ScrollTrigger);
 
 /* =============================
-   SERVICE DATA
+   SERVICE DATA MODEL
 ============================= */
 type Service = {
   id: number;
@@ -35,6 +34,9 @@ type Service = {
   image: string;
 };
 
+/* =============================
+   SERVICE DATA
+============================= */
 const servicesData: Service[] = [
   {
     id: 1,
@@ -58,8 +60,7 @@ const servicesData: Service[] = [
     eyebrow: "HARD SURFACE FLOOR CARE",
     titleTop: "Tile, Grout & Hard Surface",
     titleBottom: "Floor Cleaning",
-    intro:
-      "When routine cleaning no longer gives you the desired results, it's time to call us.",
+    intro: "When routine cleaning no longer gives you the desired results, it's time to call us.",
     bullets: [
       "Tile & Grout — Ceramic, Porcelain & Quarry",
       "Wood — Solid, Engineered & Laminate",
@@ -76,7 +77,7 @@ const servicesData: Service[] = [
     titleTop: "Commercial Carpet &",
     titleBottom: "Hard Floor Programs",
     intro:
-      "We provide facilities with quality cleaning programs that improve appearance and safety.",
+      "We provide facilities with quality cleaning programs that improve appearance, safety, and indoor air quality.",
     bullets: [
       "Commercial Carpet — Restorative & Maintenance",
       "Hard Floor Care — Restorative & Maintenance",
@@ -94,9 +95,9 @@ const servicesData: Service[] = [
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  /* ==========================================================
-     GSAP PANEL ANIMATIONS (UNCHANGED)
-  ========================================================== */
+  /* =============================
+      GSAP PANEL ANIMATIONS
+  ============================== */
   useEffect(() => {
     if (!rootRef.current) return;
 
@@ -110,6 +111,7 @@ const Services: React.FC = () => {
 
         if (!media) return;
 
+        // IMAGE FADE-IN
         gsap.from(media, {
           scrollTrigger: { trigger: panel, start: "top 80%" },
           y: 50,
@@ -118,6 +120,7 @@ const Services: React.FC = () => {
           ease: "power2.out",
         });
 
+        // HEADINGS SLIDE UP
         gsap.to(headingLines, {
           scrollTrigger: { trigger: panel, start: "top 75%" },
           yPercent: 0,
@@ -127,6 +130,7 @@ const Services: React.FC = () => {
           ease: "power3.out",
         });
 
+        // BODY TEXT FADE-UP
         gsap.from(bodyItems, {
           scrollTrigger: { trigger: panel, start: "top 70%" },
           y: 24,
@@ -136,30 +140,29 @@ const Services: React.FC = () => {
           ease: "power2.out",
         });
       });
-    });
+    }, rootRef);
 
     return () => ctx.revert();
   }, []);
 
-  /* ==========================================================
-     JSX RETURN
-  ========================================================== */
-
+  /* =============================
+      JSX
+  ============================== */
   return (
     <section className="services-panels" ref={rootRef}>
       {servicesData.map((service, index) => (
         <article
           key={service.id}
-          className={`panel service-panel ${
-            index % 2 === 1 ? "service-panel--reverse" : ""
-          }`}
+          className={`panel service-panel ${index % 2 === 1 ? "service-panel--reverse" : ""}`}
         >
+          {/* IMAGE SIDE */}
           <div className="service-panel-media">
             <div className="service-image-frame">
               <img src={service.image} alt={service.titleTop} />
             </div>
           </div>
 
+          {/* TEXT SIDE */}
           <div className="service-panel-copy">
             <p className="service-eyebrow service-body-item">{service.eyebrow}</p>
 
@@ -185,9 +188,7 @@ const Services: React.FC = () => {
         </article>
       ))}
 
-      {/* =============================
-          NEW COVERFLOW CAROUSEL
-      ============================= */}
+      {/* GALLERY CAROUSEL */}
       <section className="panel gallery-panel">
         <h2 className="gallery-title">See the Difference</h2>
         <p className="gallery-subtitle">

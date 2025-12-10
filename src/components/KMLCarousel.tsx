@@ -9,17 +9,20 @@ type Props = {
 
 const KMLCarousel: React.FC<Props> = ({ images }) => {
   const middleIndex = Math.floor(images.length / 2);
-
   const [lightbox, setLightbox] = useState<string | null>(null);
   const [currentSlide, setCurrentSlide] = useState(middleIndex);
 
-  // MAIN SLIDER INSTANCE
   const [ref, slider] = useKeenSlider<HTMLDivElement>({
     loop: true,
-    renderMode: "performance",
+    renderMode: "precision",
     rubberband: true,
-    dragSpeed: 0.9,
+    dragSpeed: 0.75,
     mode: "free-snap",
+
+    /* ✔ The correct v6 animation control */
+    defaultAnimation: {
+      duration: 550,
+    },
 
     slides: {
       perView: window.innerWidth < 768 ? 1.2 : 3,
@@ -33,82 +36,53 @@ const KMLCarousel: React.FC<Props> = ({ images }) => {
       const rel = sl.track.details.rel;
       setCurrentSlide(rel);
 
-      // remove card highlight
       sl.container
         .querySelectorAll(".kml-coverflow-card")
         .forEach((slide) => slide.classList.remove("is-active"));
 
-      // add highlight to active
       const active = sl.slides[rel];
       active?.classList.add("is-active");
     },
 
     created(sl) {
-      // highlight initial card
       const active = sl.slides[sl.track.details.rel];
       active?.classList.add("is-active");
 
-      // =====================================
-      // FIXED AUTO-PLAY LOGIC
-      // =====================================
-      let timeout: any;
-      let mouseOver = false;
-      let dragging = false;
-
-      const clear = () => clearTimeout(timeout);
-
-      const next = () => {
-        if (!mouseOver && !dragging) {
-          slider.current?.next();
-        }
-        start(); // loop again
-      };
+      let autoplayTimer: any;
 
       const start = () => {
-        clear();
-        timeout = setTimeout(next, 4500);
+        autoplayTimer = setTimeout(() => {
+          slider.current?.next();
+          start();
+        }, 4500);
       };
 
-      // mouse events
-      sl.container.addEventListener("mouseover", () => {
-        mouseOver = true;
-        clear();
-      });
+      const clear = () => clearTimeout(autoplayTimer);
 
-      sl.container.addEventListener("mouseout", () => {
-        mouseOver = false;
-        start();
-      });
+      start();
 
-      // drag events
-      sl.on("dragStarted", () => {
-        dragging = true;
-        clear();
-      });
+      sl.on("dragStarted", clear);
+      sl.on("dragEnded", start);
 
-      sl.on("dragEnded", () => {
-        dragging = false;
-        start();
-      });
-
-      start(); // fire first cycle
+      sl.container.addEventListener("mouseover", clear);
+      sl.container.addEventListener("mouseout", start);
     },
   });
 
-  // SWIPE ANYWHERE ON LIGHTBOX TO CLOSE
+
+  // Lightbox swipe close
   useEffect(() => {
     if (!lightbox) return;
 
-    const close = () => setLightbox(null);
-
-    window.addEventListener("touchstart", close);
-    return () => window.removeEventListener("touchstart", close);
+    const handler = () => setLightbox(null);
+    window.addEventListener("touchstart", handler);
+    return () => window.removeEventListener("touchstart", handler);
   }, [lightbox]);
 
   return (
     <>
       <div className="kml-carousel-wrapper">
-        {/* DESKTOP ARROWS ONLY */}
+        {/* Desktop arrows only */}
         <button
           className="kml-arrow kml-arrow-left"
           onClick={() => slider.current?.prev()}
@@ -153,11 +127,12 @@ const KMLCarousel: React.FC<Props> = ({ images }) => {
           ))}
         </div>
 
-        {/* EDGE FADES */}
+        {/* SOFT EDGE GRADIENTS */}
         <div className="kml-fade-left"></div>
         <div className="kml-fade-right"></div>
       </div>
 
+      {/* LIGHTBOX */}
       {lightbox && (
         <div className="kml-lightbox" onClick={() => setLightbox(null)}>
           <img src={lightbox} className="kml-lightbox-img" />

@@ -153,6 +153,50 @@ body {
    ====================================================== */
 @media (max-width: 600px) {
 
+  /* Shorter hero */
+  .hero {
+    min-height: 70vh;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  /* Move logo UP & center it better */
+  .mobile-hero-logo {
+    position: absolute;
+    top: 32%;
+    /* was 58% — moves logo up */
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 260px;
+    /* slightly smaller for balance */
+    max-width: 75%;
+    z-index: 4;
+    animation: fadeMobileLogo 0.8s ease-out forwards;
+  }
+
+  /* Fix hero title so it doesn't shove everything down */
+  .hero-title {
+    margin-top: 55%;
+    /* was 175% — now sits right under logo */
+    font-size: 1.7rem;
+    padding: 0 16px;
+    text-shadow:
+      0 4px 14px rgba(0, 0, 0, 0.55),
+      0 2px 4px rgba(0, 0, 0, 0.8);
+  }
+
+  /* Adjust subtitle too */
+  .hero-subtext {
+    margin-top: 8px;
+    padding: 0 24px;
+    max-width: 340px;
+    font-size: 0.95rem;
+    transform: translateX(0);
+  }
+}
+
+@media (max-width: 600px) {
+
   /* Hide CTAs on mobile */
   .hero-cta-group {
     display: none !important;
@@ -198,7 +242,7 @@ body {
 
   .mobile-hero-logo {
     position: absolute;
-    top: 58%;
+    top: 55%;
     left: 48%;
     transform: translateX(-50%);
     width: 300px;

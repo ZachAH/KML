@@ -4,7 +4,7 @@ import "./Services.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import KMLCarousel from "../components/KMLCarousel";
+import ScrollGallery from "./StackedScrollGallery";;
 
 // Service Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
@@ -188,15 +188,8 @@ const Services: React.FC = () => {
         </article>
       ))}
 
-      {/* GALLERY CAROUSEL */}
-      <section className="panel gallery-panel">
-        <h2 className="gallery-title">See the Difference</h2>
-        <p className="gallery-subtitle">
-          A look at real spaces we’ve helped refresh.
-        </p>
+      <ScrollGallery images={galleryImages} />
 
-        <KMLCarousel images={galleryImages} />
-      </section>
     </section>
   );
 };

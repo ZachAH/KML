@@ -1,0 +1,100 @@
+/* ============================================
+   STACK GALLERY WRAPPER
+============================================ */
+.stack-gallery-wrapper {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    padding: 160px 0;
+    overflow: visible;
+}
+
+/* ============================================
+     STACKED CARDS
+  ============================================ */
+.stack-card {
+    position: absolute;
+    width: 88%;
+    max-width: 460px;
+    border-radius: 26px;
+    overflow: hidden;
+    cursor: grab;
+
+    background: #ffffff;
+    box-shadow: 0 28px 65px rgba(0, 0, 0, 0.28);
+
+    touch-action: pan-y;
+    /* prevents scroll conflict */
+    transition: box-shadow 0.2s ease;
+}
+
+.stack-card:active {
+    cursor: grabbing;
+}
+
+/* IMAGE INSIDE CARD */
+.stack-card-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    pointer-events: none;
+    border-radius: 26px;
+}
+
+/* ============================================
+     LIGHTBOX
+  ============================================ */
+.lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.78);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 99999;
+}
+
+.lightbox-img {
+    width: 92%;
+    max-width: 700px;
+    border-radius: 18px;
+    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
+    animation: popIn 0.25s ease;
+}
+
+/* Lightbox zoom animation */
+@keyframes popIn {
+    from {
+        transform: scale(0.85);
+        opacity: 0;
+    }
+
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+/* ============================================
+     MOBILE RESPONSIVE POLISH
+  ============================================ */
+@media (max-width: 600px) {
+    .stack-gallery-wrapper {
+        padding: 120px 0;
+    }
+
+    .stack-card {
+        width: 92%;
+        border-radius: 22px;
+    }
+
+    .stack-card-img {
+        border-radius: 22px;
+    }
+
+    .lightbox-img {
+        width: 95%;
+        max-width: 92%;
+    }
+}

@@ -1,71 +1,105 @@
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
-import "./StackSwipeGallery.css";
+import { useState, useCallback, useRef } from "react";
+import {
+  motion,
+  useMotionValue,
+  AnimatePresence,
+  type PanInfo,
+} from "framer-motion";
+import "./StackSwipedGallery.css";
 
-type Props = {
-  images: string[];
-};
+type Props = { images: string[] };
 
-export default function StackSwipeGallery({ images }: Props) {
-  const [cards, setCards] = useState(images);
-  const [direction, setDirection] = useState(0);
+export default function StackSwipedGallery({ images }: Props) {
+  const [stack, setStack] = useState(images);
+  const [lightbox, setLightbox] = useState<string | null>(null);
 
-  const handleSwipe = (dir: number) => {
-    setDirection(dir);
+  // Detect double tap
+  const lastTapRef = useRef<number>(0);
+  const DOUBLE_TAP_DELAY = 280;
 
-    setCards((prev) => {
-      const newOrder = [...prev.slice(1), prev[0]];
-      return newOrder;
-    });
+  const handleDoubleTap = (img: string) => {
+    const now = Date.now();
+    if (now - lastTapRef.current < DOUBLE_TAP_DELAY) {
+      setLightbox(img);
+    }
+    lastTapRef.current = now;
   };
 
+  // Swipe detection
+  const swipeConfidence = (offset: number, velocity: number) => {
+    return Math.abs(offset) * velocity > 2200;
+  };
+
+  const handleDragEnd = useCallback(
+    (i: number, _e: any, info: PanInfo) => {
+      const { offset, velocity } = info;
+      if (!swipeConfidence(offset.x, velocity.x)) return;
+
+      // Move dragged card to back
+      const newStack = [...stack];
+      const [removed] = newStack.splice(i, 1);
+      newStack.push(removed);
+      setStack(newStack);
+    },
+    [stack]
+  );
+
   return (
-    <div className="stack-container">
+    <div className="stack-gallery-wrapper">
       <AnimatePresence>
-        {cards.slice(0, 3).reverse().map((src, i) => {
-          const isTop = i === 2;
+        {stack.map((src, i) => {
+          const isTop = i === 0;
+          const mvX = useMotionValue(0);
 
           return (
             <motion.div
               key={src}
-              className={`stack-card ${isTop ? "top-card" : "back-card"}`}
+              className="stack-card"
               style={{
-                zIndex: i + 1,
-                // Horizontal offset for the premium overlapped look
-                left: `${(2 - i) * 12}px`,
+                x: mvX,
+                zIndex: stack.length - i,
               }}
-              initial={{
-                y: 40 * (2 - i),
-                scale: 1 - i * 0.06,
-                opacity: i === 2 ? 1 : 0.75,
-              }}
+              initial={{ opacity: 0, scale: 0.92 }}
               animate={{
-                y: 40 * (2 - i),
-                scale: 1 - i * 0.06,
-                opacity: i === 2 ? 1 : 0.75,
+                opacity: 1,
+                scale: 1,
+                rotate: i === 0 ? 0 : i % 2 === 0 ? -5 : 5, // realistic stacked offsets
+                y: i * 18, // deeper stacking
+                transition: { type: "spring", stiffness: 140, damping: 22 },
               }}
-              exit={
-                isTop
-                  ? {
-                    x: direction * 400,
-                    rotate: direction * 25,
-                    opacity: 0,
-                    transition: { duration: 0.3 },
-                  }
-                  : {}
-              }
+              exit={{
+                opacity: 0,
+                scale: 0.85,
+              }}
               drag={isTop ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={(_, info) => {
-                if (info.offset.x > 120) handleSwipe(1);
-                else if (info.offset.x < -120) handleSwipe(-1);
-              }}
+              dragElastic={0.25}
+              onDragEnd={(e, info) => handleDragEnd(i, e, info)}
+              onTap={() => handleDoubleTap(src)}
             >
-              <img src={src} alt="" />
+              <motion.img
+                src={src}
+                alt=""
+                draggable={false}
+                className="stack-card-img"
+              />
             </motion.div>
           );
         })}
       </AnimatePresence>
+
+      {/* LIGHTBOX */}
+      {lightbox && (
+        <motion.div
+          className="lightbox"
+          onClick={() => setLightbox(null)}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+        >
+          <img src={lightbox} className="lightbox-img" />
+        </motion.div>
+      )}
     </div>
   );
 }

@@ -47,16 +47,16 @@ export default function StackSwipeGallery({ images }: Props) {
               exit={
                 isTop
                   ? {
-                      x: direction * 400,
-                      rotate: direction * 25,
-                      opacity: 0,
-                      transition: { duration: 0.3 },
-                    }
+                    x: direction * 400,
+                    rotate: direction * 25,
+                    opacity: 0,
+                    transition: { duration: 0.3 },
+                  }
                   : {}
               }
               drag={isTop ? "x" : false}
               dragConstraints={{ left: 0, right: 0 }}
-              onDragEnd={(e, info) => {
+              onDragEnd={(_, info) => {
                 if (info.offset.x > 120) handleSwipe(1);
                 else if (info.offset.x < -120) handleSwipe(-1);
               }}

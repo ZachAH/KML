@@ -4,7 +4,7 @@ import "./Services.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import ScrollGallery from "./StackedScrollGallery";;
+import ScrollGallery from "./StackSwipedGallery";;
 
 // Service Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";

@@ -2,19 +2,26 @@
 GLOBAL FIXES
 =============================== */
 
+/* STOP MOBILE WIDTH OVERFLOW */
+* {
+  max-width: 100%;
+  box-sizing: border-box;
+}
+
 html,
 body {
+  margin: 0;
+  padding: 0;
   overflow-x: hidden;
 }
 
 /* ===============================
-  FULL PANEL LAYOUT (DESKTOP)
+FULL PANEL LAYOUT (DESKTOP)
 =============================== */
 
 .services-panels {
   width: 100%;
-  overflow-x: hidden;
-  overflow-y: visible;
+  overflow: hidden;
 }
 
 .panel {
@@ -29,6 +36,7 @@ body {
   background: var(--light-bg);
 }
 
+/* Reverse layout */
 .service-panel--reverse {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
 }
@@ -42,61 +50,19 @@ body {
 }
 
 /* ===============================
-   MOBILE PANEL FIX
-=============================== */
-
-@media (max-width: 900px) {
-  .panel {
-    display: block !important;
-    height: auto !important;
-    padding: 40px 22px;
-  }
-
-  .service-panel-media,
-  .service-panel-copy {
-    width: 100% !important;
-    max-width: 100%;
-  }
-
-  .service-image-frame {
-    height: 260px !important;
-    border-radius: 20px;
-    width: 92%;
-    margin: 0 auto;
-  }
-
-  .service-panel-copy {
-    align-items: center;
-    padding: 0 20px;
-    margin-top: 20px;
-  }
-
-  .service-heading {
-    font-size: 1.8rem !important;
-    text-align: center;
-    line-height: 1.2 !important;
-    white-space: normal;
-    word-break: break-word;
-  }
-
-  .service-intro,
-  .service-list {
-    text-align: center;
-  }
-}
-
-/* ===============================
 IMAGE SECTION
 =============================== */
 
 .service-panel-media {
   display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  /* FIX: keeps the image at the TOP */
 }
 
 .service-image-frame {
   width: 100%;
   height: 80vh;
-  /* desktop */
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
@@ -125,6 +91,7 @@ TEXT CONTENT
   text-transform: uppercase;
   color: var(--brand-green);
   opacity: 0.8;
+  text-align: left;
 }
 
 .service-heading {
@@ -132,13 +99,6 @@ TEXT CONTENT
   font-weight: 800;
   color: var(--brand-green);
   line-height: 1.15;
-}
-
-.service-heading-line {
-  display: block;
-  overflow: hidden;
-  opacity: 0;
-  transform: translateY(100%);
 }
 
 .service-intro {
@@ -163,20 +123,69 @@ TEXT CONTENT
   margin-bottom: 6px;
 }
 
-.service-cta-btn {
-  padding: 14px 32px;
-  background: var(--cta-yellow);
-  color: var(--brand-green);
-  border: none;
-  border-radius: 8px;
-  font-weight: 800;
-  cursor: pointer;
-  transition: 0.2s ease;
-}
+/* ===============================
+MOBILE PANEL FIX
+=============================== */
 
-.service-cta-btn:hover {
-  background: var(--cta-yellow-hover);
-  transform: translateY(-2px);
+@media (max-width: 900px) {
+  .panel {
+    display: flex !important;
+    flex-direction: column;
+    height: auto !important;
+    padding: 40px 18px;
+    text-align: center;
+  }
+
+  .service-panel-media,
+  .service-panel-copy {
+    width: 100% !important;
+    max-width: 100%;
+    margin: 0 auto;
+    align-items: center;
+    text-align: center;
+  }
+
+  .service-image-frame {
+    width: 92%;
+    height: 260px !important;
+    margin: 0 auto 20px auto;
+    border-radius: 20px;
+  }
+
+  .service-eyebrow {
+    text-align: center !important;
+  }
+
+  .service-heading {
+    font-size: 1.9rem !important;
+    text-align: center !important;
+    white-space: normal !important;
+    overflow-wrap: break-word;
+    word-break: break-word;
+    max-width: 90%;
+    margin: 0 auto 12px auto;
+    line-height: 1.18 !important;
+  }
+
+  .service-intro {
+    max-width: 92%;
+    margin: 0 auto;
+    padding: 0 10px;
+    text-align: center;
+  }
+
+  .service-list {
+    max-width: 90%;
+    margin: 0 auto;
+    text-align: left !important;
+    padding: 0 10px;
+  }
+
+  .service-list li {
+    font-size: 1rem;
+    line-height: 1.45;
+    margin-bottom: 6px;
+  }
 }
 
 /* ===============================
@@ -185,8 +194,9 @@ GALLERY PANEL
 
 .gallery-panel.panel {
   height: auto !important;
-  padding-top: 140px;
-  padding-bottom: 160px;
+  padding-top: 80px;
+  /* FIX: prevent pushing section down */
+  padding-bottom: 120px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -209,78 +219,71 @@ GALLERY PANEL
   text-align: center;
 }
 
-/* ===============================
- MOBILE POLISH — TYPOGRAPHY
-=============================== */
+/* ============================================
+FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
+============================================ */
 
 @media (max-width: 900px) {
   .panel {
+    height: auto !important;
+    min-height: auto !important;
     padding-top: 20px !important;
   }
 
   .service-panel-media {
-    margin-bottom: 18px;
-  }
-
-  .service-eyebrow,
-  .gallery-subtitle,
-  .gallery-title {
     margin-top: 0 !important;
   }
 }
 
+/* ============================================
+   FINAL MOBILE FIX — RESET DESKTOP PANEL BEHAVIOR
+   Completely removes the desktop height + grid 
+   so images sit at the TOP of each section.
+============================================ */
 @media (max-width: 900px) {
-  .service-panel-copy .service-eyebrow {
-    margin-top: -10px !important;
-    margin-bottom: 8px !important;
-    letter-spacing: 0.22em;
-  }
-}
 
-@media (max-width: 600px) {
-  .service-intro {
-    font-size: 1rem !important;
-    line-height: 1.65 !important;
-    padding: 0 10px !important;
-    text-align: center;
-  }
-}
-
-/* ===============================
- MOBILE BULLET LIST FIXES
-=============================== */
-
-@media (max-width: 600px) {
-  .service-list {
-    max-width: 95%;
-    margin: 0 auto;
-    padding: 0 14px !important;
-    text-align: left;
-    line-height: 1.55;
+  /* Disable grid entirely */
+  .panel {
+    display: block !important;
+    height: auto !important;
+    min-height: auto !important;
+    grid-template-columns: none !important;
+    padding: 40px 0 60px 0 !important;
   }
 
-  .service-list li {
-    margin-bottom: 6px !important;
-    font-size: 1rem !important;
-    line-height: 1.45 !important;
-    padding-left: 6px;
+  /* Reset the image container */
+  .service-panel-media {
+    width: 100% !important;
+    margin: 0 auto !important;
+    display: flex !important;
+    justify-content: center !important;
+    align-items: center !important;
   }
-}
 
-/* ===============================
- FINAL MOBILE PARAGRAPH FIX
-=============================== */
+  /* Make image appear at top of section */
+  .service-image-frame {
+    height: auto !important;
+    width: 92% !important;
+    margin: 0 auto 24px auto !important;
+    border-radius: 20px !important;
+  }
 
-@media (max-width: 900px) {
-  .service-panel-copy p {
-    max-width: 92%;
-    margin: 0 auto 18px auto;
-    padding: 0 6px;
-    font-size: 1rem;
-    line-height: 1.55;
-    text-align: center;
-    white-space: normal !important;
-    overflow-wrap: break-word;
-    word-break: break-word;
+  .service-image-frame img {
+    width: 100% !important;
+    height: auto !important;
+    object-fit: cover !important;
+  }
+
+  /* Center text section */
+  .service-panel-copy {
+    width: 100% !important;
+    text-align: center !important;
+    margin: 0 auto !important;
+    padding: 0 18px !important;
+  }
+
+  /* Fix heading spacing */
+  .service-heading {
+    margin-top: 12px !important;
   }
 }

@@ -25,14 +25,14 @@ export default function StackSwipedGallery({ images }: Props) {
     lastTapRef.current = now;
   };
 
-  // Swipe detection
-  const swipeConfidence = (offset: number, velocity: number) => {
-    return Math.abs(offset) * velocity > 2200;
-  };
+  // Swipe confidence
+  const swipeConfidence = (offset: number, velocity: number) =>
+    Math.abs(offset) * velocity > 2200;
 
   const handleDragEnd = useCallback(
     (i: number, _e: any, info: PanInfo) => {
       const { offset, velocity } = info;
+
       if (!swipeConfidence(offset.x, velocity.x)) return;
 
       // Move dragged card to back
@@ -45,61 +45,62 @@ export default function StackSwipedGallery({ images }: Props) {
   );
 
   return (
-    <div className="stack-gallery-wrapper">
-      <AnimatePresence>
-        {stack.map((src, i) => {
-          const isTop = i === 0;
-          const mvX = useMotionValue(0);
+    <div className="stack-section">
+      <div className="stack-gallery-wrapper">
+        <AnimatePresence>
+          {stack.map((src, i) => {
+            const isTop = i === 0;
+            const mvX = useMotionValue(0);
 
-          return (
-            <motion.div
-              key={src}
-              className="stack-card"
-              style={{
-                x: mvX,
-                zIndex: stack.length - i,
-              }}
-              initial={{ opacity: 0, scale: 0.92 }}
-              animate={{
-                opacity: 1,
-                scale: 1,
-                rotate: i === 0 ? 0 : i % 2 === 0 ? -5 : 5, // realistic stacked offsets
-                y: i * 18, // deeper stacking
-                transition: { type: "spring", stiffness: 140, damping: 22 },
-              }}
-              exit={{
-                opacity: 0,
-                scale: 0.85,
-              }}
-              drag={isTop ? "x" : false}
-              dragConstraints={{ left: 0, right: 0 }}
-              dragElastic={0.25}
-              onDragEnd={(e, info) => handleDragEnd(i, e, info)}
-              onTap={() => handleDoubleTap(src)}
-            >
-              <motion.img
-                src={src}
-                alt=""
-                draggable={false}
-                className="stack-card-img"
-              />
-            </motion.div>
-          );
-        })}
-      </AnimatePresence>
+            return (
+              <motion.div
+                key={src}
+                className="stack-card"
+                style={{
+                  x: mvX,
+                  zIndex: stack.length - i,
+                }}
+                initial={{ opacity: 0, scale: 0.92 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  rotate: i === 0 ? 0 : i % 2 === 0 ? -5 : 5,
+                  y: i * 20,
+                  transition: { type: "spring", stiffness: 140, damping: 22 },
+                }}
+                exit={{
+                  opacity: 0,
+                  scale: 0.85,
+                }}
+                drag={isTop ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.25}
+                onDragEnd={(e, info) => handleDragEnd(i, e, info)}
+                onTap={() => handleDoubleTap(src)}
+              >
+                <motion.img
+                  src={src}
+                  className="stack-card-img"
+                  alt=""
+                  draggable={false}
+                />
+              </motion.div>
+            );
+          })}
+        </AnimatePresence>
 
-      {/* LIGHTBOX */}
-      {lightbox && (
-        <motion.div
-          className="lightbox"
-          onClick={() => setLightbox(null)}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-        >
-          <img src={lightbox} className="lightbox-img" />
-        </motion.div>
-      )}
+        {lightbox && (
+          <motion.div
+            className="lightbox"
+            onClick={() => setLightbox(null)}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+          >
+            <img src={lightbox} className="lightbox-img" />
+          </motion.div>
+        )}
+      </div>
     </div>
   );
 }

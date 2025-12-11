@@ -1,101 +1,88 @@
-/* ============================================
-   STACK GALLERY WRAPPER
-============================================ */
-.stack-gallery-wrapper {
+/* ============================
+   Force full-width + centered
+============================ */
+.stack-section {
     width: 100%;
-    height: 500px;
-    /* Fixed stack height */
-    position: relative;
     display: flex;
     justify-content: center;
-    align-items: center;
-    margin: 80px 0;
-    overflow: visible;
-    /* Prevents double scroll */
+    padding: 0;
+    margin: 0 auto !important;
 }
 
+/* ============================
+     Wrapper for stack
+============================ */
+.stack-gallery-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 480px;
+    height: 520px;
 
-/* ============================================
-   STACKED CARDS (premium style)
-============================================ */
+    /* Center it */
+    margin-left: auto;
+    margin-right: auto;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    overflow: visible;
+    padding: 40px 0;
+}
+
+/* ============================
+     Stacked Cards
+============================ */
 .stack-card {
     position: absolute;
-    width: 88%;
-    max-width: 450px;
+    width: 90%;
+    max-width: 440px;
+
     border-radius: 26px;
     overflow: hidden;
-    background: #fff;
-    cursor: grab;
-    touch-action: pan-y;
-    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.25);
+    background: #ffffff;
 
-    will-change: transform, opacity;
-    transition: box-shadow 0.25s ease, transform 0.25s ease;
+    box-shadow: 0 25px 55px rgba(0, 0, 0, 0.28);
+    cursor: grab;
+
+    will-change: transform;
+    touch-action: pan-y;
 }
 
 .stack-card:active {
     cursor: grabbing;
 }
 
-/* Stack offset — makes cards shift naturally */
-.stack-card:nth-child(1) {
-    transform: translateY(0px) scale(1);
-}
-
-.stack-card:nth-child(2) {
-    transform: translateY(14px) scale(0.98);
-    opacity: 0.9;
-}
-
-.stack-card:nth-child(3) {
-    transform: translateY(28px) scale(0.96);
-    opacity: 0.8;
-}
-
-.stack-card:nth-child(4) {
-    transform: translateY(42px) scale(0.94);
-    opacity: 0.7;
-}
-
-.stack-card:nth-child(5) {
-    transform: translateY(56px) scale(0.92);
-    opacity: 0.6;
-}
-
-/* IMAGE INSIDE CARD */
+/* Actual image inside */
 .stack-card-img {
     width: 100%;
     height: auto;
     display: block;
-    border-radius: inherit;
+    border-radius: 26px;
     pointer-events: none;
 }
 
-
-/* ============================================
-   LIGHTBOX
-============================================ */
+/* ============================
+     Lightbox Popup
+============================ */
 .lightbox {
     position: fixed;
     inset: 0;
     background: rgba(0, 0, 0, 0.78);
     display: flex;
-    justify-content: center;
     align-items: center;
+    justify-content: center;
     z-index: 99999;
-    animation: fadeIn 0.25s ease;
 }
 
 .lightbox-img {
     width: 92%;
-    max-width: 700px;
+    max-width: 720px;
     border-radius: 18px;
-    box-shadow: 0 0 60px rgba(0, 0, 0, 0.6);
     animation: popIn 0.25s ease;
 }
 
-
-/* Lightbox animations */
+/* Zoom animation */
 @keyframes popIn {
     from {
         transform: scale(0.85);
@@ -108,24 +95,13 @@
     }
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
-}
-
-
-/* ============================================
-   MOBILE RESPONSIVE
-============================================ */
+/* ============================
+     Mobile Tweaks
+============================ */
 @media (max-width: 600px) {
     .stack-gallery-wrapper {
-        height: 440px;
-        margin: 60px 0;
+        height: 480px;
+        padding: 80px 0;
     }
 
     .stack-card {
@@ -135,10 +111,5 @@
 
     .stack-card-img {
         border-radius: 22px;
-    }
-
-    .lightbox-img {
-        width: 95%;
-        max-width: 92%;
     }
 }

@@ -4,7 +4,7 @@ import "./Services.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import ScrollGallery from "./StackSwipedGallery";;
+import ScrollGallery from "./StackSwipedGallery";
 
 // Service Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
@@ -21,9 +21,6 @@ const galleryImages: string[] = Object.values(carouselImports).map(
 
 gsap.registerPlugin(ScrollTrigger);
 
-/* =============================
-   SERVICE DATA MODEL
-============================= */
 type Service = {
   id: number;
   eyebrow: string;
@@ -34,9 +31,6 @@ type Service = {
   image: string;
 };
 
-/* =============================
-   SERVICE DATA
-============================= */
 const servicesData: Service[] = [
   {
     id: 1,
@@ -89,15 +83,9 @@ const servicesData: Service[] = [
   },
 ];
 
-/* =============================
-   COMPONENT
-============================= */
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
 
-  /* =============================
-      GSAP PANEL ANIMATIONS
-  ============================== */
   useEffect(() => {
     if (!rootRef.current) return;
 
@@ -111,7 +99,6 @@ const Services: React.FC = () => {
 
         if (!media) return;
 
-        // IMAGE FADE-IN
         gsap.from(media, {
           scrollTrigger: { trigger: panel, start: "top 80%" },
           y: 50,
@@ -120,7 +107,6 @@ const Services: React.FC = () => {
           ease: "power2.out",
         });
 
-        // HEADINGS SLIDE UP
         gsap.to(headingLines, {
           scrollTrigger: { trigger: panel, start: "top 75%" },
           yPercent: 0,
@@ -130,7 +116,6 @@ const Services: React.FC = () => {
           ease: "power3.out",
         });
 
-        // BODY TEXT FADE-UP
         gsap.from(bodyItems, {
           scrollTrigger: { trigger: panel, start: "top 70%" },
           y: 24,
@@ -145,15 +130,14 @@ const Services: React.FC = () => {
     return () => ctx.revert();
   }, []);
 
-  /* =============================
-      JSX
-  ============================== */
   return (
     <section className="services-panels" ref={rootRef}>
       {servicesData.map((service, index) => (
         <article
           key={service.id}
-          className={`panel service-panel ${index % 2 === 1 ? "service-panel--reverse" : ""}`}
+          className={`panel service-panel ${
+            index % 2 === 1 ? "service-panel--reverse" : ""
+          }`}
         >
           {/* IMAGE SIDE */}
           <div className="service-panel-media">
@@ -188,8 +172,10 @@ const Services: React.FC = () => {
         </article>
       ))}
 
-      <ScrollGallery images={galleryImages} />
-
+      {/* === NEW GALLERY PANEL FIX === */}
+      <article className="panel gallery-panel">
+        <ScrollGallery images={galleryImages} />
+      </article>
     </section>
   );
 };

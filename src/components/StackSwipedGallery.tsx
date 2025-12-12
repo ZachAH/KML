@@ -46,6 +46,7 @@ export default function StackSwipedGallery({ images }: Props) {
 
   return (
     <div className="stack-section">
+        <h2 className="stack-title">Recent Cleaning Projects</h2>
       <div className="stack-gallery-wrapper">
         <AnimatePresence>
           {stack.map((src, i) => {

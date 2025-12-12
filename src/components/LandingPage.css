@@ -125,7 +125,8 @@ body {
   justify-content: center;
   align-items: center;
   perspective: 1200px;
-  transform: translateZ(0); /* GPU boost */
+  transform: translateZ(0);
+  /* GPU boost */
 }
 
 .tilt-card {
@@ -541,9 +542,9 @@ body {
       rgba(255, 255, 255, 0.18) 50%,
       rgba(255, 255, 255, 0.08) 55%,
       transparent 100%);
-      will-change: transform, opacity;
-      transform: translateZ(0);
-      pointer-events: none;
+  will-change: transform, opacity;
+  transform: translateZ(0);
+  pointer-events: none;
   z-index: 1;
   /* behind content but above background */
   opacity: 0;
@@ -574,5 +575,13 @@ body {
   100% {
     left: -150%;
     opacity: 0;
+  }
+}
+
+@media (min-width: 769px) {
+
+  .hero-shine,
+  .hero-sparkles {
+    display: none;
   }
 }

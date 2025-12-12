@@ -63,16 +63,21 @@ const Navbar = () => {
           Call Us
         </a>
 
-        {/* Hamburger Button */}
         {!menuOpen && (
           <button
             className="hamburger"
             onClick={toggleMenu}
             aria-label="Open menu"
           >
-            <span></span><span></span><span></span>
+            <div className="hamburger-lines">
+              <span></span>
+              <span></span>
+              <span></span>
+            </div>
+            <span className="menu-text">MENU</span>
           </button>
         )}
+
 
         {/* Close Button (X) */}
         {menuOpen && (

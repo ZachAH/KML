@@ -36,7 +36,7 @@ const servicesData: Service[] = [
     id: 1,
     eyebrow: "RESIDENTIAL & COMMERCIAL",
     titleTop: "Carpet & Upholstery",
-    titleBottom: "Cleaning",
+    titleBottom: " Cleaning",
     intro:
       "Improve the health of your indoor environment. Let our IICRC certified technicians restore the beauty of your carpets and upholstery with our thorough 8-step cleaning process — from pre-vacuuming, spot treatment, and agitation to hot water extraction, grooming, and optional 3M Scotchgard protection.",
     bullets: [
@@ -53,7 +53,7 @@ const servicesData: Service[] = [
     id: 2,
     eyebrow: "HARD SURFACE FLOOR CARE",
     titleTop: "Tile, Grout & Hard Surface",
-    titleBottom: "Floor Cleaning",
+    titleBottom: " Floor Cleaning",
     intro: "When routine cleaning no longer gives you the desired results, it's time to call us.",
     bullets: [
       "Tile & Grout — Ceramic, Porcelain & Quarry",
@@ -69,7 +69,7 @@ const servicesData: Service[] = [
     id: 3,
     eyebrow: "FACILITY & OFFICE SPACES",
     titleTop: "Commercial Carpet &",
-    titleBottom: "Hard Floor Programs",
+    titleBottom: " Hard Floor Programs",
     intro:
       "We provide facilities with quality cleaning programs that improve appearance, safety, and indoor air quality.",
     bullets: [

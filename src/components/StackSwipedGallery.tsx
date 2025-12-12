@@ -46,7 +46,14 @@ export default function StackSwipedGallery({ images }: Props) {
 
   return (
     <div className="stack-section">
-        <h2 className="stack-title">Recent Cleaning Projects</h2>
+      <div className="stack-header">
+        <h2 className="stack-title">Expert Cleaning In Action</h2>
+        <p className="stack-instructions">
+          Double tap to see the full image. Swipe right to move to the next
+          photo.
+        </p>
+      </div>
+
       <div className="stack-gallery-wrapper">
         <AnimatePresence>
           {stack.map((src, i) => {
@@ -69,10 +76,7 @@ export default function StackSwipedGallery({ images }: Props) {
                   y: i * 20,
                   transition: { type: "spring", stiffness: 140, damping: 22 },
                 }}
-                exit={{
-                  opacity: 0,
-                  scale: 0.85,
-                }}
+                exit={{ opacity: 0, scale: 0.85 }}
                 drag={isTop ? "x" : false}
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.25}

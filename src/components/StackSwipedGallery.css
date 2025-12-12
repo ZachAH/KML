@@ -133,3 +133,138 @@
     flex-direction: column;
     align-items: center;
 }
+
+.stack-section {
+    padding: 3rem 1.5rem 4rem;
+}
+
+.stack-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.stack-title {
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.9rem, 5vw, 2.4rem);
+    /* use your brand green if you want */
+    color: var(--brand-green, #014421);
+}
+
+.stack-instructions {
+    margin: 0 auto;
+    max-width: 26rem;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    color: #1a1a1a;
+    opacity: 0.8;
+}
+
+/* Wrapper around the stacked cards */
+.stack-gallery-wrapper {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto;
+    /* this padding pushes the cards down away from the title */
+    padding-top: 1.25rem;
+}
+
+/* Extra breathing room on smaller screens so images don't touch the title */
+@media (max-width: 768px) {
+    .stack-section {
+        padding: 2.5rem 1rem 3.5rem;
+    }
+
+    .stack-gallery-wrapper {
+        padding-top: 2.5rem;
+    }
+}
+
+.stack-section {
+    padding: 3rem 1.5rem 6rem;
+    /* ⬅️ bigger bottom padding */
+}
+
+/* Wrapper around the stacked cards */
+.stack-gallery-wrapper {
+    position: relative;
+    max-width: 520px;
+    margin: 0 auto;
+    padding-top: 1.25rem;
+    padding-bottom: 2rem;
+    /* extra breathing room under cards */
+}
+
+/* Extra space on mobile so the footer never overlaps */
+@media (max-width: 768px) {
+    .stack-section {
+        padding: 2.5rem 1rem 7rem;
+        /* more bottom padding on phones */
+    }
+
+    .stack-gallery-wrapper {
+        padding-bottom: 3rem;
+    }
+}
+
+/* Large smartphones (tall displays like iPhone Pro Max, Galaxy Ultra, Pixel XL) */
+@media (min-width: 430px) and (min-height: 800px) {
+    .stack-section {
+        padding-bottom: 9rem;
+        /* more space so footer never overlaps */
+    }
+
+    .stack-gallery-wrapper {
+        padding-bottom: 4rem;
+    }
+
+    .stack-title {
+        font-size: 2.4rem;
+        /* scale up nicely */
+    }
+
+    .stack-instructions {
+        font-size: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Base spacing for normal phones */
+.stack-section {
+    padding: 3rem 1.5rem 12rem;
+    /* ⬅️ huge bottom padding so the stack clears the footer */
+}
+
+/* Larger smartphones (Pro Max / Pixel XL / Samsung Ultra) */
+@media (min-width: 430px) and (min-height: 800px) {
+    .stack-section {
+        padding-bottom: 14rem;
+        /* ⬅️ gives even more breathing room */
+    }
+}
+
+/* Tall devices (anything with extra screen height) */
+@media (min-height: 900px) {
+    .stack-section {
+        padding-bottom: 16rem;
+    }
+}
+
+/* Add more space between the title/instructions and the first image card */
+.stack-gallery-wrapper {
+    margin-top: 2.5rem;
+    /* was too small before */
+}
+
+@media (max-width: 480px) {
+    .stack-gallery-wrapper {
+        margin-top: 3rem;
+        /* more space on smaller phones */
+    }
+}
+
+@media (min-width: 430px) and (min-height: 800px) {
+    .stack-gallery-wrapper {
+        margin-top: 3.5rem;
+        /* larger smartphones need more spacing */
+    }
+}

@@ -1,4 +1,6 @@
-/* GLOBAL RESET */
+/* ======================================================
+   GLOBAL RESET
+====================================================== */
 html,
 body {
   margin: 0;
@@ -13,15 +15,14 @@ body {
   min-height: 100vh;
 }
 
-/* ROOT COLORS */
 :root {
   --brand-green: #014421;
-  --brand-green-light: #1A5E34;
-  --light-bg: #F3F6F4;
-  --cta-yellow: #E7C600;
-  --cta-yellow-hover: #D2B400;
+  --brand-green-light: #1a5e34;
+  --light-bg: #f3f6f4;
+  --cta-yellow: #e7c600;
+  --cta-yellow-hover: #d2b400;
   --text-light: #ffffff;
-  --text-dark: #1D1D1D;
+  --text-dark: #1d1d1d;
 }
 
 .landing-page {
@@ -30,239 +31,374 @@ body {
 }
 
 /* ======================================================
-   HERO SECTION
-   ====================================================== */
-.hero {
+   HERO SECTION (NO VIDEO)
+====================================================== */
+
+.hero.clean-hero {
   position: relative;
   width: 100%;
   min-height: 80vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 100px 5% 60px;
+  padding: 80px 6%;
   overflow: hidden;
+
+  background: radial-gradient(circle at 35% 40%,
+      #1a6a3a 0%,
+      #014421 45%,
+      #01351d 100%);
 }
 
-/* Overlay for readability */
-.hero::before {
+/* core spotlight */
+.hero.clean-hero::before {
   content: "";
   position: absolute;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.34);
+  width: 700px;
+  height: 700px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
+  left: 30%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.hero-content {
+  position: relative;
+  max-width: 1100px;
+  width: 100%;
+  margin: 0 auto;
+  z-index: 2;
+}
+
+/* Grid layout for logo + text */
+.hero-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 60px;
+}
+
+/* ======================================================
+   BACKGROUND ORBS
+====================================================== */
+
+.hero-bg-orb {
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  mix-blend-mode: screen;
+  opacity: 0.4;
   z-index: 1;
 }
 
-/* Background Video */
-.hero-video {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 110vw;
-  height: 110vh;
-  object-fit: cover;
-  transform: translate(-50%, -50%);
-  z-index: 0;
-  filter: brightness(0.9);
+.orb-1 {
+  width: 550px;
+  height: 550px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 65%);
+  left: 18%;
+  top: 25%;
 }
 
-@supports (-webkit-touch-callout: none) {
-  .hero-video {
-    height: 100vh;
-  }
+.orb-2 {
+  width: 420px;
+  height: 420px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 65%);
+  right: -80px;
+  bottom: -40px;
 }
 
 /* ======================================================
-   HERO TEXT (DESKTOP)
-   ====================================================== */
-.hero-content {
-  z-index: 3;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
-  animation: fadeContent 0.8s ease-out forwards;
-  opacity: 0;
-}
+   TILT CARD (GSAP)
+====================================================== */
 
-@keyframes fadeContent {
-  0% {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.hero-title {
-  font-size: clamp(2.2rem, 5vw, 3.3rem);
-  font-weight: 800;
-  color: #fff;
-  margin-bottom: 15px;
-}
-
-.hero-subtext {
-  color: #ffffffdd;
-  font-size: 1.25rem;
-  line-height: 1.4;
-  margin-bottom: 35px;
-}
-
-/* ======================================================
-   CTA BUTTONS (DESKTOP ONLY)
-   ====================================================== */
-.hero-cta-group {
+.hero-logo-block {
   display: flex;
-  gap: 18px;
   justify-content: center;
 }
 
-.cta {
-  padding: 14px 32px;
-  border-radius: 8px;
+.tilt-wrapper {
+  perspective: 1200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tilt-card {
+  position: relative;
+  width: 400px;
+  height: 400px;
+  background: rgba(249, 251, 249, 0.96);
+  border-radius: 32px;
+  padding: 32px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    0 32px 80px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(0, 0, 0, 0.12);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+.tilt-card:hover {
+  box-shadow:
+    0 40px 100px rgba(0, 0, 0, 0.65),
+    0 0 0 1px rgba(0, 0, 0, 0.18);
+}
+
+.hero-logo {
+  width: 140%;
+  max-width: 140%;
+  transform: scale(1.25);
+  /* makes it visually larger */
+  height: auto;
+  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+}
+
+/* Sparkles overlay */
+.sparkles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.sparkle {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.95);
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.8);
+  opacity: 0.6;
+}
+
+/* positions for each sparkle */
+.sparkle--1 {
+  top: 14%;
+  left: 18%;
+}
+
+.sparkle--2 {
+  top: 22%;
+  right: 16%;
+}
+
+.sparkle--3 {
+  bottom: 18%;
+  left: 24%;
+}
+
+.sparkle--4 {
+  bottom: 12%;
+  right: 22%;
+}
+
+/* ======================================================
+   HERO TEXT
+====================================================== */
+
+.hero-text-block {
+  color: var(--text-light);
+}
+
+.hero-heading {
+  font-size: clamp(2.6rem, 4.2vw, 3.4rem);
+  font-weight: 800;
+  margin-bottom: 18px;
+  line-height: 1.1;
+  color: #ffffff;
+  /* pure white */
+  text-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.45),
+    0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subheading {
+  font-size: 1.15rem;
+  margin-bottom: 26px;
+  line-height: 1.5;
+  max-width: 480px;
+  color: #f2f5f3;
+}
+
+.hero-trust-text {
+  font-size: 0.95rem;
+  color: #f4f7f4;
+  opacity: 0.95;
+}
+
+/* ======================================================
+   CTA BUTTONS
+====================================================== */
+
+.hero-cta-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.hero-cta {
+  padding: 12px 26px;
+  border-radius: 999px;
   font-weight: 700;
   text-decoration: none;
-  font-size: 1rem;
-  transition: 0.25s ease-in-out;
+  font-size: 0.98rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition:
+    transform 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
 }
 
-.cta.primary {
+.hero-cta-primary {
   background-color: var(--cta-yellow);
   color: var(--brand-green);
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.45);
 }
 
-.cta.primary:hover {
+.hero-cta-primary:hover {
   background-color: var(--cta-yellow-hover);
   transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.55);
 }
 
-.cta.secondary {
-  background-color: rgba(255, 255, 255, 0.15);
-  color: #fff;
-  border: 2px solid rgba(255, 255, 255, 0.4);
+.hero-cta-secondary {
+  background-color: rgba(255, 255, 255, 0.08);
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.65);
 }
 
-.cta.secondary:hover {
-  background-color: rgba(255, 255, 255, 0.25);
+.hero-cta-secondary:hover {
+  background-color: rgba(255, 255, 255, 0.18);
   transform: translateY(-2px);
 }
 
 /* ======================================================
-   MOBILE OVERRIDES
-   ====================================================== */
-@media (max-width: 600px) {
+   RESPONSIVE
+====================================================== */
 
-  /* Shorter hero */
-  .hero {
-    min-height: 70vh;
-    padding-top: 0;
-    padding-bottom: 0;
+@media (max-width: 900px) {
+  .hero.clean-hero {
+    padding: 70px 6% 60px;
+    min-height: 75vh;
   }
 
-  /* Move logo UP & center it better */
-  .mobile-hero-logo {
-    position: absolute;
-    top: 32%;
-    /* was 58% — moves logo up */
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 260px;
-    /* slightly smaller for balance */
-    max-width: 75%;
-    z-index: 4;
-    animation: fadeMobileLogo 0.8s ease-out forwards;
-  }
-
-  /* Fix hero title so it doesn't shove everything down */
-  .hero-title {
-    margin-top: 55%;
-    /* was 175% — now sits right under logo */
-    font-size: 1.7rem;
-    padding: 0 16px;
-    text-shadow:
-      0 4px 14px rgba(0, 0, 0, 0.55),
-      0 2px 4px rgba(0, 0, 0, 0.8);
-  }
-
-  /* Adjust subtitle too */
-  .hero-subtext {
-    margin-top: 8px;
-    padding: 0 24px;
-    max-width: 340px;
-    font-size: 0.95rem;
-    transform: translateX(0);
-  }
-}
-
-@media (max-width: 600px) {
-
-  /* Hide CTAs on mobile */
-  .hero-cta-group {
-    display: none !important;
-  }
-
-  /* Shorter Hero Section on Mobile */
-  .hero {
-    min-height: 65vh;
-    /* was 80vh — reduces the visible video area */
-    padding-top: 40px;
-    /* reduces top spacing */
-  }
-
-  /* Mobile Hero Headline */
-  .hero-title {
-    font-size: 1.75rem;
-    line-height: 1.22;
-    margin-top: 175%;
-    padding: 0 14px;
-    width: 100%;
+  .hero-layout {
+    grid-template-columns: 1fr;
+    gap: 40px;
     text-align: center;
-    font-weight: 800;
-    transform: translateX(-6%);
-    text-shadow:
-      0 4px 14px rgba(0, 0, 0, 0.55),
-      0 2px 4px rgba(0, 0, 0, 0.8);
   }
 
-  /* Mobile Paragraph */
-  .hero-subtext {
-    font-size: 1rem;
-    line-height: 1.35;
-    padding: 0 24px;
-    margin-top: 10px;
-    width: 100%;
-    max-width: 360px;
+  .hero-subheading {
     margin-left: auto;
     margin-right: auto;
-    text-align: center;
-    overflow-wrap: break-word;
-    transform: translate(-4%);
   }
 
-  .mobile-hero-logo {
-    position: absolute;
-    top: 55%;
-    left: 48%;
-    transform: translateX(-50%);
-    width: 300px;
-    max-width: 70%;
-    height: auto;
-    display: block;
-    z-index: 4;
-  }
-
-}
-
-/* Mobile Logo Fade-In */
-@keyframes fadeMobileLogo {
-  0% {
-    opacity: 0;
-    transform: translate(-50%, -10%);
-  }
-
-  100% {
-    opacity: 1;
-    transform: translate(-50%, 0);
+  .hero-cta-row {
+    justify-content: center;
   }
 }
+
+@media (max-width: 600px) {
+  .hero.clean-hero {
+    padding: 60px 8% 50px;
+    min-height: 70vh;
+  }
+
+  .tilt-card {
+    width: 280px;
+    height: 280px;
+    padding: 22px;
+  }
+
+  .hero-heading {
+    font-size: 2.1rem;
+  }
+
+  .hero-subheading {
+    font-size: 1rem;
+  }
+}
+
+/* === FINAL OVERRIDES FOR HERO TEXT === */
+
+.hero-text-block {
+  position: relative;
+  z-index: 3;
+  opacity: 1 !important;
+  /* make sure parent isn't dim */
+}
+
+.hero-heading {
+  color: #ffffff !important;
+  /* strong white */
+  opacity: 1 !important;
+  /* no dimming */
+  text-shadow:
+    0 4px 18px rgba(0, 0, 0, 0.45),
+    0 0 4px rgba(0, 0, 0, 0.5);
+}
+
+.hero-subheading {
+  color: #f6f6f6 !important;
+  /* slightly softer white */
+  opacity: 0.98 !important;
+  margin-bottom: 20px;
+  text-shadow:
+    0 3px 12px rgba(0, 0, 0, 0.35),
+    0 0 2px rgba(0, 0, 0, 0.4);
+}
+
+/* =========================
+   TEXT SPARKLES
+========================= */
+
+.hero-text-sparkles {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.text-sparkle {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0) 70%);
+  border-radius: 50%;
+  opacity: 0.35;
+  filter: blur(1px);
+  pointer-events: none;
+}
+
+/* placement */
+.text-sparkle--1 {
+  top: 12%;
+  left: 6%;
+}
+
+.text-sparkle--2 {
+  top: 35%;
+  left: -3%;
+}
+
+.text-sparkle--3 {
+  top: 55%;
+  left: 4%;
+}
+
+.text-sparkle--4 {
+  top: 10%;
+  right: 6%;
+}
+
+/* optional: add more sparkles anytime */

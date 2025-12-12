@@ -1,54 +1,132 @@
+import React, { useEffect, useRef } from "react";
+import { gsap } from "gsap";
+
 import "./LandingPage.css";
 import Services from "./Services";
 
-import heroVideo from "../assets/cleaning/hero_video.webm";
-import heroLogo from "../assets/cleaning/KML_Logo.png";
+import KMLLogo from "../assets/cleaning/KML_Logo.svg";
+
 
 const LandingPage: React.FC = () => {
+  const tiltRef = useRef<HTMLDivElement | null>(null);
+  const wrapperRef = useRef<HTMLDivElement | null>(null);
+
+  // Cursor-driven tilt effect (extra snappy + overwrite)
+  useEffect(() => {
+    const card = tiltRef.current;
+    const wrapper = wrapperRef.current;
+    if (!card || !wrapper) return;
+
+    const handleMove = (e: MouseEvent) => {
+      const bounds = wrapper.getBoundingClientRect();
+      const x = e.clientX - bounds.left;
+      const y = e.clientY - bounds.top;
+
+      const rotateY = gsap.utils.interpolate(-18, 18, x / bounds.width);
+      const rotateX = gsap.utils.interpolate(12, -12, y / bounds.height);
+
+      gsap.to(card, {
+        rotateX,
+        rotateY,
+        transformPerspective: 800,
+        transformOrigin: "center center",
+        ease: "linear",     // more “locked” to cursor
+        duration: 0.08,     // was 0.12 – tighter
+        overwrite: "auto",  // kill previous tween to avoid lag
+      });
+    };
+
+    const handleEnter = () => {
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        transformPerspective: 800,
+        transformOrigin: "center center",
+        ease: "power2.out",
+        duration: 0.16,
+        overwrite: "auto",
+      });
+    };
+
+    const handleLeave = () => {
+      gsap.to(card, {
+        rotateX: 0,
+        rotateY: 0,
+        ease: "power3.out",
+        duration: 0.35,
+        overwrite: "auto",
+      });
+    };
+
+    wrapper.addEventListener("mousemove", handleMove);
+    wrapper.addEventListener("mouseenter", handleEnter);
+    wrapper.addEventListener("mouseleave", handleLeave);
+
+    return () => {
+      wrapper.removeEventListener("mousemove", handleMove);
+      wrapper.removeEventListener("mouseenter", handleEnter);
+      wrapper.removeEventListener("mouseleave", handleLeave);
+    };
+  }, []);
+
+
   return (
     <div className="landing-page">
+      <section className="hero clean-hero">
+        {/* background orbs */}
+        <div className="hero-bg-orb orb-1" />
+        <div className="hero-bg-orb orb-2" />
 
-      {/* Hero Section */}
-      <section className="hero">
-
-        {/* Hero Video */}
-        <video
-          className="hero-video"
-          autoPlay
-          loop
-          muted
-          playsInline
-          preload="metadata"
-        >
-          <source src={heroVideo} type="video/webm" />
-        </video>
-
-        <div className="mobile-hero-logo-wrapper">
-          <img src={heroLogo} alt="KML Logo" className="mobile-hero-logo" />
-        </div>
-
-        {/* Hero Content (Desktop Only) */}
         <div className="hero-content">
-          <h1 className="hero-title">
-            Family-Owned. Community Trusted. Four Decades Strong.
-          </h1>
-          <p className="hero-subtext">
-            Delivering reliable cleaning services with the same dedication and care that built our 40-year reputation.
-          </p>
+          <div className="hero-layout">
+            {/* Tilt Logo */}
+            <div className="hero-logo-block">
+              <div className="tilt-wrapper" ref={wrapperRef}>
+                <div className="tilt-card" ref={tiltRef}>
+                  {/* sparkles around logo */}
+                  <div className="sparkles">
+                    <span className="sparkle sparkle--1" />
+                    <span className="sparkle sparkle--2" />
+                    <span className="sparkle sparkle--3" />
+                    <span className="sparkle sparkle--4" />
+                  </div>
+                  <img
+                    src={KMLLogo}
+                    alt="KML Professional Cleaning"
+                    className="hero-logo"
+                  />
+                </div>
+              </div>
+            </div>
 
-          <div className="hero-cta-group">
-            <a href="#contact" className="cta primary">
-              Request a Quote
-            </a>
-            <a href="tel:2623341881" className="cta secondary">
-              Call Now
-            </a>
+            {/* Text */}
+            <div className="hero-text-block">
+              {/* sparkles around text */}
+              <div className="hero-text-sparkles">
+                <span className="text-sparkle text-sparkle--1" />
+                <span className="text-sparkle text-sparkle--2" />
+                <span className="text-sparkle text-sparkle--3" />
+                <span className="text-sparkle text-sparkle--4" />
+              </div>
+
+              <h1 className="hero-heading">
+                Family-Owned. Community Trusted. Four Decades Strong.
+              </h1>
+
+              <p className="hero-subheading">
+                Professional residential and commercial cleaning across
+                Washington County and surrounding areas. Trusted crews,
+                flexible scheduling, and spotless results — every time.
+              </p>
+            </div>
           </div>
         </div>
-      </section >
+      </section>
 
-      <Services />
-    </div >
+      <main>
+        <Services />
+      </main>
+    </div>
   );
 };
 

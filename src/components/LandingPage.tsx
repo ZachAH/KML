@@ -32,6 +32,7 @@ const LandingPage: React.FC = () => {
         transformOrigin: "center center",
         ease: "linear",     // more “locked” to cursor
         duration: 0.08,     // was 0.12 – tighter
+        force3D: true,        // ← MASSIVE improvement
         overwrite: "auto",  // kill previous tween to avoid lag
       });
     };
@@ -73,6 +74,18 @@ const LandingPage: React.FC = () => {
   return (
     <div className="landing-page">
       <section className="hero clean-hero">
+      <div className="hero-shine"></div>
+        <div className="hero-sparkles">
+          <span className="bg-sparkle"></span>
+          <span className="bg-sparkle"></span>
+          <span className="bg-sparkle"></span>
+          <span className="bg-sparkle"></span>
+
+          <span className="bg-sparkle-diamond"></span>
+          <span className="bg-sparkle-diamond"></span>
+          <span className="bg-sparkle-diamond"></span>
+        </div>
+
         {/* background orbs */}
         <div className="hero-bg-orb orb-1" />
         <div className="hero-bg-orb orb-2" />
@@ -83,13 +96,6 @@ const LandingPage: React.FC = () => {
             <div className="hero-logo-block">
               <div className="tilt-wrapper" ref={wrapperRef}>
                 <div className="tilt-card" ref={tiltRef}>
-                  {/* sparkles around logo */}
-                  <div className="sparkles">
-                    <span className="sparkle sparkle--1" />
-                    <span className="sparkle sparkle--2" />
-                    <span className="sparkle sparkle--3" />
-                    <span className="sparkle sparkle--4" />
-                  </div>
                   <img
                     src={KMLLogo}
                     alt="KML Professional Cleaning"

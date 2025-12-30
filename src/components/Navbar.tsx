@@ -53,9 +53,9 @@ const Navbar = () => {
           </Link>
 
           {/* CTA in menu */}
-          <a href="tel:2623341881" className="nav-cta mobile-only">
+          {/* <a href="tel:2623341881" className="nav-cta mobile-only">
             Call Us
-          </a>
+          </a> */}
         </div>
 
         {/* Desktop CTA */}

@@ -5,6 +5,7 @@ import "./LandingPage.css";
 import Services from "./Services";
 
 import KMLLogo from "../assets/cleaning/KML_Logo.svg";
+import Testimonials from "./Testimonials";
 
 
 const LandingPage: React.FC = () => {
@@ -116,20 +117,18 @@ const LandingPage: React.FC = () => {
               </div>
 
               <h1 className="hero-heading">
-                Family-Owned. Community Trusted. Four Decades Strong.
+              Local. Trusted. Focused on Healthier Homes.
               </h1>
 
               <p className="hero-subheading">
-                Professional residential and commercial cleaning across
-                Washington County and surrounding areas. Trusted crews,
-                flexible scheduling, and spotless results — every time.
-              </p>
+              Professional residential and commercial cleaning across Washington County and surrounding areas — helping you create healthier spaces, greater comfort, and peace of mind you can feel every day.              </p>
             </div>
           </div>
         </div>
       </section>
 
       <main>
+        <Testimonials />
         <Services />
       </main>
     </div>

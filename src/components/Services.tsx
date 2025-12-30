@@ -34,11 +34,12 @@ type Service = {
 const servicesData: Service[] = [
   {
     id: 1,
-    eyebrow: "RESIDENTIAL & COMMERCIAL",
+    //eyebrow: "RESIDENTIAL & COMMERCIAL",
+    eyebrow: "HEALTHIER HOMES & WORKSPACES",
     titleTop: "Carpet & Upholstery",
     titleBottom: " Cleaning",
     intro:
-      "Improve the health of your indoor environment. Let our IICRC certified technicians restore the beauty of your carpets and upholstery with our thorough 8-step cleaning process — from pre-vacuuming, spot treatment, and agitation to hot water extraction, grooming, and optional 3M Scotchgard protection.",
+      "Everyday life leaves carpets and furniture holding onto dirt, allergens, and odors that affect the comfort and health of your space. When you’re ready to restore a cleaner, healthier home or workplace, our IICRC-certified technicians step in with a proven 8-step process — from pre-vacuuming and spot treatment to hot water extraction, grooming, and optional 3M Scotchgard protection.",
     bullets: [
       "Carpets — Hot Water Extraction & Low Moisture Cleaning",
       "Upholstery — Hot Water Extraction, Low Moisture & Dry Cleaning",
@@ -51,10 +52,11 @@ const servicesData: Service[] = [
   },
   {
     id: 2,
-    eyebrow: "HARD SURFACE FLOOR CARE",
-    titleTop: "Tile, Grout & Hard Surface",
-    titleBottom: " Floor Cleaning",
-    intro: "When routine cleaning no longer gives you the desired results, it's time to call us.",
+    //eyebrow: "HARD SURFACE FLOOR CARE",
+    eyebrow: "MODERN FLOOR CARE SOLUTIONS",
+    titleTop: "LVT, Tile & Hard Surfaces",
+    titleBottom: "",
+    intro: "LVT and other hard surface floors are built to last — but without proper care, they quickly lose their shine, protection, and lifespan. When your floors start to look dull or worn, professional hard surface cleaning helps you protect your investment, restore appearance, and keep your space looking its best.",
     bullets: [
       "Tile & Grout — Ceramic, Porcelain & Quarry",
       "Wood — Solid, Engineered & Laminate",
@@ -67,11 +69,12 @@ const servicesData: Service[] = [
   },
   {
     id: 3,
-    eyebrow: "FACILITY & OFFICE SPACES",
+    //eyebrow: "FACILITY & OFFICE SPACES",
+    eyebrow: "SMART COMMERCIAL MAINTENANCE",
     titleTop: "Commercial Carpet &",
     titleBottom: " Hard Floor Programs",
     intro:
-      "We provide facilities with quality cleaning programs that improve appearance, safety, and indoor air quality.",
+      "Managing a facility means balancing appearance, safety, and long-term costs. Our commercial cleaning programs help you stay ahead of wear, protect your floors, and create a cleaner, healthier environment — without disrupting daily operations.",
     bullets: [
       "Commercial Carpet — Restorative & Maintenance",
       "Hard Floor Care — Restorative & Maintenance",

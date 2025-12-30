@@ -3,11 +3,13 @@
   padding: 1rem 0 2rem;
   font-size: 0.85rem;
   color: #e8e8e8;
-  background-color: transparent; /* inherits page green */
+  background-color: transparent;
+  /* inherits page green */
 }
 
 .footer a {
-  color: #E7C600; /* gold highlight for name */
+  color: #E7C600;
+  /* gold highlight for name */
   text-decoration: none;
   font-weight: 600;
 }
@@ -18,4 +20,36 @@
 
 .credit {
   margin-top: 0.25rem;
+}
+
+.footer-images {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin-bottom: 1.25rem;
+  flex-wrap: wrap;
+}
+
+.footer-images img {
+  height: 48px;
+  width: auto;
+  opacity: 0.9;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.footer-images img:hover {
+  opacity: 1;
+  transform: translateY(-2px);
+}
+
+/* Mobile */
+@media (max-width: 600px) {
+  .footer-images {
+    gap: 16px;
+  }
+
+  .footer-images img {
+    height: 40px;
+  }
 }

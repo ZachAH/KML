@@ -73,3 +73,43 @@
   text-align: left;
   line-height: 1.6;
 }
+
+/* Layout */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+  margin-top: 40px;
+}
+
+/* Image */
+.about-image-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.about-image {
+  width: 100%;
+  max-width: 420px;
+  border-radius: 16px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.35);
+  object-fit: cover;
+}
+
+/* Text */
+.about-text {
+  text-align: left;
+}
+
+/* Desktop */
+@media (min-width: 900px) {
+  .about-grid {
+    grid-template-columns: 1fr 1.2fr;
+    gap: 60px;
+  }
+
+  .about-text {
+    text-align: left;
+  }
+}

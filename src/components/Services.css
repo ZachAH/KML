@@ -431,3 +431,26 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
     grid-template-columns: 1fr;
   }
 }
+
+/* iOS Safari button overrides */
+.service-cta-btn,
+.quote-action-btn {
+  -webkit-appearance: none;
+  /* remove iOS default look */
+  appearance: none;
+  color: #111;
+  /* or whatever text color you want */
+  outline: none;
+}
+
+/* remove tap highlight on mobile WebKit */
+.service-cta-btn,
+.quote-action-btn {
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* also remove focus ring if you see a blue border */
+.service-cta-btn:focus,
+.quote-action-btn:focus {
+  outline: none;
+}

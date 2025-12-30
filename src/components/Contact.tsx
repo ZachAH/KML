@@ -7,7 +7,7 @@ export default function Contact() {
 
         <h2 className="contact-heading">Contact Us:</h2>
         <p className="contact-sub">
-          Fill out the Contact Form below to get started with a quote or to set up an appointment.
+          Fill out the Contact Form below to get started with a quote or to set up an appointment, or feel free to give us a call!
           Thank you for the opportunity to clean for you!
         </p>
 
@@ -56,7 +56,7 @@ export default function Contact() {
                 );
 
                 const body = encodeURIComponent(
-`Name: ${first} ${last}
+                  `Name: ${first} ${last}
 Phone: ${phone}
 Email: ${email}
 
@@ -82,9 +82,19 @@ ${message}`
                 required
               ></textarea>
 
-              <button type="submit" className="form-submit-button">
-                Send
-              </button>
+              <div className="form-actions">
+                <button type="submit" className="form-submit-button">
+                  Send Email
+                </button>
+
+                <a
+                  href="tel:12623341881"
+                  className="form-call-button"
+                  aria-label="Call Kettle Moraine Professional Cleaners"
+                >
+                  Call Us
+                </a>
+              </div>
             </form>
 
             <div className="contact-info">

@@ -110,9 +110,9 @@ const Testimonials = () => {
     <section className="testimonials" id="reviews">
       <div className="testimonials-inner">
         <p className="testimonials-eyebrow">REVIEWS</p>
-        <h2 className="testimonials-title">Real Results. Real People.</h2>
+        <h2 className="testimonials-title">Trusted by Homes & Businesses Across Our Community</h2>
         <p className="testimonials-subtitle">
-          Trusted by local homeowners and businesses for healthier spaces, better comfort, and peace of mind.
+        Real feedback from customers who count on us for cleaner spaces, healthier environments, and results they can feel.
         </p>
 
         <div className="testimonials-grid">

@@ -58,11 +58,6 @@ const Navbar = () => {
           </a> */}
         </div>
 
-        {/* Desktop CTA */}
-        <a href="tel:2623341881" className="nav-cta desktop-only">
-          Call Us
-        </a>
-
         {!menuOpen && (
           <button
             className="hamburger"

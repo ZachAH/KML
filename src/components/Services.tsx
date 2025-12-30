@@ -10,7 +10,6 @@ import ScrollGallery from "./StackSwipedGallery";
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
 import tileImg from "../assets/cleaning/services/robert_extraction.webp";
 import teamImg from "../assets/cleaning/services/van.webp";
-import iicrc from "../assets/footer/badge-1.svg"
 
 // Auto-import carousel gallery images
 const carouselImports = import.meta.glob("../assets/carasaoul/*.webp", {

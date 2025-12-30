@@ -224,14 +224,19 @@
 /* Fix Services top spacing on mobile */
 @media (max-width: 600px) {
 
-    .services-section,
+    .services-section {
+        padding-top: 1rem;
+        /* keep whatever you wanted for services */
+    }
+
     .before-after-section {
-        padding-top: 1rem !important;
+        padding-top: 7rem;
+        /* match navbar height */
     }
 
     .services-section h2,
     .before-after-section h2 {
-        margin-bottom: 1rem !important;
+        margin-bottom: 1rem;
     }
 }
 

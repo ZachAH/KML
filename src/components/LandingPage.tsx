@@ -117,11 +117,12 @@ const LandingPage: React.FC = () => {
               </div>
 
               <h1 className="hero-heading">
-              Local. Trusted. Focused on Healthier Homes.
+              Focused on Healthier Homes.
               </h1>
 
               <p className="hero-subheading">
-              Professional residential and commercial cleaning across Washington County and surrounding areas — helping you create healthier spaces, greater comfort, and peace of mind you can feel every day.              </p>
+              Helping you create healthier spaces, greater comfort, and peace of mind you can feel every day.
+              </p>
             </div>
           </div>
         </div>

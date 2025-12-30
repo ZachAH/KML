@@ -1,4 +1,4 @@
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import "./Testimonials.css";
 
 type Review = {
@@ -90,33 +90,50 @@ const Stars = ({ rating }: StarsProps) => {
 
 // Simple toggle heuristic (works well for cards)
 const NEEDS_TOGGLE_CHARS = 260;
+const MOBILE_MAX_WIDTH = 620;
 
 const Testimonials = () => {
-  const [showAll, setShowAll] = useState<boolean>(false);
-
-  // Track which cards are expanded (by review id)
+  const [showAll, setShowAll] = useState(false);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
-
-  const visibleReviews = useMemo(
-    () => (showAll ? reviews : reviews.slice(0, 6)),
-    [showAll]
+  const [isMobile, setIsMobile] = useState(
+    typeof window !== "undefined" ? window.innerWidth <= MOBILE_MAX_WIDTH : false
   );
 
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= MOBILE_MAX_WIDTH);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const visibleReviews = useMemo(() => {
+    const base = isMobile ? reviews.slice(0, 3) : reviews.slice(0, 6);
+    return showAll ? reviews : base;
+  }, [showAll, isMobile]);
+
   const toggleExpanded = (id: number) => {
-    setExpanded((prev) => ({ ...prev, [id]: !prev[id] }));
+    setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
   };
+
+  const initialCount = isMobile ? 3 : 6;
+  const shouldShowToggleAll = reviews.length > initialCount;
 
   return (
     <section className="testimonials" id="reviews">
       <div className="testimonials-inner">
         <p className="testimonials-eyebrow">REVIEWS</p>
-        <h2 className="testimonials-title">Trusted by Homes & Businesses Across Our Community</h2>
+        <h2 className="testimonials-title">
+          Trusted by Homes &amp; Businesses Across Our Community
+        </h2>
         <p className="testimonials-subtitle">
-        Real feedback from customers who count on us for cleaner spaces, healthier environments, and results they can feel.
+          Real feedback from customers who count on us for cleaner spaces,
+          healthier environments, and results they can feel.
         </p>
 
         <div className="testimonials-grid">
-          {visibleReviews.map((review) => {
+          {visibleReviews.map(review => {
             const isLong = review.text.length > NEEDS_TOGGLE_CHARS;
             const isExpanded = !!expanded[review.id];
 
@@ -147,12 +164,12 @@ const Testimonials = () => {
           })}
         </div>
 
-        {reviews.length > 6 && (
+        {shouldShowToggleAll && (
           <div className="testimonials-actions">
             <button
               type="button"
               className="testimonials-btn"
-              onClick={() => setShowAll((prev) => !prev)}
+              onClick={() => setShowAll(prev => !prev)}
             >
               {showAll ? "Show fewer reviews" : "Show all reviews"}
             </button>

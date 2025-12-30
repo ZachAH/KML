@@ -12,7 +12,6 @@ import clean_office from "../assets/cleaning/before-after/clean_office.webp";
 export default function BeforeAfter() {
   return (
     <section className="before-after-section">
-      <h2 className="before-after-title">Before & After Results</h2>
 
       <div className="before-after-cards">
         <BeforeAfterImage

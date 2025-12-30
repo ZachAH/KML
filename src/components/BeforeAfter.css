@@ -2,6 +2,9 @@
     width: 100%;
     background-color: #59e5ad;
     padding: 4rem 0;
+    /* internal spacing */
+    margin-top: 7rem;
+    /* pushes the whole section down */
 }
 
 
@@ -12,6 +15,16 @@
     align-items: center;
 }
 
+
+.before-after-instruction {
+    text-align: center;
+    color: #fdfdfd;
+    max-width: 40rem;
+    margin: 0 auto 3rem;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
 .section-title {
     font-size: 2.4rem;
     color: #eee;
@@ -20,3 +33,15 @@
     text-transform: uppercase;
 }
 
+.before-after-title {
+    margin-top: 0;
+    /* stop it from sliding under navbar */
+    margin-bottom: 3rem;
+}
+
+@media (max-width: 768px) {
+    .before-after-section {
+        margin-top: 7rem;
+        /* match mobile navbar height */
+    }
+}

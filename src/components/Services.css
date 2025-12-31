@@ -410,7 +410,6 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
   cursor: pointer;
   transition: 0.22s ease;
   border: none;
-
   background: var(--cta-yellow);
   color: var(--brand-green);
 }
@@ -438,7 +437,6 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
   -webkit-appearance: none;
   /* remove iOS default look */
   appearance: none;
-  color: #111;
   /* or whatever text color you want */
   outline: none;
 }

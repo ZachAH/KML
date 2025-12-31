@@ -5,6 +5,7 @@ import footerImg1 from "../assets/footer/badge-1.svg";
 import footerImg2 from "../assets/footer/badge-2.svg";
 import footerImg3 from "../assets/footer/badge-3.svg";
 import footerImg4 from "../assets/footer/badge-4.svg";
+import footerImg5 from "../assets/footer/badge-5.webp";
 
 export default function Footer() {
   return (
@@ -12,6 +13,7 @@ export default function Footer() {
       {/* Footer image row */}
       <div className="footer-images">
         <img src={footerImg1} alt="Professional cleaning certification" />
+        <img src={footerImg5} alt="Professional cleaning certification" />
         <img src={footerImg2} alt="Industry standard certification" />
         <img src={footerImg3} alt="Eco-friendly cleaning badge" />
         <img src={footerImg4} alt="Trusted local business badge" />

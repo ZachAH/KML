@@ -271,3 +271,9 @@
             0 10px 20px rgba(0, 0, 0, 0.45);
     }
 }
+
+.before-after-section {
+    padding-top: 7rem;
+    /* ⬅️ space for navbar */
+    padding-bottom: 6rem;
+}

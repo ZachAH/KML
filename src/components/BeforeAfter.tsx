@@ -18,16 +18,21 @@ export default function BeforeAfter() {
           before={dirty_bathroom}
           after={clean_bathroom}
           label="Bathroom Deep Clean"
+          initial={2}
         />
         <BeforeAfterImage
           before={dirty_livingroom}
           after={clean_livingroom}
           label="Living Room Refresh"
+          initial={2}
+
         />
         <BeforeAfterImage
           before={dirty_office}
           after={clean_office}
           label="Office Revitalized"
+          initial={2}
+
         />
       </div>
     </section>

@@ -1,136 +1,172 @@
-import { useRef } from "react";
-import gsap from "gsap";
+import { useEffect, useRef, useState } from "react";
 import "./BeforeAfterImage.css";
 
 interface Props {
   before: string;
   after: string;
-  label: string;
+  label?: string;
+
+  // 0 = all before
+  // 50 = half
+  // 100 = all after
+  initial?: number;
+
+  // show the “Drag to compare →” hint?
+  showHint?: boolean;
+
+  // how long the handle glows on load (ms)
+  glowDurationMs?: number;
 }
 
-export default function BeforeAfterImage({ before, after, label }: Props) {
+export default function BeforeAfterImage({
+  before,
+  after,
+  label,
+  initial = 0,
+  showHint = true,
+  glowDurationMs = 3000,
+}: Props) {
   const frameRef = useRef<HTMLDivElement>(null);
-  const dirtRef = useRef<HTMLImageElement>(null);
-  const scrubberRef = useRef<HTMLDivElement>(null);
-  const bubbleContainerRef = useRef<HTMLDivElement>(null);
+  const draggingRef = useRef(false);
 
-  const spawnBubble = () => {
-    if (!bubbleContainerRef.current || !scrubberRef.current || !frameRef.current) return;
+  const [pct, setPct] = useState(() => clamp(initial, 0, 100));
+  const [hintDismissed, setHintDismissed] = useState(false);
 
-    const scrubberBounds = scrubberRef.current.getBoundingClientRect();
-    const frameBounds = frameRef.current.getBoundingClientRect();
+  // ✅ handle glow for first few seconds (auto-stops + stops on interaction)
+  const [showHandleGlow, setShowHandleGlow] = useState(true);
 
-    const startX = scrubberBounds.left - frameBounds.left + scrubberBounds.width / 2;
-    const startY = scrubberBounds.top - frameBounds.top + scrubberBounds.height / 2;
+  const maskStyle = { width: `${pct}%` };
+  const lineStyle = { left: `${pct}%` };
 
-    for (let i = 0; i < 3; i++) {
-      const bubble = document.createElement("div");
-      bubble.className = "bubble";
-      bubbleContainerRef.current.appendChild(bubble);
+  // Auto-stop glow after N ms
+  useEffect(() => {
+    const t = window.setTimeout(() => setShowHandleGlow(false), glowDurationMs);
+    return () => window.clearTimeout(t);
+  }, [glowDurationMs]);
 
-      gsap.fromTo(
-        bubble,
-        {
-          x: startX + (Math.random() * 28 - 14),
-          y: startY + (Math.random() * 28 - 14),
-          scale: Math.random() * 0.4 + 0.3,
-          opacity: 1,
-        },
-        {
-          y: startY - 30 - Math.random() * 20,
-          x: startX + (Math.random() * 40 - 20),
-          scale: Math.random() * 0.7 + 0.4,
-          opacity: 0,
-          duration: 0.8,
-          ease: "power1.out",
-          onComplete: () => bubble.remove(),
-        }
-      );
-    }
+  useEffect(() => {
+    const frame = frameRef.current;
+    if (!frame) return;
+
+    const updateFromClientX = (clientX: number) => {
+      const rect = frame.getBoundingClientRect();
+      const x = clientX - rect.left;
+      const nextPct = (x / rect.width) * 100;
+      setPct(clamp(nextPct, 0, 100));
+    };
+
+    const onPointerMove = (e: PointerEvent) => {
+      if (!draggingRef.current) return;
+      updateFromClientX(e.clientX);
+    };
+
+    const stopDragging = () => {
+      draggingRef.current = false;
+    };
+
+    window.addEventListener("pointermove", onPointerMove);
+    window.addEventListener("pointerup", stopDragging);
+    window.addEventListener("pointercancel", stopDragging);
+
+    return () => {
+      window.removeEventListener("pointermove", onPointerMove);
+      window.removeEventListener("pointerup", stopDragging);
+      window.removeEventListener("pointercancel", stopDragging);
+    };
+  }, []);
+
+  const dismissHint = () => {
+    if (!hintDismissed) setHintDismissed(true);
+    if (showHandleGlow) setShowHandleGlow(false);
   };
 
-  const handleClean = () => {
-    const dirt = dirtRef.current;
-    const sponge = scrubberRef.current;
+  const jumpTo = (e: React.PointerEvent) => {
+    dismissHint();
+
     const frame = frameRef.current;
+    if (!frame) return;
 
-    if (!dirt || !sponge || !frame) return;
+    const rect = frame.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    setPct(clamp((x / rect.width) * 100, 0, 100));
+  };
 
-    frame.classList.remove("cleaned");
+  const startDrag = (e: React.PointerEvent) => {
+    dismissHint();
 
-    gsap.set(dirt, { opacity: 1, filter: "blur(0px)" });
+    draggingRef.current = true;
+    (e.currentTarget as HTMLElement).setPointerCapture?.(e.pointerId);
 
-    // 🧽 Make sponge visible only during animation
-    gsap.set(sponge, { opacity: 1 });
+    const frame = frameRef.current;
+    if (!frame) return;
 
-    const w = frame.offsetWidth;
-    const h = frame.offsetHeight;
-
-    const isMobile = w < 600;
-
-    const rows = isMobile ? 2 : 3;
-    const margin = h * 0.15;
-    const rowHeight = (h * 0.7) / rows;
-
-    // 🧼 Mobile = MUCH further across the frame
-    const leftX = isMobile ? w * 0.02 : w * 0.1;
-    const rightX = isMobile ? w * 1.05 : w * 0.9;
-
-    const tl = gsap.timeline({
-      onComplete: () => {
-        gsap.to(dirt, { opacity: 0, filter: "blur(6px)", duration: 0.4 });
-        gsap.to(sponge, { opacity: 0, duration: 0.3 }); // fade out when done
-        frame.classList.add("cleaned");
-      },
-    });
-
-    for (let i = 0; i < rows; i++) {
-      const yPos = margin + i * rowHeight;
-
-      tl.to(sponge, {
-        duration: 0.32,
-        x: rightX,
-        y: yPos,
-        ease: "power2.inOut",
-        onUpdate: spawnBubble,
-      });
-
-      tl.to(
-        dirt,
-        {
-          opacity: 1 - (i + 1) / rows,
-          duration: 0.26,
-          ease: "none",
-        },
-        "<"
-      );
-
-      tl.to(sponge, {
-        duration: 0.32,
-        x: leftX,
-        y: yPos + 10,
-        ease: "power2.inOut",
-        onUpdate: spawnBubble,
-      });
-    }
+    const rect = frame.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    setPct(clamp((x / rect.width) * 100, 0, 100));
   };
 
   return (
-    <div className="ba-frame" ref={frameRef} onClick={handleClean}>
-      <span className="sparkle"></span>
-      <span className="sparkle"></span>
-      <span className="sparkle"></span>
-      <span className="sparkle"></span>
+    <div>
+      <div
+        className="ba-frame"
+        ref={frameRef}
+        onPointerDown={jumpTo}
+        role="group"
+        aria-label="Before and after image comparison"
+      >
+        <div className="ba-images">
+          <img src={before} className="ba-img ba-before" alt="Before" />
 
-      <img src={after} className="ba-img clean-layer" alt="After clean" />
-      <img src={before} className="ba-img dirt-layer" ref={dirtRef} alt="Before dirty" />
+          <div className="ba-mask" style={maskStyle}>
+            <img src={after} className="ba-img ba-after" alt="After" />
+          </div>
 
-      {/* 🧽 Sponge appears only on clean interaction */}
-      <div className="scrubber" ref={scrubberRef}>🧽</div>
+          <div className="ba-tags">
+            <span className="ba-tag">Before</span>
+            <span className="ba-tag">After</span>
+          </div>
 
-      <div className="bubble-container" ref={bubbleContainerRef}></div>
+          {/* Divider line */}
+          <div className="ba-divider" style={lineStyle} />
 
-      <p className="ba-label">{label}</p>
+          {/* Draggable handle (with temporary glow) */}
+          <div
+            className={`ba-handle ${showHandleGlow ? "ba-handle--hint" : ""}`}
+            style={lineStyle}
+            onPointerDown={(e) => {
+              e.stopPropagation();
+              startDrag(e);
+            }}
+            aria-label="Drag to compare"
+            role="slider"
+            aria-valuemin={0}
+            aria-valuemax={100}
+            aria-valuenow={Math.round(pct)}
+            tabIndex={0}
+            onFocus={dismissHint}
+            onKeyDown={(e) => {
+              dismissHint();
+              if (e.key === "ArrowLeft") setPct((p) => clamp(p - 2, 0, 100));
+              if (e.key === "ArrowRight") setPct((p) => clamp(p + 2, 0, 100));
+              if (e.key === "Home") setPct(0);
+              if (e.key === "End") setPct(100);
+            }}
+          />
+
+          {/* Drag hint */}
+          {showHint && (
+            <div className={`ba-hint ${hintDismissed ? "ba-hint--hide" : ""}`}>
+              Drag to compare →
+            </div>
+          )}
+        </div>
+      </div>
+
+      {label ? <div className="ba-label">{label}</div> : null}
     </div>
   );
+}
+
+function clamp(n: number, min: number, max: number) {
+  return Math.min(max, Math.max(min, n));
 }

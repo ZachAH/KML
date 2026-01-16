@@ -456,6 +456,7 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
   height: 100%;
   object-fit: cover;
   display: block;
+  object-position: bottom 80%;
 }
 
 /* Single Mobile Override */
@@ -464,9 +465,13 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
     width: 92% !important;
     margin: 0 auto 24px auto !important;
     border-radius: 20px !important;
-
-    /* On mobile, images are usually wider than they are tall */
-    aspect-ratio: 16 / 10 !important;
+    aspect-ratio: 16 / 11 !important;
     max-height: 350px !important;
+  }
+
+  .service-image-frame img {
+    /* ✅ 80% or 'bottom' will show the bottom of the photo */
+    object-position: center 100% !important;
+    object-fit: cover !important;
   }
 }

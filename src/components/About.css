@@ -113,3 +113,20 @@
     text-align: left;
   }
 }
+
+.about-image-wrapper {
+  width: 100%;
+  /* ✅ Reserve space to prevent layout shift */
+  aspect-ratio: 3 / 4;
+  background-color: #f0f4f0;
+  /* Subtle placeholder color */
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.about-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}

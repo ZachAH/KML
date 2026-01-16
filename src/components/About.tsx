@@ -12,8 +12,11 @@ const About = () => {
           <div className="about-image-wrapper">
             <img
               src={aboutimg}
+              loading="lazy"
               alt="The family behind Kettle Moraine Professional Cleaners"
               className="about-image"
+              width="600"
+              height="800"
             />
           </div>
 

@@ -85,7 +85,6 @@ const servicesData: Service[] = [
 
 const EMAIL_TO = "kettlemoraineprofesionalcleaners@gmail.com";
 const PHONE_TEL = "12623341881";
-const PHONE_DISPLAY = "(262) 334-1881";
 
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);

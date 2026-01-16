@@ -60,13 +60,6 @@ IMAGE SECTION
   /* FIX: keeps the image at the TOP */
 }
 
-.service-image-frame {
-  width: 100%;
-  height: 80vh;
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-}
 
 .service-image-frame img {
   width: 100%;
@@ -143,13 +136,6 @@ MOBILE PANEL FIX
     margin: 0 auto;
     align-items: center;
     text-align: center;
-  }
-
-  .service-image-frame {
-    width: 92%;
-    height: 260px !important;
-    margin: 0 auto 20px auto;
-    border-radius: 20px;
   }
 
   .service-eyebrow {
@@ -258,14 +244,6 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
     display: flex !important;
     justify-content: center !important;
     align-items: center !important;
-  }
-
-  /* Make image appear at top of section */
-  .service-image-frame {
-    height: auto !important;
-    width: 92% !important;
-    margin: 0 auto 24px auto !important;
-    border-radius: 20px !important;
   }
 
   .service-image-frame img {
@@ -451,4 +429,44 @@ FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
 .service-cta-btn:focus,
 .quote-action-btn:focus {
   outline: none;
+}
+
+/* ===============================
+   CONSOLIDATED IMAGE SECTION
+   =============================== */
+
+/* Default Desktop Styles */
+.service-image-frame {
+  width: 100%;
+  /* We use aspect-ratio instead of fixed height to prevent Layout Shift */
+  aspect-ratio: 4 / 5;
+  height: auto;
+  max-height: 80vh;
+  /* Keeps it from getting too tall on huge monitors */
+
+  border-radius: 24px;
+  overflow: hidden;
+  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
+  background: #e8eee8;
+  /* Subtle placeholder color while loading */
+}
+
+.service-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Single Mobile Override */
+@media (max-width: 900px) {
+  .service-image-frame {
+    width: 92% !important;
+    margin: 0 auto 24px auto !important;
+    border-radius: 20px !important;
+
+    /* On mobile, images are usually wider than they are tall */
+    aspect-ratio: 16 / 10 !important;
+    max-height: 350px !important;
+  }
 }

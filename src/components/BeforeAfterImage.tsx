@@ -121,10 +121,10 @@ export default function BeforeAfterImage({
             <img src={after} className="ba-img ba-after" alt="After" />
           </div>
 
-          <div className="ba-tags">
+          {/* <div className="ba-tags">
             <span className="ba-tag">Before</span>
             <span className="ba-tag">After</span>
-          </div>
+          </div> */}
 
           {/* Divider line */}
           <div className="ba-divider" style={lineStyle} />

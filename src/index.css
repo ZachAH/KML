@@ -112,3 +112,7 @@ html {
   }
 }
 
+@keyframes glowPulse {
+  0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
+  50% { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
+}

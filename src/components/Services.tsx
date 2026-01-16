@@ -1,23 +1,21 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useRef, useState, Suspense, lazy } from "react";
 import "./Services.css";
 
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-import ScrollGallery from "./StackSwipedGallery";
+// 1. Lazy load heavy gallery component to improve initial JS score
+const ScrollGallery = lazy(() => import("./StackSwipedGallery"));
 
 // Service Images
 import couchImg from "../assets/cleaning/services/robert_cushion.webp";
 import tileImg from "../assets/cleaning/services/robert_extraction.webp";
 import teamImg from "../assets/cleaning/services/van.webp";
 
-// Auto-import carousel gallery images
+// 2. Load carousel images lazily (eager: false) to reduce initial network payload
 const carouselImports = import.meta.glob("../assets/carasaoul/*.webp", {
-  eager: true,
+  eager: false,
 });
-const galleryImages: string[] = Object.values(carouselImports).map(
-  (mod: any) => mod.default
-);
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -86,15 +84,28 @@ const servicesData: Service[] = [
 ];
 
 const EMAIL_TO = "kettlemoraineprofesionalcleaners@gmail.com";
-const PHONE_TEL = "12623341881"; // (262) 334-1881
+const PHONE_TEL = "12623341881";
 const PHONE_DISPLAY = "(262) 334-1881";
 
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
-
-  // Modal state
+  const [galleryImages, setGalleryImages] = useState<string[]>([]);
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
+
+  // 3. Dynamically load gallery image URLs on mount
+  useEffect(() => {
+    const loadGallery = async () => {
+      const paths = await Promise.all(
+        Object.values(carouselImports).map(async (mod: any) => {
+          const m = await mod();
+          return m.default;
+        })
+      );
+      setGalleryImages(paths);
+    };
+    loadGallery();
+  }, []);
 
   const openQuoteModal = (service: Service) => {
     setSelectedService(service);
@@ -110,46 +121,26 @@ const Services: React.FC = () => {
     const serviceName = selectedService
       ? `${selectedService.titleTop}${selectedService.titleBottom}`.trim()
       : "Cleaning Service";
-
     const subject = encodeURIComponent(`Quote Request: ${serviceName}`);
-
     const body = encodeURIComponent(
-      `Hi Kettle Moraine Professional Cleaners,
-
-I’d like to request a quote for: ${serviceName}
-
-Name:
-Phone:
-Email:
-Address/City:
-Best time to contact me:
-Details (rooms/sq ft/any stains, etc.):
-
-Thank you!`
+      `Hi Kettle Moraine Professional Cleaners,\n\nI’d like to request a quote for: ${serviceName}\n\nName:\nPhone:\nEmail:\nAddress/City:\nBest time to contact me:\nDetails:\n\nThank you!`
     );
-
     window.location.href = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
   };
 
-  // Close modal on Escape
   useEffect(() => {
     if (!quoteOpen) return;
-
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.key === "Escape") closeQuoteModal();
     };
-
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [quoteOpen]);
 
-  // Your existing GSAP animation setup
   useEffect(() => {
     if (!rootRef.current) return;
-
     const ctx = gsap.context(() => {
       const panels = gsap.utils.toArray<HTMLElement>(".panel");
-
       panels.forEach((panel) => {
         const media = panel.querySelector(".service-image-frame");
         const headingLines = panel.querySelectorAll(".service-heading-line");
@@ -184,7 +175,6 @@ Thank you!`
         });
       });
     }, rootRef);
-
     return () => ctx.revert();
   }, []);
 
@@ -193,35 +183,33 @@ Thank you!`
       {servicesData.map((service, index) => (
         <article
           key={service.id}
-          className={`panel service-panel ${index % 2 === 1 ? "service-panel--reverse" : ""
-            }`}
+          className={`panel service-panel ${index % 2 === 1 ? "service-panel--reverse" : ""}`}
         >
-          {/* IMAGE SIDE */}
           <div className="service-panel-media">
             <div className="service-image-frame">
-              <img src={service.image} alt={service.titleTop} />
+              {/* 4. Use loading="lazy" and provide explicit dimensions to prevent CLS */}
+              <img 
+                src={service.image} 
+                alt={service.titleTop} 
+                loading="lazy"
+                width="800"
+                height="600"
+              />
             </div>
           </div>
 
-          {/* TEXT SIDE */}
           <div className="service-panel-copy">
             <p className="service-eyebrow service-body-item">{service.eyebrow}</p>
-
             <h2 className="service-heading">
               <span className="service-heading-line">{service.titleTop}</span>
               <span className="service-heading-line">{service.titleBottom}</span>
             </h2>
-
             <p className="service-intro service-body-item">{service.intro}</p>
-
             <ul className="service-list">
               {service.bullets.map((item, i) => (
-                <li key={i} className="service-body-item">
-                  {item}
-                </li>
+                <li key={i} className="service-body-item">{item}</li>
               ))}
             </ul>
-
             <button
               className="service-cta-btn service-body-item"
               type="button"
@@ -233,24 +221,21 @@ Thank you!`
         </article>
       ))}
 
-      {/* === GALLERY PANEL === */}
+      {/* 5. Suspense wrapper handles lazy-loading state of the heavy gallery component */}
       <article className="panel gallery-panel">
-        <ScrollGallery images={galleryImages} />
+        <Suspense fallback={<div className="gallery-loading">Loading Gallery...</div>}>
+          {galleryImages.length > 0 && <ScrollGallery images={galleryImages} />}
+        </Suspense>
       </article>
 
-      {/* === QUOTE MODAL === */}
       {quoteOpen && (
         <div
           className="quote-modal-overlay"
           role="dialog"
           aria-modal="true"
-          aria-label="Request a quote"
           onClick={closeQuoteModal}
         >
-          <div
-            className="quote-modal"
-            onClick={(e) => e.stopPropagation()}
-          >
+          <div className="quote-modal" onClick={(e) => e.stopPropagation()}>
             <button
               type="button"
               className="quote-modal-close"
@@ -259,34 +244,18 @@ Thank you!`
             >
               <span aria-hidden>×</span>            
             </button>
-
-
             <p className="quote-modal-eyebrow">REQUEST A QUOTE</p>
             <h3 className="quote-modal-title">How would you like to reach us?</h3>
-
             {selectedService && (
               <p className="quote-modal-sub">
-                For:{" "}
-                <strong>
-                  {`${selectedService.titleTop}${selectedService.titleBottom}`.trim()}
-                </strong>
+                For: <strong>{`${selectedService.titleTop}${selectedService.titleBottom}`.trim()}</strong>
               </p>
             )}
-
             <div className="quote-modal-actions">
-              <button
-                type="button"
-                className="quote-action-btn"
-                onClick={handleEmailQuote}
-              >
+              <button type="button" className="quote-action-btn" onClick={handleEmailQuote}>
                 Send Email
               </button>
-
-              <a
-                className="quote-action-btn"
-                href={`tel:${PHONE_TEL}`}
-                aria-label={`Call us at ${PHONE_DISPLAY}`}
-              >
+              <a className="quote-action-btn" href={`tel:${PHONE_TEL}`}>
                 Call Us
               </a>
             </div>

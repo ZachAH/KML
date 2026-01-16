@@ -2,6 +2,13 @@ import { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import "./Navbar.css";
 
+// 1. Tell TypeScript that HCPWidget exists on the global window object
+declare global {
+  interface Window {
+    HCPWidget: any;
+  }
+}
+
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
@@ -9,31 +16,37 @@ const Navbar = () => {
 
   const isActive = (path: string) => location.pathname === path;
 
-  /* Add shadow on scroll */
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  /* Close menu on route change */
   useEffect(() => {
     setMenuOpen(false);
     document.body.classList.remove("nav-open");
   }, [location.pathname]);
 
-  /* Toggle menu */
   const toggleMenu = () => {
     const next = !menuOpen;
     setMenuOpen(next);
     document.body.classList.toggle("nav-open", next);
   };
 
+  // 2. Function to trigger the modal safely
+  const handleBooking = () => {
+    if (window.HCPWidget) {
+      window.HCPWidget.openModal();
+    } else {
+      console.error("Booking widget not loaded yet");
+    }
+  };
+
   return (
     <header className={`navbar ${scrolled ? "scrolled" : ""}`}>
       <nav className="nav-content">
-
-        {/* NAV LINKS (desktop + mobile) */}
+        
+        {/* NAV LINKS */}
         <div className={`nav-links ${menuOpen ? "open" : ""}`}>
           <Link to="/" className={isActive("/") ? "active" : ""} onClick={toggleMenu}>
             Home
@@ -52,29 +65,40 @@ const Navbar = () => {
             Before & After
           </Link>
 
-          {/* CTA in menu */}
-          {/* <a href="tel:2623341881" className="nav-cta mobile-only">
-            Call Us
-          </a> */}
+          {/* 3. BOOK NOW BUTTON inside mobile menu */}
+          <button 
+            className="nav-book-btn mobile-only" 
+            onClick={() => { handleBooking(); toggleMenu(); }}
+          >
+            Book Online
+          </button>
         </div>
 
-        {!menuOpen && (
-          <button
-            className="hamburger"
-            onClick={toggleMenu}
-            aria-label="Open menu"
+        {/* 4. BOOK NOW BUTTON for Desktop (visible next to hamburger) */}
+        <div className="nav-actions-desktop">
+           <button 
+            className="nav-book-btn desktop-only" 
+            onClick={handleBooking}
           >
-            <div className="hamburger-lines">
-              <span></span>
-              <span></span>
-              <span></span>
-            </div>
-            <span className="menu-text">MENU</span>
+            Book Online
           </button>
-        )}
 
+          {!menuOpen && (
+            <button
+              className="hamburger"
+              onClick={toggleMenu}
+              aria-label="Open menu"
+            >
+              <div className="hamburger-lines">
+                <span></span>
+                <span></span>
+                <span></span>
+              </div>
+              <span className="menu-text">MENU</span>
+            </button>
+          )}
+        </div>
 
-        {/* Close Button (X) */}
         {menuOpen && (
           <button
             className="close-mobile-nav"
@@ -84,7 +108,6 @@ const Navbar = () => {
             ×
           </button>
         )}
-
       </nav>
     </header>
   );

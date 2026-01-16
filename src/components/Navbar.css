@@ -224,3 +224,50 @@ body {
     display: none !important;
   }
 }
+
+/* CTA Button Styling */
+.nav-book-btn {
+  background-color: var(--cta-yellow);
+  /* Use your brand yellow */
+  color: var(--brand-green);
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  font-family: inherit;
+  margin-right: 15px;
+  /* Spacing from menu button */
+}
+
+.nav-book-btn:hover {
+  background-color: var(--cta-yellow-hover);
+  transform: translateY(-2px);
+}
+
+/* Visibility classes */
+.desktop-only {
+  display: block;
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .desktop-only {
+    display: none;
+  }
+
+  .mobile-only {
+    display: block;
+  }
+
+  .nav-book-btn.mobile-only {
+    margin: 20px auto;
+    width: 80%;
+    font-size: 1.1rem;
+    padding: 15px;
+  }
+}

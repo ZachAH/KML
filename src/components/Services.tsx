@@ -83,7 +83,7 @@ const servicesData: Service[] = [
   },
 ];
 
-const EMAIL_TO = "kettlemoraineprofesionalcleaners@gmail.com";
+const EMAIL_TO = "kettlemoraineprocleaners@gmail.com";
 const PHONE_TEL = "12623341881";
 
 const Services: React.FC = () => {

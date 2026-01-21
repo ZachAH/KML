@@ -64,7 +64,7 @@ Requested Cleaning Services:
 ${message}`
                 );
 
-                window.location.href = `mailto:kettlemoraineprofesionalcleaners@gmail.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:kettlemoraineprocleaners@.com?subject=${subject}&body=${body}`;
               }}
             >
               <div className="form-row">
@@ -101,7 +101,7 @@ ${message}`
               <p>2334 Stonebridge Dr, Suite E</p>
               <p>West Bend, WI 53095</p>
               <p>Phone: (262) 334-1881</p>
-              <p>Email: kettlemoraineprofesionalcleaners@gmail.com</p>
+              <p>Email: kettlemoraineprocleaners@gmail.com</p>
             </div>
           </div>
         </div>

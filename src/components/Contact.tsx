@@ -64,7 +64,7 @@ Requested Cleaning Services:
 ${message}`
                 );
 
-                window.location.href = `mailto:kettlemoraineprocleaners@.com?subject=${subject}&body=${body}`;
+                window.location.href = `mailto:kettlemoraineprocleaners@gmail.com?subject=${subject}&body=${body}`;
               }}
             >
               <div className="form-row">

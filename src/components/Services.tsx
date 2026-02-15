@@ -4,7 +4,7 @@ import "./Services.css";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-// 1. Lazy load heavy gallery component to improve initial JS score
+// Lazy load heavy gallery component
 const ScrollGallery = lazy(() => import("./StackSwipedGallery"));
 
 // Service Images
@@ -12,7 +12,7 @@ import couchImg from "../assets/cleaning/services/robert_cushion.webp";
 import tileImg from "../assets/cleaning/services/robert_extraction.webp";
 import teamImg from "../assets/cleaning/services/van.webp";
 
-// 2. Load carousel images lazily (eager: false) to reduce initial network payload
+// Load carousel images lazily
 const carouselImports = import.meta.glob("../assets/carasaoul/*.webp", {
   eager: false,
 });
@@ -92,7 +92,7 @@ const Services: React.FC = () => {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  // 3. Dynamically load gallery image URLs on mount
+  // Dynamically load gallery image URLs on mount
   useEffect(() => {
     const loadGallery = async () => {
       const paths = await Promise.all(
@@ -179,49 +179,79 @@ const Services: React.FC = () => {
 
   return (
     <section className="services-panels" ref={rootRef}>
-      {servicesData.map((service, index) => (
-        <article
-          key={service.id}
-          className={`panel service-panel ${index % 2 === 1 ? "service-panel--reverse" : ""}`}
-        >
-          <div className="service-panel-media">
-            <div className="service-image-frame">
-              {/* 4. Use loading="lazy" and provide explicit dimensions to prevent CLS */}
-              <img 
-                src={service.image} 
-                alt={service.titleTop} 
-                loading="lazy"
-                width="800"
-                height="600"
-              />
+      {servicesData.map((service, index) => {
+        // Logic to alternate backgrounds: White -> Green -> White
+        const isGreen = index === 1;
+
+        return (
+          <article
+            key={service.id}
+            className={`panel service-panel ${isGreen ? "panel-green" : "panel-white"} ${
+              index % 2 === 1 ? "service-panel--reverse" : ""
+            }`}
+          >
+            {/* Top Divider: Flowing into the Green Section */}
+            {isGreen && (
+              <div className="panel-divider divider-top">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path 
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z" 
+                    fill="#014421" 
+                  />
+                </svg>
+              </div>
+            )}
+
+            <div className="service-panel-media">
+              <div className="service-image-frame">
+                <img 
+                  src={service.image} 
+                  alt={service.titleTop} 
+                  loading="lazy"
+                  width="800"
+                  height="600"
+                />
+              </div>
             </div>
-          </div>
 
-          <div className="service-panel-copy">
-            <p className="service-eyebrow service-body-item">{service.eyebrow}</p>
-            <h2 className="service-heading">
-              <span className="service-heading-line">{service.titleTop}</span>
-              <span className="service-heading-line">{service.titleBottom}</span>
-            </h2>
-            <p className="service-intro service-body-item">{service.intro}</p>
-            <ul className="service-list">
-              {service.bullets.map((item, i) => (
-                <li key={i} className="service-body-item">{item}</li>
-              ))}
-            </ul>
-            <button
-              className="service-cta-btn service-body-item"
-              type="button"
-              onClick={() => openQuoteModal(service)}
-            >
-              Request a Quote
-            </button>
-          </div>
-        </article>
-      ))}
+            <div className="service-panel-copy">
+              <p className="service-eyebrow service-body-item">{service.eyebrow}</p>
+              <h2 className="service-heading">
+                <span className="service-heading-line">{service.titleTop}</span>
+                <span className="service-heading-line">{service.titleBottom}</span>
+              </h2>
+              <p className="service-intro service-body-item">{service.intro}</p>
+              <ul className="service-list">
+                {service.bullets.map((item, i) => (
+                  <li key={i} className="service-body-item">{item}</li>
+                ))}
+              </ul>
+              <button
+                className="service-cta-btn service-body-item"
+                type="button"
+                onClick={() => openQuoteModal(service)}
+              >
+                Request a Quote
+              </button>
+            </div>
 
-      {/* 5. Suspense wrapper handles lazy-loading state of the heavy gallery component */}
-      <article className="panel gallery-panel">
+            {/* Bottom Divider: Flowing back into the White Section */}
+            {isGreen && (
+              <div className="panel-divider divider-bottom">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ transform: 'rotate(180deg)' }}>
+                  <path 
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z" 
+                    fill="#014421" 
+                  />
+                </svg>
+              </div>
+            )}
+          </article>
+        );
+      })}
+
+      <article className="panel gallery-panel panel-white">
+        <h2 className="gallery-title">Our Work in Action</h2>
         <Suspense fallback={<div className="gallery-loading">Loading Gallery...</div>}>
           {galleryImages.length > 0 && <ScrollGallery images={galleryImages} />}
         </Suspense>

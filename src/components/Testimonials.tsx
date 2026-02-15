@@ -1,5 +1,10 @@
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useState, useRef } from "react";
+import { gsap } from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Testimonials.css";
+import Stars from "../components/Stars"; // Adjust path as needed
+
+gsap.registerPlugin(ScrollTrigger);
 
 type Review = {
   id: number;
@@ -74,25 +79,13 @@ const reviews: Review[] = [
   },
 ];
 
-type StarsProps = { rating: number };
 
-const Stars = ({ rating }: StarsProps) => {
-  return (
-    <div className="stars" aria-label={`${rating} out of 5 stars`}>
-      {Array.from({ length: 5 }).map((_, i) => (
-        <span key={i} className={`star ${i < rating ? "filled" : ""}`}>
-          ★
-        </span>
-      ))}
-    </div>
-  );
-};
-
-// Simple toggle heuristic (works well for cards)
 const NEEDS_TOGGLE_CHARS = 260;
 const MOBILE_MAX_WIDTH = 620;
 
 const Testimonials = () => {
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const gridRef = useRef<HTMLDivElement | null>(null);
   const [showAll, setShowAll] = useState(false);
   const [expanded, setExpanded] = useState<Record<number, boolean>>({});
   const [isMobile, setIsMobile] = useState(
@@ -100,10 +93,7 @@ const Testimonials = () => {
   );
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= MOBILE_MAX_WIDTH);
-    };
-
+    const handleResize = () => setIsMobile(window.innerWidth <= MOBILE_MAX_WIDTH);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -117,22 +107,45 @@ const Testimonials = () => {
     setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
-  const initialCount = isMobile ? 3 : 6;
-  const shouldShowToggleAll = reviews.length > initialCount;
+  useEffect(() => {
+    if (!gridRef.current) return;
+
+    const ctx = gsap.context(() => {
+      const cards = gridRef.current?.querySelectorAll(".testimonial-card");
+
+      if (cards && cards.length > 0) {
+        gsap.from(cards, {
+          scrollTrigger: {
+            trigger: gridRef.current,
+            start: "top 92%",
+            toggleActions: "play none none none",
+          },
+          y: 50,
+          opacity: 0,
+          rotationX: -6,
+          transformPerspective: 2000,
+          stagger: 0.1,
+          duration: 0.8,
+          ease: "expo.out",
+          clearProps: "all",    // 🔑 Fixes the "invisible" bug after animation
+          force3D: true,
+        });
+      }
+    }, sectionRef);
+
+    return () => ctx.revert();
+  }, [visibleReviews]);
 
   return (
-    <section className="testimonials" id="reviews">
+    <section className="testimonials" id="reviews" ref={sectionRef}>
       <div className="testimonials-inner">
         <p className="testimonials-eyebrow">REVIEWS</p>
-        <h2 className="testimonials-title">
-          Trusted by Homes &amp; Businesses Across Our Community
-        </h2>
+        <h2 className="testimonials-title">Trusted by Homes & Businesses</h2>
         <p className="testimonials-subtitle">
-          Real feedback from customers who count on us for cleaner spaces,
-          healthier environments, and results they can feel.
+          Real feedback from customers who count on us for cleaner spaces and results they can feel.
         </p>
 
-        <div className="testimonials-grid">
+        <div className="testimonials-grid" ref={gridRef}>
           {visibleReviews.map(review => {
             const isLong = review.text.length > NEEDS_TOGGLE_CHARS;
             const isExpanded = !!expanded[review.id];
@@ -140,42 +153,32 @@ const Testimonials = () => {
             return (
               <article className="testimonial-card" key={review.id}>
                 <Stars rating={review.rating} />
-
                 <p className={`testimonial-text ${!isExpanded ? "clamped" : ""}`}>
                   “{review.text}”
                 </p>
-
                 {isLong && (
-                  <button
-                    type="button"
-                    className="testimonial-toggle"
-                    onClick={() => toggleExpanded(review.id)}
-                    aria-expanded={isExpanded}
-                  >
+                  <button type="button" className="testimonial-toggle" onClick={() => toggleExpanded(review.id)}>
                     {isExpanded ? "Read less" : "Read more"}
                   </button>
                 )}
-
                 <div className="testimonial-meta">
                   <span className="testimonial-name">{review.name}</span>
                 </div>
               </article>
+              
             );
           })}
         </div>
 
-        {shouldShowToggleAll && (
+        {reviews.length > (isMobile ? 3 : 6) && (
           <div className="testimonials-actions">
-            <button
-              type="button"
-              className="testimonials-btn"
-              onClick={() => setShowAll(prev => !prev)}
-            >
+            <button className="testimonials-btn" onClick={() => setShowAll(!showAll)}>
               {showAll ? "Show fewer reviews" : "Show all reviews"}
             </button>
           </div>
         )}
       </div>
+
     </section>
   );
 };

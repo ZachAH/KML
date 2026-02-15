@@ -1,5 +1,5 @@
 /* ======================================================
-   GLOBAL RESET
+   1. GLOBAL RESET & VARIABLES
 ====================================================== */
 html,
 body {
@@ -9,19 +9,11 @@ body {
   overflow-x: hidden;
 }
 
-#root,
-.landing-page {
-  width: 100%;
-  min-height: 100vh;
-}
-
 :root {
   --brand-green: #014421;
   --brand-green-light: #1a5e34;
   --light-bg: #f3f6f4;
   --cta-yellow: #e7c600;
-  --cta-yellow-hover: #d2b400;
-  --text-light: #ffffff;
   --text-dark: #1d1d1d;
 }
 
@@ -31,557 +23,357 @@ body {
 }
 
 /* ======================================================
-   HERO SECTION (NO VIDEO)
+   2. HERO SECTION (CLEAN WHITE)
 ====================================================== */
 
 .hero.clean-hero {
   position: relative;
   width: 100%;
-  min-height: 80vh;
+  min-height: 85vh;
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 80px 6%;
+  padding: 100px 6% 180px;
   overflow: hidden;
-
-  background: radial-gradient(circle at 35% 40%,
-      #1a6a3a 0%,
-      #014421 45%,
-      #01351d 100%);
-}
-
-/* core spotlight */
-.hero.clean-hero::before {
-  content: "";
-  position: absolute;
-  width: 700px;
-  height: 700px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 60%);
-  left: 30%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  z-index: 0;
-}
-
-.hero-content {
-  position: relative;
-  max-width: 1100px;
-  width: 100%;
-  margin: 0 auto;
-  z-index: 3;
-}
-
-/* Grid layout for logo + text */
-.hero-layout {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
-  align-items: center;
-  gap: 60px;
+  background-color: var(--light-bg);
 }
 
 /* ======================================================
-   BACKGROUND ORBS
+   3. PREMIUM PRISM SWEEP (SUBTLE)
 ====================================================== */
 
-.hero-bg-orb {
+.glass-prism-container {
   position: absolute;
-  border-radius: 50%;
+  inset: 0;
   pointer-events: none;
-  mix-blend-mode: screen;
-  opacity: 0.4;
-  z-index: 1;
+  z-index: 2;
+  overflow: hidden;
 }
 
-.orb-1 {
-  width: 550px;
-  height: 550px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.18), transparent 65%);
-  left: 18%;
-  top: 25%;
+.prism-sweep {
+  position: absolute;
+  top: -50%;
+  left: -100%;
+  width: 60%;
+  height: 200%;
+  background: linear-gradient(115deg,
+      transparent 0%,
+      rgba(255, 255, 255, 0) 30%,
+      rgba(1, 68, 33, 0.02) 45%,
+      rgba(255, 255, 255, 0.6) 50%,
+      rgba(1, 68, 33, 0.02) 55%,
+      transparent 70%);
+  transform: rotate(25deg);
+  filter: blur(40px);
+  /* Slower, more elegant sweep */
+  animation: lightSweep 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
-.orb-2 {
-  width: 420px;
-  height: 420px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.12), transparent 65%);
-  right: -80px;
-  bottom: -40px;
+@keyframes lightSweep {
+  0% {
+    left: -100%;
+    opacity: 0;
+  }
+
+  10% {
+    opacity: 0.4;
+  }
+
+  40%,
+  100% {
+    left: 150%;
+    opacity: 0;
+  }
 }
 
 /* ======================================================
-   TILT CARD (GSAP)
+   4. TILT LOGO (BIGGER & BOLDER)
 ====================================================== */
 
 .hero-logo-block {
   display: flex;
   justify-content: center;
-}
-
-.tilt-wrapper {
-  perspective: 1200px;
-  display: flex;
-  justify-content: center;
   align-items: center;
-  perspective: 1200px;
-  transform: translateZ(0);
-  /* GPU boost */
+  /* Ensures the logo doesn't get squished by the text grid */
+  min-width: 500px;
 }
 
 .tilt-card {
   position: relative;
-  width: 400px;
-  height: 400px;
-  background: rgba(249, 251, 249, 0.96);
-  border-radius: 32px;
-  padding: 32px;
-  border: 1px solid rgba(255, 255, 255, 0.9);
-  box-shadow:
-    0 32px 80px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(0, 0, 0, 0.12);
+  /* Increased size from 480px to 580px */
+  width: 580px;
+  height: 580px;
+  background: transparent;
   display: flex;
   justify-content: center;
   align-items: center;
-  transition: box-shadow 0.25s ease, transform 0.25s ease;
   will-change: transform;
   transform-style: preserve-3d;
-  backface-visibility: hidden;
-}
-
-.tilt-card:hover {
-  box-shadow:
-    0 40px 100px rgba(0, 0, 0, 0.65),
-    0 0 0 1px rgba(0, 0, 0, 0.18);
 }
 
 .hero-logo {
-  width: 140%;
-  max-width: 140%;
-  transform: scale(1.25);
+  width: 110%;
+  /* Slight overflow to make it feel massive */
+  max-width: none;
+  /* Allow it to push past the container bounds for impact */
   height: auto;
-  filter: drop-shadow(0 8px 20px rgba(0, 0, 0, 0.25));
+  /* Slightly deeper shadow to match the larger scale */
+  filter: drop-shadow(0 20px 45px rgba(1, 68, 33, 0.18));
+  transition: filter 0.4s ease;
 }
 
-/* =========================================================
-   MOBILE LOGO SPARKLE FIX
-========================================================= */
-@media (max-width: 768px) {
-  .sparkles {
-    top: -28px;
-    left: -28px;
-    width: calc(100% + 56px);
-    height: calc(100% + 56px);
+/* Enhanced interaction */
+.tilt-wrapper:hover .hero-logo {
+  filter: drop-shadow(0 30px 60px rgba(1, 68, 33, 0.25));
+}
+
+/* ======================================================
+   LAYOUT ADJUSTMENT FOR LARGER LOGO
+====================================================== */
+
+.hero-layout {
+  display: grid;
+  /* Shifted ratio slightly to give the logo more territory */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  align-items: center;
+  gap: 40px;
+  /* Tighter gap for a more cohesive look */
+}
+
+/* ======================================================
+   RESPONSIVE SCALING
+====================================================== */
+
+@media (max-width: 1200px) {
+  .tilt-card {
+    width: 480px;
+    height: 480px;
   }
 
-  .sparkle--1 {
-    top: -6%;
-    left: 16%;
+  .hero-logo-block {
+    min-width: 400px;
+  }
+}
+
+@media (max-width: 900px) {
+  .hero-layout {
+    grid-template-columns: 1fr;
+    text-align: center;
   }
 
-  .sparkle--2 {
-    top: -6%;
-    right: 16%;
+  .hero-logo-block {
+    min-width: unset;
   }
 
-  .sparkle--3 {
-    bottom: -8%;
-    left: 20%;
+  .tilt-card {
+    width: 400px;
+    height: 400px;
+    margin: 0 auto;
   }
+}
 
-  .sparkle--4 {
-    bottom: -8%;
-    right: 20%;
+@media (max-width: 600px) {
+  .tilt-card {
+    width: 320px;
+    height: 320px;
   }
 }
 
 /* ======================================================
-   HERO TEXT
+   5. TEXT REVEAL (DEEPER & SMOOTHER)
 ====================================================== */
 
-.hero-text-block {
-  color: var(--text-light);
+.text-reveal-mask {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 10px;
+  /* Extra room for the highlight underline */
+  margin-bottom: -10px;
 }
 
 .hero-heading {
   font-size: clamp(2.6rem, 4.2vw, 3.4rem);
   font-weight: 800;
-  margin-bottom: 18px;
-  line-height: 1.1;
-  color: #ffffff;
-  text-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.45),
-    0 0 4px rgba(0, 0, 0, 0.5);
+  color: var(--brand-green);
+  line-height: 1.2;
+
+  /* Start much lower (160%) and slightly blurred */
+  transform: translateY(160%);
+  filter: blur(10px);
+  opacity: 0;
+
+  /* Premium "Quick-to-Slow" easing */
+  animation: revealTextDeep 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.2s;
 }
 
-.hero-subheading {
-  font-size: 1.15rem;
-  margin-bottom: 26px;
-  line-height: 1.5;
-  max-width: 480px;
-  color: #f2f5f3;
-}
-
-.hero-trust-text {
-  font-size: 0.95rem;
-  color: #f4f7f4;
-  opacity: 0.95;
-}
-
-/* ======================================================
-   HERO BACKGROUND SPARKLES (NEW)
-====================================================== */
-
-.hero-sparkles {
-  position: absolute;
-  inset: 0;
-  overflow: hidden;
-  pointer-events: none;
-  z-index: 2;
-}
-
-/* Base glowing dot */
-.bg-sparkle {
-  position: absolute;
-  width: 10px;
-  height: 10px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-  border-radius: 50%;
-  opacity: 0.4;
-  animation:
-    bgPulse 4s ease-in-out infinite,
-    bgDrift 12s linear infinite;
-}
-
-/* Diamond sparkle */
-.bg-sparkle-diamond {
-  position: absolute;
-  width: 12px;
-  height: 12px;
-  transform: rotate(45deg);
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0));
-  opacity: 0.45;
-  animation:
-    bgPulse 5s ease-in-out infinite,
-    bgDrift 14s linear infinite;
-}
-
-/* soft pulse */
-@keyframes bgPulse {
-
-  0%,
-  100% {
-    opacity: 0.25;
-    transform: scale(0.7) rotate(45deg);
-  }
-
-  50% {
-    opacity: 0.6;
-    transform: scale(1) rotate(45deg);
-  }
-}
-
-/* drifting motion */
-@keyframes bgDrift {
+@keyframes revealTextDeep {
   0% {
-    transform: translateX(0) translateY(0) rotate(45deg);
-  }
-
-  50% {
-    transform: translateX(18px) translateY(-10px) rotate(45deg);
+    transform: translateY(160%) skewY(5deg);
+    filter: blur(10px);
+    opacity: 0;
   }
 
   100% {
-    transform: translateX(0) translateY(0) rotate(45deg);
+    transform: translateY(0) skewY(0deg);
+    filter: blur(0px);
+    opacity: 1;
   }
 }
 
-/* positions */
-.bg-sparkle:nth-child(1) {
-  top: 18%;
-  left: 12%;
-}
-
-.bg-sparkle:nth-child(2) {
-  top: 42%;
-  left: 8%;
-}
-
-.bg-sparkle:nth-child(3) {
-  top: 68%;
-  left: 20%;
-}
-
-.bg-sparkle:nth-child(4) {
-  bottom: 12%;
-  left: 28%;
-}
-
-.bg-sparkle-diamond:nth-child(5) {
-  top: 25%;
-  right: 14%;
-}
-
-.bg-sparkle-diamond:nth-child(6) {
-  top: 55%;
-  right: 10%;
-}
-
-.bg-sparkle-diamond:nth-child(7) {
-  bottom: 10%;
-  right: 22%;
-}
-
-/* Mobile alignment */
-@media (max-width: 768px) {
-  .bg-sparkle:nth-child(1) {
-    top: 20%;
-    left: 18%;
-  }
-
-  .bg-sparkle:nth-child(2) {
-    top: 45%;
-    left: 10%;
-  }
-
-  .bg-sparkle:nth-child(3) {
-    top: 70%;
-    left: 18%;
-  }
-
-  .bg-sparkle:nth-child(4) {
-    bottom: 12%;
-    left: 28%;
-  }
-
-  .bg-sparkle-diamond:nth-child(5) {
-    top: 28%;
-    right: 18%;
-  }
-
-  .bg-sparkle-diamond:nth-child(6) {
-    top: 58%;
-    right: 14%;
-  }
-
-  .bg-sparkle-diamond:nth-child(7) {
-    bottom: 12%;
-    right: 26%;
-  }
-}
 
 /* ======================================================
-   RESPONSIVE
+   7. RESPONSIVE
 ====================================================== */
 
 @media (max-width: 900px) {
   .hero.clean-hero {
-    padding: 70px 6% 60px;
-    min-height: 75vh;
+    padding-bottom: 120px;
   }
 
   .hero-layout {
     grid-template-columns: 1fr;
-    gap: 40px;
     text-align: center;
   }
 
-  .hero-subheading {
-    margin-left: auto;
-    margin-right: auto;
-  }
-
-  .hero-cta-row {
-    justify-content: center;
-  }
-}
-
-@media (max-width: 600px) {
-  .hero.clean-hero {
-    padding: 60px 8% 50px;
-    min-height: 70vh;
-  }
-
   .tilt-card {
-    width: 280px;
-    height: 280px;
-    padding: 22px;
+    width: 350px;
+    height: 350px;
   }
 
-  .hero-heading {
-    font-size: 2.1rem;
-  }
-
-  .hero-subheading {
-    font-size: 1rem;
-  }
-}
-
-/* === FINAL OVERRIDES FOR HERO TEXT === */
-
-.hero-text-block {
-  position: relative;
-  z-index: 4;
-  opacity: 1 !important;
-}
-
-.hero-heading {
-  color: #ffffff !important;
-  opacity: 1 !important;
-  text-shadow:
-    0 4px 18px rgba(0, 0, 0, 0.45),
-    0 0 4px rgba(0, 0, 0, 0.5);
-}
-
-.hero-subheading {
-  color: #f6f6f6 !important;
-  opacity: 0.98 !important;
-  margin-bottom: 20px;
-  text-shadow:
-    0 3px 12px rgba(0, 0, 0, 0.35),
-    0 0 2px rgba(0, 0, 0, 0.4);
-}
-
-/* =========================
-   TEXT SPARKLES
-========================= */
-
-.hero-text-sparkles {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
-  z-index: 2;
-}
-
-.text-sparkle {
-  position: absolute;
-  width: 8px;
-  height: 8px;
-  background: radial-gradient(circle, #ffffff 0%, rgba(255, 255, 255, 0) 70%);
-  border-radius: 50%;
-  opacity: 0.35;
-  filter: blur(1px);
-}
-
-.text-sparkle--1 {
-  top: 12%;
-  left: 6%;
-}
-
-.text-sparkle--2 {
-  top: 35%;
-  left: -3%;
-}
-
-.text-sparkle--3 {
-  top: 55%;
-  left: 4%;
-}
-
-.text-sparkle--4 {
-  top: 10%;
-  right: 6%;
-}
-
-/* ============================
-   MOBILE HERO FIX
-============================ */
-@media (max-width: 768px) {
-
-  .hero.clean-hero {
-    padding-top: 60px;
-  }
-
-  .tilt-card {
-    transform: scale(0.88);
-  }
-
-  .sparkles {
-    transform: scale(0.9);
-  }
-
-  .hero-layout {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 28px;
-    text-align: center;
-  }
-
-  .hero-text-block {
-    max-width: 90%;
-  }
-
-  .hero-heading {
-    font-size: 2rem;
-    line-height: 1.22;
-  }
-
-  .hero-subheading {
-    font-size: 1rem;
-    line-height: 1.4;
+  .section-divider svg {
+    height: 60px;
   }
 }
 
 /* ======================================================
-   ✨ FULL-SECTION SHINE SWEEP
+   ✨ THE "FEELING" EMPHASIS (REFINED)
 ====================================================== */
 
-.hero-shine {
+.feeling-accent {
+  position: relative;
+  display: inline-block;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--brand-green);
+  padding-right: 8px;
+}
+
+/* The Animated Highlight Underline */
+.feeling-accent::after {
+  content: "";
   position: absolute;
-  top: -20%;
-  left: -150%;
-  width: 200%;
-  height: 140%;
-  background: linear-gradient(115deg,
-      transparent 0%,
-      rgba(255, 255, 255, 0.08) 45%,
-      rgba(255, 255, 255, 0.18) 50%,
-      rgba(255, 255, 255, 0.08) 55%,
-      transparent 100%);
-  will-change: transform, opacity;
-  transform: translateZ(0);
-  pointer-events: none;
-  z-index: 1;
-  /* behind content but above background */
+  bottom: 4px;
+  left: -2%;
+  width: 0;
+  height: 14px;
+  background-color: var(--cta-yellow);
+  opacity: 0.35;
+  z-index: -1;
+  border-radius: 4px;
+  transform: rotate(-1deg);
+
+  /* Waits for the "Deep Reveal" to finish before wiping across */
+  animation: highlightWipe 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes highlightWipe {
+  to {
+    width: 105%;
+  }
+}
+
+/* Ensure the subheading follows the same clean vibe */
+.hero-subheading {
+  font-size: 1.15rem;
+  margin-top: 20px;
+  line-height: 1.6;
+  max-width: 500px;
+  color: var(--text-dark);
   opacity: 0;
 
-  animation: heroShineSweep 8s infinite ease-in-out;
+  /* Soft fade in after the heading is settled */
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1s;
 }
 
-@keyframes heroShineSweep {
-  0% {
-    left: -150%;
-    opacity: 0;
-  }
-
-  25% {
-    opacity: 0.15;
-  }
-
-  45% {
-    left: 150%;
-    opacity: 0.25;
-  }
-
-  60% {
-    opacity: 0;
-    left: 180%;
-  }
-
-  100% {
-    left: -150%;
-    opacity: 0;
+@keyframes fadeIn {
+  to {
+    opacity: 0.85;
   }
 }
 
-@media (min-width: 769px) {
+/* ======================================================
+   ✨ PREMIUM SUBHEADING STYLING
+====================================================== */
 
-  .hero-shine,
-  .hero-sparkles {
-    display: none;
-  }
+.hero-subheading {
+  font-size: 1.25rem;
+  /* Slightly larger for presence */
+  line-height: 1.8;
+  /* Massive breathing room between lines */
+  max-width: 600px;
+  color: #4a4a4a;
+  /* Softer than black, feels more "airy" */
+  letter-spacing: -0.015em;
+  /* Tighter modern tracking */
+  margin-top: 24px;
+}
+
+.sub-highlight {
+  color: var(--brand-green);
+  font-weight: 600;
+  position: relative;
+  display: inline-block;
+  white-space: nowrap;
+  /* Prevents awkward line breaks in phrases */
+
+  /* Adding that stylistic serif touch to match the logo */
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: 700;
+}
+
+/* Very subtle "freshness" glint behind the keywords */
+.sub-highlight::before {
+  content: "";
+  position: absolute;
+  z-index: -1;
+  inset: -2px -4px;
+  background: radial-gradient(circle, rgba(1, 68, 33, 0.05) 0%, transparent 80%);
+  border-radius: 4px;
+}
+
+/* ======================================================
+   FIX: ELIMINATE THE COLOR SEAM
+====================================================== */
+
+.section-divider {
+  position: absolute;
+  /* Push it down slightly further to kill the 1px ghost line */
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 10;
+  /* Match the Hero background exactly so no 'other' white shows through */
+  background-color: var(--light-bg);
+}
+
+.section-divider svg {
+  display: block;
+  width: calc(100% + 1.3px);
+  /* Over-extend to prevent side-seams */
+  height: 100px;
+  /* Use 'shape-rendering' to force the browser to be more precise */
+  shape-rendering: geometricPrecision;
+}
+
+/* Ensure the Green Section starts exactly where the divider ends */
+.section-dark-green {
+  margin-top: -1px;
+  position: relative;
+  z-index: 1;
 }

@@ -1,42 +1,40 @@
-/* ===============================
-GLOBAL FIXES
-=============================== */
-
-/* STOP MOBILE WIDTH OVERFLOW */
-* {
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-html,
-body {
-  margin: 0;
-  padding: 0;
-  overflow-x: hidden;
-}
-
-/* ===============================
-FULL PANEL LAYOUT (DESKTOP)
-=============================== */
+/* ======================================================
+   1. GLOBAL PANEL LAYOUT & ALTERNATING THEMES
+====================================================== */
 
 .services-panels {
   width: 100%;
   overflow: hidden;
+  /* Pull up to overlap any potential seams from sections above */
+  margin-top: -2px;
 }
 
 .panel {
-  height: 100vh;
   width: 100%;
+  min-height: 100vh;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   align-items: center;
   gap: 60px;
-  padding: 60px 6%;
-  scroll-snap-align: start;
-  background: var(--light-bg);
+  padding: 120px 6%;
+  position: relative;
 }
 
-/* Reverse layout */
+/* White Theme */
+.panel-white {
+  background-color: #ffffff;
+}
+
+/* Premium Green Theme */
+.panel-green {
+  background: radial-gradient(circle at 35% 40%, #1a6a3a 0%, #014421 45%, #01351d 100%);
+  color: #ffffff;
+  z-index: 1;
+  /* Extra vertical padding to give the waves room to breathe */
+  padding: 180px 6%;
+}
+
+/* Reverse layout for variety */
 .service-panel--reverse {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
 }
@@ -49,429 +47,210 @@ FULL PANEL LAYOUT (DESKTOP)
   order: 1;
 }
 
-/* ===============================
-IMAGE SECTION
-=============================== */
+/* ======================================================
+   2. THE FLOW (SVG HILL DIVIDERS)
+====================================================== */
 
-.service-panel-media {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-  /* FIX: keeps the image at the TOP */
-}
-
-
-.service-image-frame img {
+.panel-divider {
+  position: absolute;
+  left: 0;
   width: 100%;
-  height: 100%;
-  object-fit: cover;
+  line-height: 0;
+  z-index: 10;
 }
 
-/* ===============================
-TEXT CONTENT
-=============================== */
+.divider-top {
+  top: -1px;
+  /* Stitching to the white section above */
+}
+
+.divider-bottom {
+  bottom: -1px;
+  /* Stitching to the white section below */
+}
+
+.panel-divider svg {
+  display: block;
+  width: 100%;
+  height: 90px;
+  shape-rendering: geometricPrecision;
+}
+
+/* ======================================================
+   3. TEXT CONTENT & EDITORIAL TYPOGRAPHY
+====================================================== */
 
 .service-panel-copy {
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   max-width: 540px;
 }
 
 .service-eyebrow {
   font-size: 0.85rem;
   letter-spacing: 0.16em;
-  text-transform: uppercase;
+  font-weight: 800;
   color: var(--brand-green);
-  opacity: 0.8;
-  text-align: left;
+  opacity: 0.85;
 }
 
 .service-heading {
-  font-size: 2.6rem;
+  font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
   color: var(--brand-green);
-  line-height: 1.15;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
 }
 
 .service-intro {
-  font-size: 1.05rem;
-  line-height: 1.65;
+  font-size: 1.15rem;
+  line-height: 1.8;
+  /* "Clean & Airy" line height */
   color: #374037;
 }
 
 .service-list {
   padding-left: 0;
   list-style: none;
+  margin-top: 10px;
+}
+
+.service-list li {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  margin-bottom: 8px;
+  color: #374037;
+  display: flex;
+  align-items: flex-start;
 }
 
 .service-list li::before {
   content: "•";
   color: var(--brand-green);
-  margin-right: 7px;
+  margin-right: 10px;
+  font-weight: bold;
 }
 
-.service-list li {
-  color: #374037;
-  margin-bottom: 6px;
+/* --- Green Panel Inversions --- */
+.panel-green .service-heading,
+.panel-green .service-intro,
+.panel-green .service-list li {
+  color: #ffffff !important;
 }
 
-/* ===============================
-MOBILE PANEL FIX
-=============================== */
+.panel-green .service-eyebrow {
+  color: var(--cta-yellow);
+  /* Contrast pop */
+  opacity: 1;
+}
+
+.panel-green .service-list li::before {
+  color: var(--cta-yellow);
+}
+
+/* ======================================================
+   4. IMAGE FRAMES & DEPTH
+====================================================== */
+
+.service-panel-media {
+  display: flex;
+  justify-content: center;
+}
+
+.service-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 40px;
+  /* Modern, organic curves */
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  background: #e8eee8;
+}
+
+.panel-green .service-image-frame {
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.service-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ======================================================
+   5. MOBILE RESPONSIVE FIXES
+====================================================== */
 
 @media (max-width: 900px) {
   .panel {
-    display: flex !important;
-    flex-direction: column;
+    display: block !important;
     height: auto !important;
-    padding: 40px 18px;
-    text-align: center;
+    padding: 80px 18px !important;
   }
 
-  .service-panel-media,
+  .panel-green {
+    padding: 120px 18px !important;
+  }
+
+  .service-panel-media {
+    width: 92% !important;
+    margin: 0 auto 30px auto !important;
+  }
+
+  .service-image-frame {
+    aspect-ratio: 16 / 11 !important;
+    max-height: 350px !important;
+    border-radius: 24px !important;
+  }
+
   .service-panel-copy {
     width: 100% !important;
-    max-width: 100%;
-    margin: 0 auto;
-    align-items: center;
-    text-align: center;
-  }
-
-  .service-eyebrow {
     text-align: center !important;
+    padding: 0 10px !important;
   }
 
   .service-heading {
-    font-size: 1.9rem !important;
-    text-align: center !important;
-    white-space: normal !important;
-    overflow-wrap: break-word;
-    word-break: break-word;
-    max-width: 90%;
-    margin: 0 auto 12px auto;
-    line-height: 1.18 !important;
+    font-size: 2.1rem !important;
+    margin-bottom: 12px !important;
   }
 
   .service-intro {
-    max-width: 92%;
-    margin: 0 auto;
-    padding: 0 10px;
-    text-align: center;
+    font-size: 1.05rem;
+    max-width: 100%;
   }
 
   .service-list {
-    max-width: 90%;
-    margin: 0 auto;
     text-align: left !important;
-    padding: 0 10px;
+    max-width: 320px;
+    margin: 20px auto 0;
   }
 
-  .service-list li {
-    font-size: 1rem;
-    line-height: 1.45;
-    margin-bottom: 6px;
+  .panel-divider svg {
+    height: 60px;
   }
 }
 
-/* ===============================
-GALLERY PANEL
-=============================== */
+/* ======================================================
+   6. GALLERY PANEL (STAYS CLEAN WHITE)
+====================================================== */
 
 .gallery-panel.panel {
   height: auto !important;
-  padding-top: 80px;
-  /* FIX: prevent pushing section down */
-  padding-bottom: 120px;
+  padding: 100px 0 140px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: var(--light-bg);
+  background: #ffffff;
 }
 
 .gallery-title {
-  font-size: 2.4rem;
+  font-size: clamp(2rem, 4vw, 2.8rem);
   color: var(--brand-green);
   font-weight: 800;
-  margin-bottom: 10px;
+  margin-bottom: 40px;
   text-align: center;
-}
-
-.gallery-subtitle {
-  font-size: 1rem;
-  max-width: 600px;
-  color: #3a463a;
-  margin-bottom: 60px;
-  text-align: center;
-}
-
-/* ============================================
-FIX: REMOVE FULL HEIGHT PANELS ON MOBILE
-============================================ */
-
-@media (max-width: 900px) {
-  .panel {
-    height: auto !important;
-    min-height: auto !important;
-    padding-top: 20px !important;
-  }
-
-  .service-panel-media {
-    margin-top: 0 !important;
-  }
-}
-
-/* ============================================
-   FINAL MOBILE FIX — RESET DESKTOP PANEL BEHAVIOR
-   Completely removes the desktop height + grid 
-   so images sit at the TOP of each section.
-============================================ */
-@media (max-width: 900px) {
-
-  /* Disable grid entirely */
-  .panel {
-    display: block !important;
-    height: auto !important;
-    min-height: auto !important;
-    grid-template-columns: none !important;
-    padding: 40px 0 60px 0 !important;
-  }
-
-  /* Reset the image container */
-  .service-panel-media {
-    width: 100% !important;
-    margin: 0 auto !important;
-    display: flex !important;
-    justify-content: center !important;
-    align-items: center !important;
-  }
-
-  .service-image-frame img {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-  }
-
-  /* Center text section */
-  .service-panel-copy {
-    width: 100% !important;
-    text-align: center !important;
-    margin: 0 auto !important;
-    padding: 0 18px !important;
-  }
-
-  /* Fix heading spacing */
-  .service-heading {
-    margin-top: 12px !important;
-  }
-}
-
-.service-image-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-
-  /* 👇 this kills the tiny white bar at the bottom */
-  display: block;
-}
-
-@media (max-width: 900px) {
-  .service-image-frame img {
-    width: 100% !important;
-    height: auto !important;
-    object-fit: cover !important;
-    display: block !important;
-    /* important here as well */
-  }
-}
-
-/* ===============================
-   QUOTE MODAL
-================================ */
-
-.quote-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.55);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 22px;
-  z-index: 9999;
-}
-
-.quote-modal {
-  width: 100%;
-  max-width: 520px;
-  background: #0e2d20;
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 18px;
-  padding: 26px 22px 22px;
-  color: var(--text-light);
-  position: relative;
-  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.45);
-}
-
-.quote-modal-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-
-  width: 40px;
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 50%;
-  border: none;
-  padding: 0;
-
-  background: rgba(255, 255, 255, 0.08);
-  cursor: pointer;
-
-  /* 🔑 CRITICAL FIX */
-  pointer-events: auto;
-}
-
-.quote-modal-close span {
-  font-size: 1.25rem;
-  line-height: 1;
-  color: rgba(255, 255, 255, 0.9);
-  pointer-events: none;
-  /* ← prevents text-only hitbox */
-}
-
-.quote-modal-close:hover {
-  background: rgba(255, 255, 255, 0.16);
-  transform: scale(1.06);
-}
-
-
-
-.quote-modal-eyebrow {
-  font-size: 0.8rem;
-  letter-spacing: 0.14em;
-  font-weight: 800;
-  opacity: 0.9;
-  margin: 0 0 10px;
-}
-
-.quote-modal-title {
-  font-size: 1.6rem;
-  font-weight: 900;
-  margin: 0 0 10px;
-}
-
-.quote-modal-sub {
-  margin: 0 0 18px;
-  opacity: 0.95;
-  line-height: 1.5;
-}
-
-.quote-modal-actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 12px;
-  margin-top: 10px;
-}
-
-.quote-action-btn {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  padding: 12px 14px;
-  border-radius: 12px;
-  font-weight: 800;
-  text-decoration: none;
-  cursor: pointer;
-  transition: 0.22s ease;
-  border: none;
-  background: var(--cta-yellow);
-  color: var(--brand-green);
-}
-
-.quote-action-btn:hover {
-  background: var(--cta-yellow-hover);
-  transform: translateY(-2px);
-}
-
-.quote-modal-note {
-  margin-top: 14px;
-  font-size: 0.95rem;
-  opacity: 0.9;
-}
-
-@media (max-width: 520px) {
-  .quote-modal-actions {
-    grid-template-columns: 1fr;
-  }
-}
-
-/* iOS Safari button overrides */
-.service-cta-btn,
-.quote-action-btn {
-  -webkit-appearance: none;
-  /* remove iOS default look */
-  appearance: none;
-  /* or whatever text color you want */
-  outline: none;
-}
-
-/* remove tap highlight on mobile WebKit */
-.service-cta-btn,
-.quote-action-btn {
-  -webkit-tap-highlight-color: transparent;
-}
-
-/* also remove focus ring if you see a blue border */
-.service-cta-btn:focus,
-.quote-action-btn:focus {
-  outline: none;
-}
-
-/* ===============================
-   CONSOLIDATED IMAGE SECTION
-   =============================== */
-
-/* Default Desktop Styles */
-.service-image-frame {
-  width: 100%;
-  /* We use aspect-ratio instead of fixed height to prevent Layout Shift */
-  aspect-ratio: 4 / 5;
-  height: auto;
-  max-height: 80vh;
-  /* Keeps it from getting too tall on huge monitors */
-
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 25px 60px rgba(0, 0, 0, 0.25);
-  background: #e8eee8;
-  /* Subtle placeholder color while loading */
-}
-
-.service-image-frame img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-  object-position: bottom 80%;
-}
-
-/* Single Mobile Override */
-@media (max-width: 900px) {
-  .service-image-frame {
-    width: 92% !important;
-    margin: 0 auto 24px auto !important;
-    border-radius: 20px !important;
-    aspect-ratio: 16 / 11 !important;
-    max-height: 350px !important;
-  }
-
-  .service-image-frame img {
-    /* ✅ 80% or 'bottom' will show the bottom of the photo */
-    object-position: center 100% !important;
-    object-fit: cover !important;
-  }
 }

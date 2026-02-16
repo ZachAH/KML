@@ -12,7 +12,7 @@ body {
 :root {
   --brand-green: #014421;
   --brand-green-light: #1a5e34;
-  --light-bg: #f3f6f4;
+  --light-bg: #ffff;
   --cta-yellow: #e7c600;
   --text-dark: #1d1d1d;
 }
@@ -133,11 +133,13 @@ body {
 
 .hero-layout {
   display: grid;
-  /* Shifted ratio slightly to give the logo more territory */
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  /* Balanced ratio for better centering */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
   align-items: center;
-  gap: 40px;
-  /* Tighter gap for a more cohesive look */
+  gap: 60px;
+  /* Slightly wider gap for better breathing room */
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 /* ======================================================
@@ -334,16 +336,6 @@ body {
   font-family: "Georgia", serif;
   font-style: italic;
   font-weight: 700;
-}
-
-/* Very subtle "freshness" glint behind the keywords */
-.sub-highlight::before {
-  content: "";
-  position: absolute;
-  z-index: -1;
-  inset: -2px -4px;
-  background: radial-gradient(circle, rgba(1, 68, 33, 0.05) 0%, transparent 80%);
-  border-radius: 4px;
 }
 
 /* ======================================================

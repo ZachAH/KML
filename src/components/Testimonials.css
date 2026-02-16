@@ -1,24 +1,47 @@
 /* ======================================================
-   1. THE "SEAMLESS" WRAPPER & BACKGROUND
-   This "welds" the white hero to the green section.
+   GLOBAL COLOR LOCK: PURE WHITE
+   Prevents "ghost" seams between sections.
+====================================================== */
+
+:root {
+    --perfect-white: #ffffff;
+}
+
+body,
+.panel-white,
+.services-panels,
+.gallery-panel.panel {
+    background-color: var(--perfect-white) !important;
+}
+
+/* Ensure the divider container itself doesn't have a background */
+.section-divider {
+    background-color: transparent !important;
+    outline: none;
+    border: none;
+}
+
+/* ======================================================
+   1. SECTION WRAPPER & BACKGROUND (THE GREEN VALLEY)
 ====================================================== */
 
 .section-dark-green {
-    /* Pull the section up so it sits UNDER the wave overlap from above */
     margin-top: -2px;
+    /* Stitching to the white hero above */
     position: relative;
-    z-index: 1;
-    /* Rich gradient base */
-    background: linear-gradient(to bottom, #014421 0%, #01351d 100%);
+    z-index: 10;
     overflow: visible;
-    /* Allows 3D cards to pop out during animation */
 }
 
 .testimonials {
+    /* 🔑 Direct Background Lock: Ensures green reaches the very bottom edge */
+    background: linear-gradient(to bottom, #014421 0%, #01351d 100%) !important;
     color: #ffffff;
-    padding: 140px 6% 100px;
-    /* Top padding allows for the wave overlap */
+    /* 🔑 Math Alignment: Minimal bottom padding, wave provides the spacing */
+    padding: 140px 6% 20px;
+    margin-bottom: 100px;
     position: relative;
+    overflow: visible;
 }
 
 .testimonials-inner {
@@ -28,66 +51,27 @@
 }
 
 /* ======================================================
-   2. TYPOGRAPHY (EDITORIAL VIBE)
-====================================================== */
-
-.testimonials-eyebrow {
-    font-size: 0.85rem;
-    font-weight: 800;
-    letter-spacing: 0.14em;
-    margin-bottom: 12px;
-    color: var(--cta-yellow, #E7C600);
-    /* High-end contrast */
-}
-
-.testimonials-title {
-    font-size: clamp(2rem, 4vw, 2.6rem);
-    font-weight: 900;
-    margin-bottom: 14px;
-    color: #ffffff;
-}
-
-.testimonials-subtitle {
-    max-width: 760px;
-    margin: 0 auto 44px;
-    font-size: 1.08rem;
-    line-height: 1.6;
-    opacity: 0.9;
-    color: #f0f0f0;
-}
-
-/* ======================================================
-   3. THE GRID (3D PREPARATION)
+   2. THE GRID (3D WATERFALL SETUP)
 ====================================================== */
 
 .testimonials-grid {
     display: grid;
     grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
-    /* 🔑 CRITICAL for the waterfall rotationX animation */
     perspective: 2000px;
     transform-style: preserve-3d;
 }
 
-/* ======================================================
-   4. THE CARDS (WHITE POP & GLASSMOPHISM)
-====================================================== */
-
 .testimonial-card {
     background: #ffffff;
-    /* Thicker semi-transparent border for "Glass" look */
     border: 1px solid rgba(255, 255, 255, 0.4);
     border-radius: 24px;
     padding: 32px 28px;
     text-align: left;
     color: #1d1d1d;
+    box-shadow: 0 20px 45px rgba(0, 0, 0, 0.25);
 
-    /* Mix of dark shadow and subtle green depth */
-    box-shadow:
-        0 20px 45px rgba(0, 0, 0, 0.25),
-        0 0 0 1px rgba(255, 255, 255, 0.1);
-
-    /* Performance optimization for GSAP */
+    /* GSAP Performance optimization */
     will-change: transform, opacity;
     backface-visibility: hidden;
 
@@ -103,7 +87,7 @@
 }
 
 /* ======================================================
-   5. INTERNAL ELEMENTS (STARS, TEXT, META)
+   3. INTERNAL ELEMENTS (STARS, TEXT, NAMES)
 ====================================================== */
 
 .stars {
@@ -136,6 +120,11 @@
     overflow: hidden;
 }
 
+.testimonial-name {
+    font-weight: 800;
+    color: var(--brand-green, #014421);
+}
+
 .testimonial-toggle {
     background: transparent;
     border: none;
@@ -145,16 +134,36 @@
     cursor: pointer;
     color: var(--brand-green, #014421);
     text-decoration: underline;
-    text-underline-offset: 3px;
-}
-
-.testimonial-name {
-    font-weight: 800;
-    color: var(--brand-green, #014421);
 }
 
 /* ======================================================
-   6. ACTIONS & RESPONSIVE
+   4. THE BOTTOM WAVE (THE SEAM WELDER)
+====================================================== */
+
+.testimonials .divider-bottom {
+    position: absolute;
+    bottom: -100px;
+    /* Position wave exactly at calculated margin */
+    left: 0;
+    width: 100%;
+    line-height: 0;
+    z-index: 100;
+    /* 🔑 Stays ON TOP of the white services section */
+    pointer-events: none;
+    background: transparent !important;
+}
+
+.testimonials .divider-bottom svg {
+    display: block;
+    width: calc(100% + 10px);
+    /* Over-extend to prevent side-seams */
+    height: 100px;
+    shape-rendering: geometricPrecision;
+    background-color: #ffffff;
+}
+
+/* ======================================================
+   5. ACTIONS & BUTTONS (CLIENT REVISIONS)
 ====================================================== */
 
 .testimonials-actions {
@@ -162,22 +171,28 @@
 }
 
 .testimonials-btn {
-    background: var(--cta-yellow, #E7C600);
-    color: var(--brand-green, #014421);
+    /* 🔑 Yellow with Green Text per client request */
+    background: var(--cta-yellow, #E7C600) !important;
+    color: var(--brand-green, #014421) !important;
     border: none;
     padding: 14px 32px;
     border-radius: 999px;
     font-weight: 800;
-    cursor: pointer;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-    transition: all 0.2s ease;
+    transition: all 0.25s ease;
 }
 
 .testimonials-btn:hover {
-    transform: translateY(-2px);
+    transform: translateY(-3px);
+    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.35);
     filter: brightness(1.05);
-    box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
 }
+
+/* ======================================================
+   6. RESPONSIVE REFINEMENTS
+====================================================== */
 
 @media (max-width: 980px) {
     .testimonials-grid {
@@ -187,7 +202,8 @@
 
 @media (max-width: 620px) {
     .testimonials {
-        padding: 110px 6% 75px;
+        padding: 110px 6% 20px;
+        margin-bottom: 80px !important;
     }
 
     .testimonials-grid {
@@ -197,31 +213,12 @@
     .testimonials-title {
         font-size: 2rem;
     }
-}
 
+    .testimonials .divider-bottom {
+        bottom: -80px;
+    }
 
-.testimonials .divider-bottom {
-    position: absolute;
-    bottom: -1px;
-    /* 🔑 Physical overlap to hide the seam */
-    left: 0;
-    width: 100%;
-    line-height: 0;
-    z-index: 10;
-    pointer-events: none;
-}
-
-.testimonials .divider-bottom svg {
-    display: block;
-    width: calc(100% + 1.3px);
-    height: 100px;
-    shape-rendering: geometricPrecision;
-}
-
-/* Ensure the Testimonials section has room for the wave */
-.testimonials {
-    padding-bottom: 160px !important;
-    /* Increase bottom padding so content doesn't hit the wave */
-    position: relative;
-    overflow: visible;
+    .testimonials .divider-bottom svg {
+        height: 80px;
+    }
 }

@@ -85,6 +85,8 @@ const servicesData: Service[] = [
 
 const EMAIL_TO = "kettlemoraineprocleaners@gmail.com";
 const PHONE_TEL = "12623341881";
+// 🔑 Replace with your actual Housecall Pro link
+const HOUSECALL_PRO_URL = "https://online-booking.housecallpro.com/your-id-here";
 
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
@@ -92,7 +94,6 @@ const Services: React.FC = () => {
   const [quoteOpen, setQuoteOpen] = useState(false);
   const [selectedService, setSelectedService] = useState<Service | null>(null);
 
-  // Dynamically load gallery image URLs on mount
   useEffect(() => {
     const loadGallery = async () => {
       const paths = await Promise.all(
@@ -116,6 +117,11 @@ const Services: React.FC = () => {
     setSelectedService(null);
   };
 
+  // 🔑 Lead to booking portal instead of direct email
+  const handleBookingRedirect = () => {
+    window.open(HOUSECALL_PRO_URL, "_blank");
+  };
+
   const handleEmailQuote = () => {
     const serviceName = selectedService
       ? `${selectedService.titleTop}${selectedService.titleBottom}`.trim()
@@ -136,6 +142,7 @@ const Services: React.FC = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [quoteOpen]);
 
+  // GSAP Entrance Animations
   useEffect(() => {
     if (!rootRef.current) return;
     const ctx = gsap.context(() => {
@@ -180,33 +187,31 @@ const Services: React.FC = () => {
   return (
     <section className="services-panels" ref={rootRef}>
       {servicesData.map((service, index) => {
-        // Logic to alternate backgrounds: White -> Green -> White
+        // Alternating logic: White -> Green -> White
         const isGreen = index === 1;
 
         return (
           <article
             key={service.id}
-            className={`panel service-panel ${isGreen ? "panel-green" : "panel-white"} ${
-              index % 2 === 1 ? "service-panel--reverse" : ""
-            }`}
+            className={`panel service-panel ${isGreen ? "panel-green" : "panel-white"} ${index % 2 === 1 ? "service-panel--reverse" : ""
+              }`}
           >
-            {/* Top Divider: Flowing into the Green Section */}
+            {/* Top Divider: Flowing White into Green */}
             {isGreen && (
               <div className="panel-divider divider-top">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                  <path 
-                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z" 
-                    fill="#014421" 
+                  <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
+                    fill="#ffffff"  /* 🔑 CHANGE: White path creates the hill on green background */
                   />
                 </svg>
               </div>
             )}
-
             <div className="service-panel-media">
               <div className="service-image-frame">
-                <img 
-                  src={service.image} 
-                  alt={service.titleTop} 
+                <img
+                  src={service.image}
+                  alt={service.titleTop}
                   loading="lazy"
                   width="800"
                   height="600"
@@ -226,22 +231,23 @@ const Services: React.FC = () => {
                   <li key={i} className="service-body-item">{item}</li>
                 ))}
               </ul>
+              {/* 🔑 Updated Verbiage */}
               <button
                 className="service-cta-btn service-body-item"
                 type="button"
                 onClick={() => openQuoteModal(service)}
               >
-                Request a Quote
+                Schedule a Cleaning
               </button>
             </div>
 
-            {/* Bottom Divider: Flowing back into the White Section */}
+            {/* Bottom Divider: Flowing Green back into White */}
             {isGreen && (
               <div className="panel-divider divider-bottom">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ transform: 'rotate(180deg)' }}>
-                  <path 
-                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z" 
-                    fill="#014421" 
+                  <path
+                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
+                    fill="#ffffff" /* 🔑 CHANGE: White path creates the hill on green background */
                   />
                 </svg>
               </div>
@@ -257,6 +263,7 @@ const Services: React.FC = () => {
         </Suspense>
       </article>
 
+      {/* 🔑 Booking Modal Logic */}
       {quoteOpen && (
         <div
           className="quote-modal-overlay"
@@ -271,9 +278,9 @@ const Services: React.FC = () => {
               onClick={closeQuoteModal}
               aria-label="Close"
             >
-              <span aria-hidden>×</span>            
+              <span aria-hidden>×</span>
             </button>
-            <p className="quote-modal-eyebrow">REQUEST A QUOTE</p>
+            <p className="quote-modal-eyebrow">READY TO SCHEDULE?</p>
             <h3 className="quote-modal-title">How would you like to reach us?</h3>
             {selectedService && (
               <p className="quote-modal-sub">
@@ -281,13 +288,16 @@ const Services: React.FC = () => {
               </p>
             )}
             <div className="quote-modal-actions">
-              <button type="button" className="quote-action-btn" onClick={handleEmailQuote}>
-                Send Email
+              <button type="button" className="quote-action-btn" onClick={handleBookingRedirect}>
+                Book Online
               </button>
               <a className="quote-action-btn" href={`tel:${PHONE_TEL}`}>
                 Call Us
               </a>
             </div>
+            <p className="quote-modal-note" style={{ marginTop: '15px', fontSize: '0.9rem', opacity: '0.8' }}>
+              Prefer email? <span onClick={handleEmailQuote} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Send us a message</span> instead.
+            </p>
           </div>
         </div>
       )}

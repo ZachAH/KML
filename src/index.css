@@ -1,81 +1,54 @@
 /* 🎯 Global Brand Background Fix */
+/* index.css */
 :root {
-  --brand-green: #003b23;
-
+  --brand-green: #014421;
+  --cta-yellow: #E7C600;
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  line-height: 1.5;
-  font-weight: 400;
-
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-
-  /* Force green background globally */
-  background-color: var(--brand-green) !important;
-
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  color-scheme: light;
+  /* 🔑 REMOVE: background-color: var(--brand-green) !important; */
+  background-color: #ffffff; 
+  color: #1d1d1d;
 }
 
-/* Links */
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
-
-/* Layout base */
-html,
-body {
+html, body {
   margin: 0;
   width: 100%;
   min-height: 100vh;
-  background-color: var(--brand-green) !important;
+  /* 🔑 CHANGE: White is now the default "floor" */
+  background-color: #ffffff; 
+  overflow-x: hidden;
 }
 
-/* Typography */
-h1 {
-  font-size: 3.2em;
-  line-height: 1.1;
+/* Smooth scroll & Navbar Offset */
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 110px;
 }
 
-/* Buttons */
-button {
-  border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
+/* Base Link Styles */
+a {
   font-weight: 500;
+  color: var(--brand-green);
+  text-decoration: none;
+  transition: opacity 0.2s ease;
+}
+
+a:hover {
+  opacity: 0.8;
+}
+
+/* Global Button Reset (Individual sections will override this) */
+button {
   font-family: inherit;
-  background-color: #1a1a1a;
   cursor: pointer;
-  transition: border-color 0.25s;
 }
 
-button:hover {
-  border-color: #646cff;
-}
-
-button:focus,
-button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
-}
-
-/* Disable prefers-color-scheme overrides so green stays green */
-@media (prefers-color-scheme: light) {
+/* 🔑 Clean up the media query so it doesn't force colors */
+@media (prefers-color-scheme: dark) {
   :root {
-    color: #ffffff;
-    /* keep text white */
-    background-color: var(--brand-green) !important;
-  }
-
-  button {
-    background-color: #1a1a1a;
+    /* Keep backgrounds consistent so your brand logic stays in control */
+    background-color: #ffffff;
+    color: #1d1d1d;
   }
 }
 
@@ -113,6 +86,15 @@ html {
 }
 
 @keyframes glowPulse {
-  0%, 100% { opacity: 0.6; transform: translateX(-50%) scaleX(1); }
-  50% { opacity: 1; transform: translateX(-50%) scaleX(1.2); }
+
+  0%,
+  100% {
+    opacity: 0.6;
+    transform: translateX(-50%) scaleX(1);
+  }
+
+  50% {
+    opacity: 1;
+    transform: translateX(-50%) scaleX(1.2);
+  }
 }

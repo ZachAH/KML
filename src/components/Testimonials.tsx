@@ -2,8 +2,9 @@ import { useEffect, useMemo, useState, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import "./Testimonials.css";
-import Stars from "../components/Stars"; // Adjust path as needed
+import Stars from "../components/Stars";
 
+// Register ScrollTrigger plugin for the waterfall entrance
 gsap.registerPlugin(ScrollTrigger);
 
 type Review = {
@@ -79,7 +80,6 @@ const reviews: Review[] = [
   },
 ];
 
-
 const NEEDS_TOGGLE_CHARS = 260;
 const MOBILE_MAX_WIDTH = 620;
 
@@ -107,6 +107,7 @@ const Testimonials = () => {
     setExpanded(prev => ({ ...prev, [id]: !prev[id] }));
   };
 
+  // GSAP Waterfall Cascade Logic
   useEffect(() => {
     if (!gridRef.current) return;
 
@@ -127,7 +128,7 @@ const Testimonials = () => {
           stagger: 0.1,
           duration: 0.8,
           ease: "expo.out",
-          clearProps: "all",    // 🔑 Fixes the "invisible" bug after animation
+          clearProps: "all",
           force3D: true,
         });
       }
@@ -157,7 +158,11 @@ const Testimonials = () => {
                   “{review.text}”
                 </p>
                 {isLong && (
-                  <button type="button" className="testimonial-toggle" onClick={() => toggleExpanded(review.id)}>
+                  <button 
+                    type="button" 
+                    className="testimonial-toggle" 
+                    onClick={() => toggleExpanded(review.id)}
+                  >
                     {isExpanded ? "Read less" : "Read more"}
                   </button>
                 )}
@@ -165,20 +170,31 @@ const Testimonials = () => {
                   <span className="testimonial-name">{review.name}</span>
                 </div>
               </article>
-              
             );
           })}
         </div>
 
         {reviews.length > (isMobile ? 3 : 6) && (
           <div className="testimonials-actions">
-            <button className="testimonials-btn" onClick={() => setShowAll(!showAll)}>
+            <button 
+              className="testimonials-btn" 
+              onClick={() => setShowAll(!showAll)}
+            >
               {showAll ? "Show fewer reviews" : "Show all reviews"}
             </button>
           </div>
         )}
       </div>
 
+      {/* 🌊 Bottom Transition Divider: Flowing Green back into White for Services */}
+      <div className="section-divider divider-bottom">
+        <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ transform: 'rotate(180deg)' }}>
+          <path
+            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
+            fill="#01351d"  /* 🔑 Matches the bottom of the section gradient */
+          />
+        </svg>
+      </div>
     </section>
   );
 };

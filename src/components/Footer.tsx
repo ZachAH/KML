@@ -21,7 +21,7 @@ export default function Footer() {
       </div>
 
       <p className="copyright">
-        © {new Date().getFullYear()} Kettle Moraine Professional Cleaners. All rights reserved.
+        © {new Date().getFullYear()} Kettle Moraine Professional Cleaners. All rights reserved. TEST
       </p>
 
       {/* 🔑 BOTTOM LINE: Smaller Tech Stack next to Credit */}

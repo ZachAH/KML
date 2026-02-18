@@ -294,7 +294,7 @@
 .stack-arrows {
     display: flex;
     justify-content: center;
-    gap: 16px;
+    gap: 45px;
     margin-top: 16px;
 }
 
@@ -314,6 +314,8 @@
     /* Tap-friendly */
     -webkit-tap-highlight-color: transparent;
     user-select: none;
+    line-height: 1;
+    padding-bottom: 4px;
 }
 
 .stack-arrow-btn:hover {

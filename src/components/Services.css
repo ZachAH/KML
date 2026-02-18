@@ -698,15 +698,3 @@ body,
     height: 30px;
   }
 }
-
-.services-panels {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}
-
-.panel:first-of-type {
-  border: none !important;
-  outline: none !important;
-  box-shadow: none !important;
-}

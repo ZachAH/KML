@@ -9,22 +9,63 @@ import footerImg5 from "../assets/footer/badge-5.webp";
 import footerImg6 from "../assets/footer/badge-6.svg";
 import footerImg7 from "../assets/footer/badge-7.svg";
 
+const badgeLinks = [
+  { src: footerImg1, alt: "IICRC Certification", href: "https://iicrc.org" },
+  { src: footerImg5, alt: "CRI Member",          href: "https://carpet-rug.org" },
+  { src: footerImg6, alt: "Facebook",             href: "https://facebook.com" },
+  { src: footerImg7, alt: "Instagram",            href: "https://instagram.com" },
+];
+
 export default function Footer() {
   return (
     <footer className="footer">
-      {/* 🔑 TOP LINE: Primary Business Badges & Socials */}
+      {/* TOP LINE: Primary Business Badges & Socials */}
       <div className="footer-images">
-        <img src={footerImg1} alt="IICRC Certification" />
-        <img src={footerImg5} alt="CRI Member" />
-        <img src={footerImg6} alt="Facebook" />
-        <img src={footerImg7} alt="Instagram" />
+        {badgeLinks.map(({ src, alt, href }) => (
+          <a
+            key={alt}
+            href={href}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="footer-badge-link"
+            aria-label={alt}
+          >
+            <img src={src} alt={alt} />
+          </a>
+        ))}
+      </div>
+
+      {/* CONTACT & ADDRESS BLOCK */}
+      <div className="footer-contact">
+        <div className="footer-contact-item">
+          <span className="footer-contact-label">Address</span>
+          <a
+            href="https://maps.google.com/?q=2334+Stonebridge+Cir+Unit+E+West+Bend+WI+53095"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            2334 Stonebridge Cir Unit E, West Bend, WI 53095
+          </a>
+        </div>
+        <div className="footer-contact-divider" />
+        <div className="footer-contact-item">
+          <span className="footer-contact-label">Phone</span>
+          <a href="tel:+12623441881">(262) 344-1881</a>
+        </div>
+        <div className="footer-contact-divider" />
+        <div className="footer-contact-item">
+          <span className="footer-contact-label">Email</span>
+          <a href="mailto:kettlemoraineprocleaners@gmail.com">
+            kettlemoraineprocleaners@gmail.com
+          </a>
+        </div>
       </div>
 
       <p className="copyright">
-        © {new Date().getFullYear()} Kettle Moraine Professional Cleaners. All rights reserved. TEST
+        © {new Date().getFullYear()} Kettle Moraine Professional Cleaners. All rights reserved.
       </p>
 
-      {/* 🔑 BOTTOM LINE: Smaller Tech Stack next to Credit */}
+      {/* BOTTOM LINE: Tech stack credit */}
       <p className="credit">
         Website by{" "}
         <a

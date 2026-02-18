@@ -99,7 +99,7 @@ const Testimonials = () => {
   }, []);
 
   const visibleReviews = useMemo(() => {
-    const base = isMobile ? reviews.slice(0, 3) : reviews.slice(0, 6);
+    const base = isMobile ? reviews.slice(0, 2) : reviews.slice(0, 6);
     return showAll ? reviews : base;
   }, [showAll, isMobile]);
 
@@ -174,7 +174,7 @@ const Testimonials = () => {
           })}
         </div>
 
-        {reviews.length > (isMobile ? 3 : 6) && (
+        {reviews.length > (isMobile ? 2 : 6) && (
           <div className="testimonials-actions">
             <button 
               className="testimonials-btn" 

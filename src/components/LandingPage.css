@@ -317,3 +317,178 @@ body {
     height: 300px;
   }
 }
+
+/* ======================================================
+   LANDING PAGE MOBILE FIX PATCH
+   Drop this AFTER your existing LandingPage.css
+====================================================== */
+
+/* ── Box sizing safety net ── */
+.hero.clean-hero,
+.hero.clean-hero *,
+.hero-layout,
+.hero-layout * {
+  box-sizing: border-box;
+}
+
+/* ======================================================
+   HERO — Kill the oversized min-height on mobile
+====================================================== */
+@media (max-width: 900px) {
+  .hero.clean-hero {
+    min-height: 0 !important;
+    padding: 60px 24px 100px 24px !important;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 24px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* Logo block */
+  .hero-logo-block {
+    justify-content: center;
+    width: 100%;
+    order: -1;
+  }
+
+  .tilt-card {
+    width: min(280px, 70vw);
+    height: min(280px, 70vw);
+    margin: 0 auto;
+  }
+
+  /* Text block — prevent right-side clipping */
+  .hero-text-block {
+    align-items: center;
+    padding-left: 0;
+    width: 100%;
+    max-width: 100%;
+    overflow-x: clip;
+    overflow-y: visible;
+  }
+
+  .hero-heading {
+    font-size: clamp(2rem, 8vw, 2.8rem) !important;
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+  }
+
+  /* Subheading — this is what was clipping on the right */
+  .hero-subheading {
+    font-size: 1rem !important;
+    max-width: 100% !important;
+    width: 100%;
+    word-break: break-word;
+    overflow-wrap: break-word;
+    padding: 0 4px;
+  }
+
+  .section-divider svg {
+    height: 50px;
+  }
+}
+
+/* ── Ultra-narrow (Pixel Fold outer) ── */
+@media (max-width: 375px) {
+  .hero.clean-hero {
+    padding: 40px 16px 80px 16px !important;
+  }
+
+  .tilt-card {
+    width: min(240px, 65vw);
+    height: min(240px, 65vw);
+  }
+
+  .hero-heading {
+    font-size: clamp(1.7rem, 9vw, 2rem) !important;
+  }
+
+  .hero-subheading {
+    font-size: 0.92rem !important;
+    line-height: 1.6;
+  }
+
+  .section-divider svg {
+    height: 35px;
+  }
+}
+
+/* ======================================================
+   HERO DESKTOP ENHANCEMENT
+====================================================== */
+
+@media (min-width: 901px) {
+
+  /* 1. Let the hero breathe but not waste — 100vh fills the screen nicely */
+  .hero.clean-hero {
+    min-height: 100vh !important;
+    padding: 120px 8% 200px !important;
+    align-items: center;
+  }
+
+  /* 2. Wider max-width so content spreads across the full canvas */
+  .hero-layout {
+    max-width: 1400px;
+    gap: 80px;
+  }
+
+  /* 3. Logo — bigger and more prominent */
+  .tilt-card {
+    width: 560px !important;
+    height: 560px !important;
+  }
+
+  .hero-logo {
+    width: 120% !important;
+    filter: drop-shadow(0 30px 60px rgba(1, 68, 33, 0.22));
+  }
+
+  /* 4. Heading — scale up to fill the space */
+  .hero-heading {
+    font-size: clamp(3rem, 4.5vw, 4.2rem) !important;
+    line-height: 1.1;
+  }
+
+  /* 5. Subheading — slightly larger and more readable */
+  .hero-subheading {
+    font-size: 1.35rem !important;
+    max-width: 520px !important;
+    line-height: 1.85;
+    margin-top: 28px;
+  }
+
+  /* 6. Give the text block a bit more vertical breathing room */
+  .hero-text-block {
+    gap: 8px;
+  }
+
+  /* 7. Bigger wave divider on desktop */
+  .section-divider svg {
+    height: 130px !important;
+  }
+}
+
+/* Large screens — push it even bigger */
+@media (min-width: 1300px) {
+  .hero-heading {
+    font-size: clamp(3.8rem, 4.8vw, 5rem) !important;
+  }
+
+  .hero-subheading {
+    font-size: 1.45rem !important;
+    max-width: 560px !important;
+  }
+
+  .tilt-card {
+    width: 620px !important;
+    height: 620px !important;
+  }
+}

@@ -25,6 +25,26 @@ export default function StackSwipedGallery({ images }: Props) {
     lastTapRef.current = now;
   };
 
+  // Shared rotate-stack logic — moves top card to back
+  const rotateStack = useCallback(() => {
+    setStack((prev) => {
+      const next = [...prev];
+      const [removed] = next.splice(0, 1);
+      next.push(removed);
+      return next;
+    });
+  }, []);
+
+  // Rotate stack backwards — moves last card to front
+  const rotateStackBack = useCallback(() => {
+    setStack((prev) => {
+      const next = [...prev];
+      const last = next.pop()!;
+      next.unshift(last);
+      return next;
+    });
+  }, []);
+
   // Swipe confidence
   const swipeConfidence = (offset: number, velocity: number) =>
     Math.abs(offset) * velocity > 2200;
@@ -32,16 +52,10 @@ export default function StackSwipedGallery({ images }: Props) {
   const handleDragEnd = useCallback(
     (i: number, _e: any, info: PanInfo) => {
       const { offset, velocity } = info;
-
       if (!swipeConfidence(offset.x, velocity.x)) return;
-
-      // Move dragged card to back
-      const newStack = [...stack];
-      const [removed] = newStack.splice(i, 1);
-      newStack.push(removed);
-      setStack(newStack);
+      rotateStack();
     },
-    [stack]
+    [rotateStack]
   );
 
   return (
@@ -52,6 +66,24 @@ export default function StackSwipedGallery({ images }: Props) {
           Double tap to see the full image. Swipe right to move to the next
           photo.
         </p>
+
+        {/* Arrow Controls */}
+        <div className="stack-arrows">
+          <button
+            className="stack-arrow-btn"
+            onClick={rotateStackBack}
+            aria-label="Previous photo"
+          >
+            &#8592;
+          </button>
+          <button
+            className="stack-arrow-btn"
+            onClick={rotateStack}
+            aria-label="Next photo"
+          >
+            &#8594;
+          </button>
+        </div>
       </div>
 
       <div className="stack-gallery-wrapper">

@@ -222,3 +222,159 @@ body,
         height: 80px;
     }
 }
+
+/* ======================================================
+   TESTIMONIALS MOBILE FIX PATCH
+   Drop this AFTER your existing Testimonials.css
+====================================================== */
+
+.testimonials,
+.testimonials * {
+    box-sizing: border-box;
+}
+
+/* ======================================================
+   CORE MOBILE FIX (≤ 620px)
+====================================================== */
+@media (max-width: 620px) {
+
+    .testimonials {
+        /* Kill the massive top padding and bottom margin */
+        padding: 60px 20px 80px 20px !important;
+        margin-bottom: 40px !important;
+        overflow-x: clip;
+        overflow-y: visible;
+    }
+
+    .testimonials-inner {
+        width: 100%;
+        max-width: 100%;
+        overflow-x: clip;
+        overflow-y: visible;
+    }
+
+    /* Grid — single column, full width */
+    .testimonials-grid {
+        grid-template-columns: 1fr;
+        width: 100%;
+        gap: 16px;
+    }
+
+    /* Cards — constrain to viewport */
+    .testimonial-card {
+        width: 100%;
+        max-width: 100%;
+        padding: 24px 20px;
+    }
+
+    /* Title */
+    .testimonials-title {
+        font-size: clamp(1.7rem, 7vw, 2.2rem) !important;
+        word-break: break-word;
+    }
+
+    /* Button — above the wave divider */
+    .testimonials-btn {
+        position: relative;
+        z-index: 20 !important;
+        width: 100%;
+        max-width: 300px;
+        text-align: center;
+    }
+
+    .testimonials-actions {
+        position: relative;
+        z-index: 20;
+        margin-top: 32px;
+    }
+
+    /* Wave divider — lower z-index so button sits above it */
+    .testimonials .divider-bottom {
+        bottom: -60px !important;
+        z-index: 2 !important;
+    }
+
+    .testimonials .divider-bottom svg {
+        height: 60px !important;
+    }
+}
+
+/* ── Ultra-narrow (Pixel Fold outer) ── */
+@media (max-width: 375px) {
+    .testimonials {
+        padding: 48px 16px 72px 16px !important;
+        margin-bottom: 30px !important;
+    }
+
+    .testimonial-card {
+        padding: 20px 16px;
+        border-radius: 16px;
+    }
+
+    .testimonial-text {
+        font-size: 0.95rem;
+    }
+
+    .testimonials .divider-bottom svg {
+        height: 40px !important;
+    }
+}
+
+/* ======================================================
+   TESTIMONIALS DESKTOP FIX
+   Drop this AFTER your existing Testimonials.css
+====================================================== */
+
+@media (min-width: 621px) {
+
+    .testimonials {
+        /* Reduce the massive top padding and give real bottom padding for the button */
+        padding: 80px 6% 100px !important;
+        margin-bottom: 60px !important;
+        overflow-x: clip;
+        overflow-y: visible;
+    }
+
+    .testimonials-inner {
+        max-width: 1200px;
+        overflow-y: visible;
+    }
+
+    /* Ensure button and actions are never buried */
+    .testimonials-actions {
+        position: relative;
+        z-index: 20;
+        margin-top: 48px;
+        padding-bottom: 20px;
+    }
+
+    .testimonials-btn {
+        position: relative;
+        z-index: 20 !important;
+    }
+
+    /* Wave divider — keep it below the button */
+    .testimonials .divider-bottom {
+        bottom: -80px !important;
+        z-index: 2 !important;
+    }
+
+    .testimonials .divider-bottom svg {
+        height: 100px !important;
+    }
+}
+
+/* Large desktop — a bit more breathing room */
+@media (min-width: 1200px) {
+    .testimonials {
+        padding: 100px 8% 120px !important;
+    }
+
+    .testimonials-grid {
+        gap: 32px;
+    }
+
+    .testimonial-card {
+        padding: 36px 32px;
+    }
+}

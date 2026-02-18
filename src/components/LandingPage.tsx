@@ -112,7 +112,7 @@ const LandingPage: React.FC = () => {
               <p className="hero-subheading">
               Helping you create <span className="sub-highlight">healthier spaces</span>,
                 <span className="sub-highlight"> greater comfort</span>, and
-                <span className="sub-highlight"> peace of mind</span> you can feel every day.
+                <span className="sub-highlight"> peace of mind</span>.
               </p>
             </div>
           </div>

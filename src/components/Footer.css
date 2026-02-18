@@ -1,16 +1,16 @@
 .footer {
   text-align: center;
-  padding: 3rem 0 2rem;
+  padding: 5rem 6% 3rem;
   font-size: 0.85rem;
   color: #e8e8e8;
   background-color: #01351d !important;
-  margin-top: -1px; 
+  margin-top: -1px;
   position: relative;
   z-index: 5;
 }
 
 .footer a {
-  color: #ffff;
+  color: #ffffff;
   text-decoration: none;
   font-weight: 600;
 }
@@ -19,34 +19,95 @@
   text-decoration: underline;
 }
 
-/* 🔑 MAIN BUSINESS BADGES */
+/* ── BADGES ── */
 .footer-images {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 32px;
-  margin-bottom: 1.5rem;
+  gap: 40px;
+  margin-bottom: 3rem;
 }
 
 .footer-images img {
-  height: 60px; /* Kept prominent for the business */
+  height: 72px;
   width: auto;
   opacity: 0.9;
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
+  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
+.footer-images img:hover {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
+/* ── CONTACT BLOCK ── */
+.footer-contact {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: center;
+  gap: 0;
+  margin: 0 auto 3rem;
+  max-width: 900px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 16px;
+  padding: 28px 40px;
+}
+
+.footer-contact-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  padding: 0 40px;
+  flex: 1;
+  min-width: 180px;
+}
+
+.footer-contact-label {
+  font-size: 0.7rem;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #E7C600;
+}
+
+.footer-contact-item a {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.85);
+  text-decoration: none;
+  transition: color 0.2s ease;
+  text-align: center;
+}
+
+.footer-contact-item a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-contact-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  align-self: center;
+  flex-shrink: 0;
+}
+
+/* ── COPYRIGHT & CREDIT ── */
 .copyright {
-  opacity: 0.7;
-  margin-bottom: 0.5rem;
+  opacity: 0.6;
+  margin-bottom: 0.75rem;
+  font-size: 0.82rem;
 }
 
-/* 🔑 THE TECH STACK WELD */
 .credit {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 12px;
-  opacity: 0.8;
+  opacity: 0.75;
 }
 
 .tech-stack {
@@ -54,32 +115,79 @@
   align-items: center;
   gap: 8px;
   margin-left: 4px;
-  /* Adds a small separator line if you want */
   border-left: 1px solid rgba(255, 255, 255, 0.2);
   padding-left: 12px;
 }
 
 .tech-stack img {
-  height: 20px; /* 🔑 Much smaller to not distract from the brand */
+  height: 20px;
   width: auto;
   opacity: 0.6;
-  filter: grayscale(1) brightness(1.5); /* Makes them subtle/monochrome */
+  filter: grayscale(1) brightness(1.5);
   transition: all 0.2s ease;
 }
 
 .tech-stack img:hover {
   opacity: 1;
-  filter: grayscale(0) brightness(1); /* Reveal color on hover */
+  filter: grayscale(0) brightness(1);
   transform: translateY(-2px);
 }
 
+/* ── MOBILE ── */
 @media (max-width: 600px) {
+  .footer {
+    padding: 3rem 20px 2rem;
+  }
+
+  .footer-images {
+    gap: 24px;
+    margin-bottom: 2rem;
+  }
+
+  .footer-images img {
+    height: 52px;
+  }
+
+  .footer-contact {
+    flex-direction: column;
+    gap: 20px;
+    padding: 24px 20px;
+    border-radius: 12px;
+    margin-bottom: 2rem;
+  }
+
+  .footer-contact-divider {
+    display: none;
+  }
+
+  .footer-contact-item {
+    padding: 0;
+    min-width: unset;
+  }
+
+  .footer-contact-item a {
+    font-size: 0.95rem;
+  }
+
   .credit {
     flex-direction: column;
     gap: 8px;
   }
+
   .tech-stack {
     border-left: none;
     padding-left: 0;
   }
+}
+
+/* ── Clickable badge links ── */
+.footer-badge-link {
+  display: inline-flex;
+  align-items: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.footer-badge-link:hover {
+  transform: translateY(-4px);
+  opacity: 1 !important;
 }

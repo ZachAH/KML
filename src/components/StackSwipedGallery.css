@@ -4,15 +4,15 @@
 .stack-section {
     width: 100%;
     /* 🔑 FORCE Deep Forest Green to fill the entire container */
-    background-color: #01351d !important; 
+    background-color: #01351d !important;
     display: flex;
     flex-direction: column;
     align-items: center;
     position: relative;
     /* 🔑 The Stitch: Pull up to hide the line from the white section above */
-    margin-top: -5px !important; 
+    margin-top: -5px !important;
     /* 🔑 Vertical Fill: Adjust top padding to clear the wave above */
-    padding: 120px 1.5rem 0; 
+    padding: 120px 1.5rem 0;
     z-index: 1;
     overflow: visible;
 }
@@ -25,7 +25,8 @@
     position: relative;
     width: 100%;
     max-width: 480px;
-    height: 600px; /* increase this to fit all cards + their y offsets */
+    height: 600px;
+    /* increase this to fit all cards + their y offsets */
     margin: 0 auto;
     overflow: visible;
 }
@@ -273,7 +274,8 @@
     font-size: clamp(2rem, 5vw, 2.8rem);
     font-weight: 800;
     text-align: center;
-    color: #ffffff !important; /* White text on green */
+    color: #ffffff !important;
+    /* White text on green */
     margin-bottom: 10px;
     line-height: 1.1;
 }
@@ -285,3 +287,44 @@
     font-size: 1rem;
 }
 
+/* ======================================================
+   STACK GALLERY — ARROW CONTROLS
+   Add this to your StackSwipedGallery.css
+====================================================== */
+
+.stack-arrows {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+.stack-arrow-btn {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+    background: rgba(255, 255, 255, 0.12);
+    color: #ffffff;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+    /* Tap-friendly */
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+.stack-arrow-btn:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.9);
+    transform: scale(1.08);
+}
+
+.stack-arrow-btn:active {
+    transform: scale(0.95);
+    background: rgba(231, 198, 0, 0.3);
+    border-color: #E7C600;
+}

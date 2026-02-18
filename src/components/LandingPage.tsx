@@ -46,11 +46,12 @@ const LandingPage: React.FC = () => {
             <div className="hero-text-block">
               <div className="text-reveal-mask">
                 <h1 className="hero-heading">
-                  For That Clean <span className="feeling-accent"> Feeling.</span>
+                  For That Clean{" "}
+                  <span className="feeling-accent" style={{ whiteSpace: "nowrap" }}> Feeling.</span>
                 </h1>
               </div>
               <p className="hero-subheading">
-              Helping you create <span className="sub-highlight">healthier spaces</span>,
+                Helping you create <span className="sub-highlight">healthier spaces</span>,
                 <span className="sub-highlight"> greater comfort</span>, and
                 <span className="sub-highlight"> peace of mind</span>.
               </p>
@@ -78,7 +79,7 @@ const LandingPage: React.FC = () => {
         </div>
 
         {/* Back to White for Services */}
-          <Services />
+        <Services />
       </main>
     </div>
   );

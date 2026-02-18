@@ -487,3 +487,13 @@ body {
     height: 620px !important;
   }
 }
+
+@media (max-width: 900px) {
+  .hero-heading {
+    text-align: center;
+  }
+  
+  .hero-subheading {
+    text-align: center;
+  }
+}

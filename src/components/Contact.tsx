@@ -2,17 +2,10 @@ import { useState } from "react";
 import emailjs from "@emailjs/browser";
 import "./Contact.css";
 
-// ─── EmailJS Config ───────────────────────────────────────
-// 1. Sign up free at https://emailjs.com
-// 2. Create an Email Service (Gmail works great) → copy Service ID
-// 3. Create an Email Template → copy Template ID
-//    Template variables to use: {{from_name}}, {{from_email}}, {{phone}}, {{message}}
-// 4. Copy your Public Key from Account → API Keys
-// Then replace the three placeholders below:
-const EMAILJS_SERVICE_ID  = "YOUR_SERVICE_ID";
-const EMAILJS_TEMPLATE_ID = "YOUR_TEMPLATE_ID";
-const EMAILJS_PUBLIC_KEY  = "YOUR_PUBLIC_KEY";
-// ──────────────────────────────────────────────────────────
+
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID;
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID;
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY;
 
 export default function Contact() {
   const [showThankYou, setShowThankYou] = useState(false);

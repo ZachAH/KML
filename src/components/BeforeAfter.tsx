@@ -6,14 +6,13 @@ import clean_bathroom from "../assets/cleaning/before-after/clean_bathroom.webp"
 import dirty_livingroom from "../assets/cleaning/before-after/dirty_livingroom.webp";
 import clean_livingroom from "../assets/cleaning/before-after/clean_livingroom.webp";
 
-// import dirty_office from "../assets/cleaning/before-after/dirty_office.webp";
-// import clean_office from "../assets/cleaning/before-after/clean_office.webp";
-
 export default function BeforeAfter() {
   return (
-    <section className="before-after-section">
-
-      {/* ✅ Single header at PAGE TOP */}
+    <section
+      className="before-after-section"
+      style={{ backgroundColor: '#01351d' }}
+    >
+      {/* Header */}
       <div
         style={{
           color: 'rgba(233, 233, 233, 0.9)',
@@ -30,7 +29,7 @@ export default function BeforeAfter() {
       >
         New images added frequently ✨
 
-        {/* ✅ INLINE PULSING UNDERLINE */}
+        {/* Pulsing underline */}
         <div
           style={{
             position: 'absolute' as const,
@@ -59,17 +58,8 @@ export default function BeforeAfter() {
           after={clean_livingroom}
           label="Living Room Refresh"
           initial={2}
-
         />
-        {/* <BeforeAfterImage
-          before={dirty_office}
-          after={clean_office}
-          label="Office Revitalized"
-          initial={2}
-
-        /> */}
       </div>
     </section>
   );
 }
-

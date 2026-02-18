@@ -80,10 +80,6 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  will-change: transform;
-  transform-style: preserve-3d;
-  /* Subtle float animation */
-  animation: logoFloat 6s ease-in-out infinite;
 }
 
 @keyframes logoFloat {

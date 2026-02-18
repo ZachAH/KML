@@ -262,3 +262,128 @@
     border-radius: 8px;
   }
 }
+
+/* ===============================
+   THANK YOU POPUP
+================================ */
+
+.thankyou-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(4px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 9999;
+  animation: fadeIn 0.2s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+.thankyou-modal {
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 48px 40px;
+  max-width: 420px;
+  width: 90%;
+  text-align: center;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.35);
+  animation: slideUp 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes slideUp {
+  from {
+    transform: translateY(30px);
+    opacity: 0;
+  }
+
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.thankyou-icon {
+  width: 64px;
+  height: 64px;
+  background: #014421;
+  color: #E7C600;
+  font-size: 1.8rem;
+  font-weight: 800;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 20px;
+}
+
+.thankyou-title {
+  font-size: 1.8rem;
+  font-weight: 800;
+  color: #014421;
+  margin: 0 0 12px;
+}
+
+.thankyou-message {
+  font-size: 1rem;
+  line-height: 1.7;
+  color: #444;
+  margin: 0 0 28px;
+}
+
+.thankyou-close-btn {
+  background: #E7C600;
+  color: #014421;
+  border: none;
+  padding: 12px 36px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: transform 0.2s ease, background 0.2s ease;
+}
+
+.thankyou-close-btn:hover {
+  background: #d4b000;
+  transform: translateY(-2px);
+}
+
+/* Clickable email/phone in contact-info */
+.contact-info a {
+  color: #E7C600;
+  text-decoration: none;
+  font-weight: 600;
+  transition: opacity 0.2s ease;
+}
+
+.contact-info a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* Form error message */
+.form-error {
+  color: #ff6b6b;
+  font-size: 0.9rem;
+  margin: 0;
+  padding: 10px 14px;
+  background: rgba(255, 107, 107, 0.1);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 107, 107, 0.3);
+}
+
+/* Disabled send button while submitting */
+.form-submit-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+}

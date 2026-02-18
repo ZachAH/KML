@@ -699,3 +699,55 @@ body,
     height: 30px;
   }
 }
+
+/* ======================================================
+   TESTIMONIALS → SERVICES SEAM FIX
+   Targets the hairline gap visible on Pixel Fold outer screen
+====================================================== */
+
+@media (max-width: 480px) {
+
+  .testimonials {
+    margin-bottom: 0 !important;
+    padding-bottom: 60px !important;
+    /* Extend the green background past the section edge */
+    padding-bottom: 80px !important;
+  }
+
+  /* Push wave down to fully bury the dark line */
+  .testimonials .divider-bottom {
+    bottom: -8px !important;
+    z-index: 10 !important;
+    left: -2px !important;
+    width: calc(100% + 4px) !important;
+  }
+
+  .testimonials .divider-bottom svg {
+    height: 55px !important;
+    width: 100% !important;
+    display: block;
+  }
+
+  /* Pull services up to meet the wave with no gap */
+  .services-panels {
+    margin-top: -8px !important;
+    position: relative;
+    z-index: 5;
+  }
+
+  /* Ensure the white background of services covers from beneath */
+  .panel:first-of-type {
+    padding-top: 40px !important;
+  }
+}
+
+/* Pixel Fold outer — extra aggressive overlap */
+@media (max-width: 375px) {
+  .testimonials .divider-bottom {
+    bottom: -10px !important;
+  }
+
+  .services-panels {
+    margin-top: -10px !important;
+  }
+}

@@ -378,3 +378,18 @@ body,
         padding: 36px 32px;
     }
 }
+
+/* ── Google logo inside the reviews button ── */
+.testimonials-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.testimonials-btn-google-logo {
+    height: 22px;
+    width: auto;
+    vertical-align: middle;
+    /* Keep the logo's natural colors — no filter */
+    filter: none;
+}

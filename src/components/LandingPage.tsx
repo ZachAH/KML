@@ -78,9 +78,7 @@ const LandingPage: React.FC = () => {
         </div>
 
         {/* Back to White for Services */}
-        <div className="section-white">
           <Services />
-        </div>
       </main>
     </div>
   );

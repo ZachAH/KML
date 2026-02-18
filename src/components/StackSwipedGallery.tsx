@@ -50,7 +50,7 @@ export default function StackSwipedGallery({ images }: Props) {
     Math.abs(offset) * velocity > 2200;
 
   const handleDragEnd = useCallback(
-    (i: number, _e: any, info: PanInfo) => {
+    (_i: number, _e: any, info: PanInfo) => {
       const { offset, velocity } = info;
       if (!swipeConfidence(offset.x, velocity.x)) return;
       rotateStack();

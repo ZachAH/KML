@@ -3,11 +3,20 @@
 ============================ */
 .stack-section {
     width: 100%;
+    /* 🔑 FORCE Deep Forest Green to fill the entire container */
+    background-color: #01351d !important; 
     display: flex;
-    justify-content: center;
-    padding: 0;
-    margin: 0 auto !important;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    /* 🔑 The Stitch: Pull up to hide the line from the white section above */
+    margin-top: -5px !important; 
+    /* 🔑 Vertical Fill: Adjust top padding to clear the wave above */
+    padding: 120px 1.5rem 0; 
+    z-index: 1;
+    overflow: visible;
 }
+
 
 /* ============================
      Wrapper for stack
@@ -16,18 +25,9 @@
     position: relative;
     width: 100%;
     max-width: 480px;
-    height: 520px;
-
-    /* Center it */
-    margin-left: auto;
-    margin-right: auto;
-
-    display: flex;
-    align-items: center;
-    justify-content: center;
-
+    height: 600px; /* increase this to fit all cards + their y offsets */
+    margin: 0 auto;
     overflow: visible;
-    padding: 40px 0;
 }
 
 /* ============================
@@ -40,7 +40,7 @@
 
     border-radius: 26px;
     overflow: hidden;
-    background: #ffffff;
+    background: #01351d;
 
     box-shadow: 0 25px 55px rgba(0, 0, 0, 0.28);
     cursor: grab;
@@ -268,3 +268,20 @@
         /* larger smartphones need more spacing */
     }
 }
+
+.stack-title {
+    font-size: clamp(2rem, 5vw, 2.8rem);
+    font-weight: 800;
+    text-align: center;
+    color: #ffffff !important; /* White text on green */
+    margin-bottom: 10px;
+    line-height: 1.1;
+}
+
+.stack-instructions {
+    color: rgba(255, 255, 255, 0.8) !important;
+    text-align: center;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+}
+

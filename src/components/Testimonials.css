@@ -10,7 +10,7 @@
 body,
 .panel-white,
 .services-panels,
-.gallery-panel.panel {
+.gallery-panel.panel:not(.panel-green) {
     background-color: var(--perfect-white) !important;
 }
 

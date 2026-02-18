@@ -80,7 +80,7 @@ const Navbar = () => {
             className="nav-book-btn desktop-only" 
             onClick={handleBooking}
           >
-            Book Online
+            Schedule a Cleaning
           </button>
 
           {!menuOpen && (

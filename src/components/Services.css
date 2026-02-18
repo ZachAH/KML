@@ -1,74 +1,89 @@
 /* ======================================================
-   GLOBAL COLOR LOCK: PURE WHITE
-   Kills "ghost" seams by forcing every white section to match.
+   GLOBAL COLOR LOCK
 ====================================================== */
-
 :root {
   --perfect-white: #ffffff;
+  --brand-green: #014421;
+  /* Exact match for rgb(1, 53, 29) */
+  --deep-forest-green: #01351d;
 }
 
 body,
 .panel-white,
-.services-panels,
 .gallery-panel.panel {
-  background-color: var(--perfect-white) !important;
-}
-
-/* Ensure the divider container itself doesn't have a background */
-.section-divider {
-  background-color: transparent !important;
-  outline: none;
-  border: none;
+  background-color: var(--deep-forest-green) !important;
 }
 
 /* ======================================================
    1. SERVICES WRAPPER (THE WELD)
 ====================================================== */
-
 .services-panels {
   width: 100%;
   overflow: visible;
-  /* 🔑 Pulls the white section UP to sit right under the wave */
-  margin-top: 0px;
   position: relative;
-  /* 🔑 Stays UNDER the Testimonials wave (z-index: 100) */
   z-index: 5;
   background-color: var(--perfect-white) !important;
+  /* 🔑 Creates a new stacking context to prevent background colors from peeking through */
+  isolation: isolate;
 }
 
 /* ======================================================
-   2. PANEL LAYOUT (EDITORIAL GRID)
+   2. PANEL LAYOUT
 ====================================================== */
-
 .panel {
   width: 100%;
-  /* 🔑 Use min-height so content doesn't "vanish" or get pushed too far */
-  min-height: 100vh;
+  min-height: 80vh;
   display: grid;
   grid-template-columns: minmax(0, 1.2fr) minmax(0, 1fr);
   align-items: center;
   gap: 60px;
-  padding: 120px 6%;
+  padding: 100px 6%;
   position: relative;
+  z-index: 1;
 }
 
-/* 🔑 SPECIAL FIX: First panel sits right under wave with proper spacing */
 .panel:first-of-type {
   padding-top: 120px !important;
-  min-height: auto;
 }
 
-/* Premium Green Theme (LVT/Hard Surfaces Section) */
+/* Premium Green Theme */
 .panel-green {
-  background: radial-gradient(circle at 35% 40%, #1a6a3a 0%, #014421 45%, #01351d 100%);
-  color: #ffffff;
-  z-index: 10;
-  padding: 180px 6%;
-  margin-top: -2px;
-  /* Prevent sub-pixel seams */
+  /* 🔑 Using exact hex match to your converted RGBs */
+  background: var(--deep-forest-green);
+  z-index: 2;
+  padding: 140px 6%;
+  /* 🔑 Micro-overlap to prevent seams */
+  margin-bottom: -1px;
+  /* 🔑 THE WELD: Pulls the green panel UP by 2 pixels to physically 
+     overlap the wave above it, burying the white hairline gap. */
+  margin-top: -2px !important;
+
+  /* 🔑 THE SEAL: Pushes the panel content back down so the 
+        overlap doesn't mess with your internal spacing. */
+  padding-top: 142px !important;
+  /* Original 140px + 2px of overlap */
+
+  /* 🔑 THE STACK: Ensures the green background stays 'on top' 
+        of the white gap mathematically. */
+  z-index: 2;
+  position: relative;
+  /* 🔑 Pull the green section UP to overlap the white panel's bottom */
+  margin-top: -2px !important;
+  /* 🔑 Higher than panel-white to hide the seam */
+  z-index: 3;
 }
 
-/* Reverse layout logic */
+.panel-white {
+  position: relative;
+  /* 🔑 Use a tiny negative margin to 'pull' the white section 
+     into the green transition */
+  margin-bottom: -2px !important; 
+  /* 🔑 MUST be lower than the divider and the green panel 
+     so the green 'seal' can sit on top of it */
+  z-index: 1; 
+}
+
+
 .service-panel--reverse {
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr);
 }
@@ -82,15 +97,17 @@ body,
 }
 
 /* ======================================================
-   3. INTERNAL DIVIDERS (HILL WAVES)
+   3. INTERNAL DIVIDERS (THE "WELDED" WAVES)
 ====================================================== */
-
 .panel-divider {
   position: absolute;
   left: 0;
   width: 100%;
   line-height: 0;
-  z-index: 20;
+  /* 🔑 Highest z-index to ensure the wave itself paints over 
+     both sections' edges */
+  z-index: 10; 
+  pointer-events: none;
 }
 
 .divider-top {
@@ -98,40 +115,46 @@ body,
 }
 
 .divider-bottom {
-  bottom: -1px;
+  /* 🔑 EXACT MATCH TO LANDING PAGE: 
+     Push it down to -2px to bury the white hairline gap */
+  bottom: -2px !important;
 }
 
 .panel-divider svg {
   display: block;
-  width: calc(100% + 4px);
-  /* Prevent side gaps */
-  height: 90px;
+  /* 🔑 EXACT MATCH TO LANDING PAGE:
+     Over-extend width to prevent vertical side-seams */
+  width: calc(100% + 1.3px) !important;
+  height: 102px;
+  background: transparent !important;
+  /* 🔑 Forces the browser to be mathematically precise with edges */
   shape-rendering: geometricPrecision;
 }
 
 /* ======================================================
-   4. TEXT CONTENT & TYPOGRAPHY
+   4. TEXT CONTENT
 ====================================================== */
-
 .service-panel-copy {
   display: flex;
   flex-direction: column;
   gap: 20px;
   max-width: 540px;
+  position: relative;
+  z-index: 15;
 }
 
 .service-eyebrow {
   font-size: 0.85rem;
   letter-spacing: 0.16em;
   font-weight: 800;
-  color: var(--brand-green, #014421);
+  color: var(--brand-green);
   opacity: 0.85;
 }
 
 .service-heading {
   font-size: clamp(2.2rem, 5vw, 3.2rem);
   font-weight: 800;
-  color: var(--brand-green, #014421);
+  color: var(--brand-green);
   line-height: 1.1;
   letter-spacing: -0.02em;
 }
@@ -142,24 +165,17 @@ body,
   color: #374037;
 }
 
-.service-list {
-  padding-left: 0;
-  list-style: none;
-  margin-top: 10px;
-}
-
 .service-list li {
   font-size: 1.05rem;
   line-height: 1.6;
   margin-bottom: 8px;
   color: #374037;
   display: flex;
-  align-items: flex-start;
 }
 
 .service-list li::before {
   content: "•";
-  color: var(--brand-green, #014421);
+  color: var(--brand-green);
   margin-right: 10px;
   font-weight: bold;
 }
@@ -171,47 +187,29 @@ body,
   color: #ffffff !important;
 }
 
-.panel-green .service-eyebrow {
-  color: var(--cta-yellow, #E7C600);
-  opacity: 1;
-}
-
+.panel-green .service-eyebrow,
 .panel-green .service-list li::before {
-  color: var(--cta-yellow, #E7C600);
+  color: #E7C600;
 }
 
 /* ======================================================
-   5. BUTTONS (CLIENT REQUEST: YELLOW / GREEN TEXT)
+   5. BUTTONS & IMAGES
 ====================================================== */
-
-.service-cta-btn,
-.quote-action-btn {
-  background: var(--cta-yellow, #E7C600) !important;
-  color: var(--brand-green, #014421) !important;
+.service-cta-btn {
+  background: #E7C600 !important;
+  color: #014421 !important;
   border: none;
   padding: 14px 32px;
   border-radius: 999px;
   font-weight: 800;
   cursor: pointer;
   box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-  transition: all 0.25s ease;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+  transition: transform 0.25s ease;
+  width: fit-content;
 }
 
 .service-cta-btn:hover {
   transform: translateY(-3px);
-  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
-  filter: brightness(1.05);
-}
-
-/* ======================================================
-   6. IMAGE FRAMES & DEPTH
-====================================================== */
-
-.service-panel-media {
-  display: flex;
-  justify-content: center;
 }
 
 .service-image-frame {
@@ -219,88 +217,56 @@ body,
   aspect-ratio: 4 / 5;
   border-radius: 40px;
   overflow: hidden;
-  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.15);
-  border: 1px solid rgba(0, 0, 0, 0.05);
-  background: #e8eee8;
-}
-
-.panel-green .service-image-frame {
-  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.45);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.1);
+  z-index: 15;
 }
 
 .service-image-frame img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  display: block;
 }
 
 /* ======================================================
-   7. MOBILE RESPONSIVE WELDING
+   6. MOBILE & GALLERY
 ====================================================== */
-
 @media (max-width: 900px) {
-  .services-panels {
-    margin-top: 0px !important;
-  }
-
   .panel {
-    display: block !important;
-    min-height: auto !important;
-    padding: 60px 18px !important;
-  }
-
-  .panel:first-of-type {
-    padding-top: 100px !important;
-  }
-
-  .panel-green {
-    padding: 120px 18px !important;
-  }
-
-  .service-image-frame {
-    aspect-ratio: 16 / 11 !important;
-    max-height: 350px !important;
-    border-radius: 24px !important;
-    margin: 0 auto 30px auto !important;
-  }
-
-  .service-panel-copy {
-    width: 100% !important;
-    text-align: center !important;
-    padding: 0 10px !important;
-  }
-
-  .service-heading {
-    font-size: 2.1rem !important;
-    margin-bottom: 12px !important;
-  }
-
-  .service-list {
-    text-align: left !important;
-    max-width: 320px;
-    margin: 20px auto 0;
+    display: flex;
+    flex-direction: column;
+    padding: 80px 20px !important;
   }
 }
-
-/* ======================================================
-   8. GALLERY PANEL (STAYS CLEAN WHITE)
-====================================================== */
 
 .gallery-panel.panel {
-  height: auto !important;
-  padding: 100px 0 140px;
+  padding: 120px 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  background: var(--perfect-white);
+  z-index: 1;
 }
 
 .gallery-title {
   font-size: clamp(2rem, 4vw, 2.8rem);
-  color: var(--brand-green, #014421);
+  color: var(--brand-green);
   font-weight: 800;
-  margin-bottom: 40px;
   text-align: center;
+}
+
+/* Services.css */
+
+.panel.gallery-panel.panel-green {
+  /* 🔑 Remove the default panel padding that's creating the large gap */
+  padding-top: 0 !important;
+  
+  /* 🔑 Pull the section up behind the divider above it */
+  margin-top: -5px !important; 
+  
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure the divider from the section above is sitting deep enough */
+.divider-bottom {
+  bottom: -3px !important;
+  z-index: 10;
 }

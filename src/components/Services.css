@@ -23,7 +23,7 @@ body,
   position: relative;
   z-index: 5;
   background-color: var(--perfect-white) !important;
-  /* 🔑 Creates a new stacking context to prevent background colors from peeking through */
+  /*  Creates a new stacking context to prevent background colors from peeking through */
   isolation: isolate;
 }
 
@@ -48,39 +48,39 @@ body,
 
 /* Premium Green Theme */
 .panel-green {
-  /* 🔑 Using exact hex match to your converted RGBs */
+  /*  Using exact hex match to your converted RGBs */
   background: var(--deep-forest-green);
   z-index: 2;
   padding: 140px 6%;
-  /* 🔑 Micro-overlap to prevent seams */
+  /*  Micro-overlap to prevent seams */
   margin-bottom: -1px;
-  /* 🔑 THE WELD: Pulls the green panel UP by 2 pixels to physically 
+  /*  THE WELD: Pulls the green panel UP by 2 pixels to physically 
      overlap the wave above it, burying the white hairline gap. */
   margin-top: -2px !important;
 
-  /* 🔑 THE SEAL: Pushes the panel content back down so the 
+  /*  THE SEAL: Pushes the panel content back down so the 
         overlap doesn't mess with your internal spacing. */
   padding-top: 142px !important;
   /* Original 140px + 2px of overlap */
 
-  /* 🔑 THE STACK: Ensures the green background stays 'on top' 
+  /*  THE STACK: Ensures the green background stays 'on top' 
         of the white gap mathematically. */
   z-index: 2;
   position: relative;
-  /* 🔑 Pull the green section UP to overlap the white panel's bottom */
+  /*  Pull the green section UP to overlap the white panel's bottom */
   margin-top: -2px !important;
-  /* 🔑 Higher than panel-white to hide the seam */
+  /*  Higher than panel-white to hide the seam */
   z-index: 3;
 }
 
 .panel-white {
   position: relative;
-  /* 🔑 Use a tiny negative margin to 'pull' the white section 
+  /*  Use a tiny negative margin to 'pull' the white section 
      into the green transition */
-  margin-bottom: -2px !important; 
-  /* 🔑 MUST be lower than the divider and the green panel 
+  margin-bottom: -2px !important;
+  /*  MUST be lower than the divider and the green panel 
      so the green 'seal' can sit on top of it */
-  z-index: 1; 
+  z-index: 1;
 }
 
 
@@ -104,9 +104,9 @@ body,
   left: 0;
   width: 100%;
   line-height: 0;
-  /* 🔑 Highest z-index to ensure the wave itself paints over 
+  /*  Highest z-index to ensure the wave itself paints over 
      both sections' edges */
-  z-index: 10; 
+  z-index: 10;
   pointer-events: none;
 }
 
@@ -115,19 +115,19 @@ body,
 }
 
 .divider-bottom {
-  /* 🔑 EXACT MATCH TO LANDING PAGE: 
+  /*  EXACT MATCH TO LANDING PAGE: 
      Push it down to -2px to bury the white hairline gap */
   bottom: -2px !important;
 }
 
 .panel-divider svg {
   display: block;
-  /* 🔑 EXACT MATCH TO LANDING PAGE:
+  /*  EXACT MATCH TO LANDING PAGE:
      Over-extend width to prevent vertical side-seams */
   width: calc(100% + 1.3px) !important;
   height: 102px;
   background: transparent !important;
-  /* 🔑 Forces the browser to be mathematically precise with edges */
+  /*  Forces the browser to be mathematically precise with edges */
   shape-rendering: geometricPrecision;
 }
 
@@ -217,6 +217,20 @@ body,
   aspect-ratio: 4 / 5;
   border-radius: 40px;
   overflow: hidden;
+  position: relative;
+  
+  /* Force the browser to clip strictly */
+  isolation: isolate;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  -webkit-transform: translate3d(0, 0, 0);
+  transform: translate3d(0, 0, 0);
+  will-change: transform, opacity;
+
+  /*  THE MASK: Ensures no square corners bleed through on refresh */
+  mask-image: linear-gradient(white, white);
+  -webkit-mask-image: -webkit-linear-gradient(white, white);
+  
   box-shadow: 0 30px 70px rgba(0, 0, 0, 0.1);
   z-index: 15;
 }
@@ -225,6 +239,9 @@ body,
   width: 100%;
   height: 100%;
   object-fit: cover;
+  display: block;
+  /* Double-down on rounding the actual image file */
+  border-radius: 40px; 
 }
 
 /* ======================================================
@@ -234,8 +251,61 @@ body,
   .panel {
     display: flex;
     flex-direction: column;
-    padding: 80px 20px !important;
+    /* Center everything horizontally */
+    align-items: center;
+    text-align: center;
+    padding: 60px 24px !important;
+    gap: 40px;
   }
+
+  .service-panel-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* This forces children like the button to center */
+    text-align: center;
+    max-width: 100%;
+    margin: 0 auto;
+    gap: 1.5rem;
+  }
+
+  .service-intro {
+    text-align: center;
+    max-width: 600px; /* Prevents text from spanning too wide on tablets */
+    margin: 0 auto;
+  }
+
+  .service-list {
+    text-align: left; /* Keep bullets readable */
+    margin: 0 auto;   /* Centers the entire list block */
+    padding: 0;
+    width: fit-content; /* Critical: makes the list as narrow as its longest line */
+  }
+
+  .service-cta-btn {
+    align-self: center; /* Overrides any float/left logic */
+    margin-top: 10px;
+  }
+
+  .service-panel-media {
+    width: 100%;
+    order: -1;
+  }
+
+  .service-image-frame {
+    max-width: 500px;
+    aspect-ratio: 16 / 10;
+    margin: 0 auto;
+    border-radius: 24px; 
+  }
+
+  .service-image-frame img {
+    border-radius: 24px;
+  }
+}
+
+/* Reset the reverse order on mobile so all sections look consistent */
+.service-panel--reverse .service-panel-media {
+  order: -1;
 }
 
 .gallery-panel.panel {
@@ -255,12 +325,12 @@ body,
 /* Services.css */
 
 .panel.gallery-panel.panel-green {
-  /* 🔑 Remove the default panel padding that's creating the large gap */
+  /*  Remove the default panel padding that's creating the large gap */
   padding-top: 0 !important;
-  
-  /* 🔑 Pull the section up behind the divider above it */
-  margin-top: -5px !important; 
-  
+
+  /*  Pull the section up behind the divider above it */
+  margin-top: -5px !important;
+
   position: relative;
   z-index: 1;
 }

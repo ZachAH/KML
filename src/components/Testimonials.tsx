@@ -190,8 +190,8 @@ const Testimonials = () => {
       <div className="section-divider divider-bottom">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ transform: 'rotate(180deg)' }}>
           <path
-            d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
-            fill="#01351d"  /* 🔑 Matches the bottom of the section gradient */
+          d = "M0,120V20C200,80,400,0,600,40,800,80,1000,20,1200,60V120H0Z"
+          fill="#01351d"  /* 🔑 Matches the bottom of the section gradient */
           />
         </svg>
       </div>

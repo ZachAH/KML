@@ -12,7 +12,7 @@ body {
 :root {
   --brand-green: #014421;
   --brand-green-light: #1a5e34;
-  --light-bg: #ffff;
+  --light-bg: #ffffff;
   --cta-yellow: #e7c600;
   --text-dark: #1d1d1d;
 }
@@ -23,9 +23,8 @@ body {
 }
 
 /* ======================================================
-   2. HERO SECTION (CLEAN WHITE)
+   2. HERO SECTION
 ====================================================== */
-
 .hero.clean-hero {
   position: relative;
   width: 100%;
@@ -39,9 +38,175 @@ body {
 }
 
 /* ======================================================
-   3. PREMIUM PRISM SWEEP (SUBTLE)
+   3. HERO LAYOUT (THE "CENTERING" FIX)
 ====================================================== */
+.hero-layout {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  width: 100%;
+  max-width: 1300px;
+  margin: 0 auto;
+}
 
+.hero-logo-block {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+  /* Logo hugs the center line */
+  align-items: center;
+  min-width: 0;
+}
+
+.hero-text-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  text-align: left;
+  /* Text hugs the center line from the other side */
+  padding-left: 20px;
+}
+
+/* ======================================================
+   4. TILT LOGO & ANIMATIONS
+====================================================== */
+.tilt-card {
+  position: relative;
+  width: 520px;
+  height: 520px;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  will-change: transform;
+  transform-style: preserve-3d;
+  /* Subtle float animation */
+  animation: logoFloat 6s ease-in-out infinite;
+}
+
+@keyframes logoFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-15px);
+  }
+}
+
+.hero-logo {
+  width: 110%;
+  height: auto;
+  filter: drop-shadow(0 20px 45px rgba(1, 68, 33, 0.18));
+  transition: filter 0.4s ease;
+}
+
+.tilt-wrapper:hover .hero-logo {
+  filter: drop-shadow(0 30px 60px rgba(1, 68, 33, 0.25));
+}
+
+/* ======================================================
+   5. TEXT REVEAL & STYLING
+====================================================== */
+.text-reveal-mask {
+  position: relative;
+  overflow: hidden;
+  padding-bottom: 10px;
+  margin-bottom: -10px;
+}
+
+.hero-heading {
+  font-size: clamp(2.6rem, 4.2vw, 3.4rem);
+  font-weight: 800;
+  color: var(--brand-green);
+  line-height: 1.2;
+  transform: translateY(160%);
+  filter: blur(10px);
+  opacity: 0;
+  animation: revealTextDeep 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation-delay: 0.2s;
+}
+
+@keyframes revealTextDeep {
+  0% {
+    transform: translateY(160%) skewY(5deg);
+    filter: blur(10px);
+    opacity: 0;
+  }
+
+  100% {
+    transform: translateY(0) skewY(0deg);
+    filter: blur(0px);
+    opacity: 1;
+  }
+}
+
+.hero-subheading {
+  font-size: 1.25rem;
+  line-height: 1.8;
+  max-width: 500px;
+  color: #4a4a4a;
+  letter-spacing: -0.015em;
+  margin-top: 24px;
+  opacity: 0;
+  animation: fadeIn 1s ease-out forwards;
+  animation-delay: 1s;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 0.85;
+  }
+}
+
+/* ======================================================
+   6. EMPHASIS & HIGHLIGHTS
+====================================================== */
+.feeling-accent {
+  position: relative;
+  display: inline-block;
+  font-family: "Georgia", serif;
+  font-style: italic;
+  font-weight: 700;
+  color: var(--brand-green);
+}
+
+.feeling-accent::after {
+  content: "";
+  position: absolute;
+  bottom: 4px;
+  left: -2%;
+  width: 0;
+  height: 14px;
+  background-color: var(--cta-yellow);
+  opacity: 0.35;
+  z-index: -1;
+  border-radius: 4px;
+  transform: rotate(-1deg);
+  animation: highlightWipe 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  animation-delay: 1.5s;
+}
+
+@keyframes highlightWipe {
+  to {
+    width: 105%;
+  }
+}
+
+.sub-highlight {
+  color: var(--brand-green);
+  font-weight: 600;
+  font-family: "Georgia", serif;
+  font-style: italic;
+}
+
+/* ======================================================
+   7. PRISM SWEEP
+====================================================== */
 .glass-prism-container {
   position: absolute;
   inset: 0;
@@ -65,7 +230,6 @@ body {
       transparent 70%);
   transform: rotate(25deg);
   filter: blur(40px);
-  /* Slower, more elegant sweep */
   animation: lightSweep 8s cubic-bezier(0.16, 1, 0.3, 1) infinite;
 }
 
@@ -87,160 +251,59 @@ body {
 }
 
 /* ======================================================
-   4. TILT LOGO (BIGGER & BOLDER)
+   8. DIVIDERS & SEAMS
 ====================================================== */
-
-.hero-logo-block {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  /* Ensures the logo doesn't get squished by the text grid */
-  min-width: 500px;
+.section-divider {
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 10;
+  background-color: var(--light-bg);
 }
 
-.tilt-card {
+.section-divider svg {
+  display: block;
+  width: calc(100% + 1.3px);
+  height: 100px;
+  shape-rendering: geometricPrecision;
+}
+
+.section-dark-green {
+  margin-top: -1px;
   position: relative;
-  /* Increased size from 480px to 580px */
-  width: 580px;
-  height: 580px;
-  background: transparent;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  will-change: transform;
-  transform-style: preserve-3d;
-}
-
-.hero-logo {
-  width: 110%;
-  /* Slight overflow to make it feel massive */
-  max-width: none;
-  /* Allow it to push past the container bounds for impact */
-  height: auto;
-  /* Slightly deeper shadow to match the larger scale */
-  filter: drop-shadow(0 20px 45px rgba(1, 68, 33, 0.18));
-  transition: filter 0.4s ease;
-}
-
-/* Enhanced interaction */
-.tilt-wrapper:hover .hero-logo {
-  filter: drop-shadow(0 30px 60px rgba(1, 68, 33, 0.25));
+  z-index: 1;
 }
 
 /* ======================================================
-   LAYOUT ADJUSTMENT FOR LARGER LOGO
+   9. RESPONSIVE
 ====================================================== */
-
-.hero-layout {
-  display: grid;
-  /* Balanced ratio for better centering */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  align-items: center;
-  gap: 60px;
-  /* Slightly wider gap for better breathing room */
-  max-width: 1400px;
-  margin: 0 auto;
-}
-
-/* ======================================================
-   RESPONSIVE SCALING
-====================================================== */
-
-@media (max-width: 1200px) {
-  .tilt-card {
-    width: 480px;
-    height: 480px;
-  }
-
-  .hero-logo-block {
-    min-width: 400px;
-  }
-}
-
-@media (max-width: 900px) {
-  .hero-layout {
-    grid-template-columns: 1fr;
-    text-align: center;
-  }
-
-  .hero-logo-block {
-    min-width: unset;
-  }
-
-  .tilt-card {
-    width: 400px;
-    height: 400px;
-    margin: 0 auto;
-  }
-}
-
-@media (max-width: 600px) {
-  .tilt-card {
-    width: 320px;
-    height: 320px;
-  }
-}
-
-/* ======================================================
-   5. TEXT REVEAL (DEEPER & SMOOTHER)
-====================================================== */
-
-.text-reveal-mask {
-  position: relative;
-  overflow: hidden;
-  padding-bottom: 10px;
-  /* Extra room for the highlight underline */
-  margin-bottom: -10px;
-}
-
-.hero-heading {
-  font-size: clamp(2.6rem, 4.2vw, 3.4rem);
-  font-weight: 800;
-  color: var(--brand-green);
-  line-height: 1.2;
-
-  /* Start much lower (160%) and slightly blurred */
-  transform: translateY(160%);
-  filter: blur(10px);
-  opacity: 0;
-
-  /* Premium "Quick-to-Slow" easing */
-  animation: revealTextDeep 1.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-  animation-delay: 0.2s;
-}
-
-@keyframes revealTextDeep {
-  0% {
-    transform: translateY(160%) skewY(5deg);
-    filter: blur(10px);
-    opacity: 0;
-  }
-
-  100% {
-    transform: translateY(0) skewY(0deg);
-    filter: blur(0px);
-    opacity: 1;
-  }
-}
-
-
-/* ======================================================
-   7. RESPONSIVE
-====================================================== */
-
 @media (max-width: 900px) {
   .hero.clean-hero {
     padding-bottom: 120px;
   }
 
   .hero-layout {
-    grid-template-columns: 1fr;
+    flex-direction: column;
     text-align: center;
+    gap: 30px;
+  }
+
+  .hero-logo-block {
+    justify-content: center;
+    order: -1;
+  }
+
+  .hero-text-block {
+    align-items: center;
+    padding-left: 0;
   }
 
   .tilt-card {
     width: 350px;
     height: 350px;
+    margin: 0 auto;
   }
 
   .section-divider svg {
@@ -248,124 +311,9 @@ body {
   }
 }
 
-/* ======================================================
-   ✨ THE "FEELING" EMPHASIS (REFINED)
-====================================================== */
-
-.feeling-accent {
-  position: relative;
-  display: inline-block;
-  font-family: "Georgia", serif;
-  font-style: italic;
-  font-weight: 700;
-  color: var(--brand-green);
-  padding-right: 8px;
-}
-
-/* The Animated Highlight Underline */
-.feeling-accent::after {
-  content: "";
-  position: absolute;
-  bottom: 4px;
-  left: -2%;
-  width: 0;
-  height: 14px;
-  background-color: var(--cta-yellow);
-  opacity: 0.35;
-  z-index: -1;
-  border-radius: 4px;
-  transform: rotate(-1deg);
-
-  /* Waits for the "Deep Reveal" to finish before wiping across */
-  animation: highlightWipe 1s cubic-bezier(0.65, 0, 0.35, 1) forwards;
-  animation-delay: 1.5s;
-}
-
-@keyframes highlightWipe {
-  to {
-    width: 105%;
+@media (max-width: 600px) {
+  .tilt-card {
+    width: 300px;
+    height: 300px;
   }
-}
-
-/* Ensure the subheading follows the same clean vibe */
-.hero-subheading {
-  font-size: 1.15rem;
-  margin-top: 20px;
-  line-height: 1.6;
-  max-width: 500px;
-  color: var(--text-dark);
-  opacity: 0;
-
-  /* Soft fade in after the heading is settled */
-  animation: fadeIn 1s ease-out forwards;
-  animation-delay: 1s;
-}
-
-@keyframes fadeIn {
-  to {
-    opacity: 0.85;
-  }
-}
-
-/* ======================================================
-   ✨ PREMIUM SUBHEADING STYLING
-====================================================== */
-
-.hero-subheading {
-  font-size: 1.25rem;
-  /* Slightly larger for presence */
-  line-height: 1.8;
-  /* Massive breathing room between lines */
-  max-width: 600px;
-  color: #4a4a4a;
-  /* Softer than black, feels more "airy" */
-  letter-spacing: -0.015em;
-  /* Tighter modern tracking */
-  margin-top: 24px;
-}
-
-.sub-highlight {
-  color: var(--brand-green);
-  font-weight: 600;
-  position: relative;
-  display: inline-block;
-  white-space: nowrap;
-  /* Prevents awkward line breaks in phrases */
-
-  /* Adding that stylistic serif touch to match the logo */
-  font-family: "Georgia", serif;
-  font-style: italic;
-  font-weight: 700;
-}
-
-/* ======================================================
-   FIX: ELIMINATE THE COLOR SEAM
-====================================================== */
-
-.section-divider {
-  position: absolute;
-  /* Push it down slightly further to kill the 1px ghost line */
-  bottom: -2px;
-  left: 0;
-  width: 100%;
-  line-height: 0;
-  z-index: 10;
-  /* Match the Hero background exactly so no 'other' white shows through */
-  background-color: var(--light-bg);
-}
-
-.section-divider svg {
-  display: block;
-  width: calc(100% + 1.3px);
-  /* Over-extend to prevent side-seams */
-  height: 100px;
-  /* Use 'shape-rendering' to force the browser to be more precise */
-  shape-rendering: geometricPrecision;
-}
-
-/* Ensure the Green Section starts exactly where the divider ends */
-.section-dark-green {
-  margin-top: -1px;
-  position: relative;
-  z-index: 1;
 }

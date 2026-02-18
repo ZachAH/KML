@@ -289,7 +289,6 @@
 
 /* ======================================================
    STACK GALLERY — ARROW CONTROLS
-   Add this to your StackSwipedGallery.css
 ====================================================== */
 
 .stack-arrows {
@@ -306,7 +305,7 @@
     border: 2px solid rgba(255, 255, 255, 0.5);
     background: rgba(255, 255, 255, 0.12);
     color: #ffffff;
-    font-size: 1.3rem;
+    font-size: 2rem;
     display: flex;
     align-items: center;
     justify-content: center;

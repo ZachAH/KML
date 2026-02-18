@@ -63,7 +63,7 @@ export default function StackSwipedGallery({ images }: Props) {
       <div className="stack-header">
         <h2 className="stack-title">Expert Cleaning In Action</h2>
         <p className="stack-instructions">
-          Double tap to see the full image. Swipe right to move to the next
+          Use the arrows to scoll through the pictures and double click to see the full image. Optionally you can swipe and double click with your fingers.
           photo.
         </p>
 

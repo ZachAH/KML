@@ -4,7 +4,7 @@
 
 .contact-section {
   min-height: 100vh;
-  background: var(--brand-green);
+  background: #01351d;
   color: var(--text-light);
   padding: 140px 6% 120px;
   display: flex;

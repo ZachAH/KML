@@ -2,7 +2,6 @@
    GLOBAL COLOR LOCK
 ====================================================== */
 :root {
-  --perfect-white: #ffffff;
   --brand-green: #014421;
   /* Exact match for rgb(1, 53, 29) */
   --deep-forest-green: #01351d;
@@ -22,7 +21,7 @@ body,
   overflow: visible;
   position: relative;
   z-index: 5;
-  background-color: var(--perfect-white) !important;
+  background-color: var(--brand-green) !important;
   /*  Creates a new stacking context to prevent background colors from peeking through */
   isolation: isolate;
 }

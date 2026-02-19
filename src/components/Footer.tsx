@@ -12,7 +12,7 @@ import footerImg7 from "../assets/footer/badge-7.svg";
 const badgeLinks = [
   { src: footerImg1, alt: "IICRC Certification", href: "https://iicrc.org" },
   { src: footerImg5, alt: "CRI Member",          href: "https://carpet-rug.org" },
-  { src: footerImg6, alt: "Facebook",             href: "https://facebook.com" },
+  { src: footerImg6, alt: "Facebook",             href: "https://www.facebook.com/profile.php?id=100090393265941" },
   { src: footerImg7, alt: "Instagram",            href: "https://instagram.com" },
 ];
 
@@ -40,7 +40,7 @@ export default function Footer() {
         <div className="footer-contact-item">
           <span className="footer-contact-label">Address</span>
           <a
-            href="https://maps.google.com/?q=2334+Stonebridge+Cir+Unit+E+West+Bend+WI+53095"
+            href="https://maps.google.com/?cid=2414852586862273599&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl"
             target="_blank"
             rel="noopener noreferrer"
           >
@@ -50,7 +50,7 @@ export default function Footer() {
         <div className="footer-contact-divider" />
         <div className="footer-contact-item">
           <span className="footer-contact-label">Phone</span>
-          <a href="tel:+12623441881">(262) 344-1881</a>
+          <a href="tel:+12623341881">(262) 344-1881</a>
         </div>
         <div className="footer-contact-divider" />
         <div className="footer-contact-item">

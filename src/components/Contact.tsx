@@ -72,7 +72,7 @@ export default function Contact() {
               ></iframe>
               <div className="map-pin"></div>
               <a
-                href="https://www.google.com/maps/dir/?api=1&destination=2334+Stonebridge+Cir+unit+e+West+Bend+WI+53095"
+                href="https://maps.google.com/?cid=2414852586862273599&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="map-directions-btn"
@@ -112,15 +112,15 @@ export default function Contact() {
             </form>
 
             <div className="contact-info">
-              <p>2334 Stonebridge Cir, Unit E</p>
+              {/* <p>2334 Stonebridge Cir, Unit E</p>
               <p>West Bend, WI 53095</p>
-              <p>Phone: <a href="tel:+12623441881">(262) 344-1881</a></p>
+              <p>Phone: <a href="tel:+12623341881">(262) 344-1881</a></p>
               <p>
                 Email:{" "}
                 <a href="mailto:kettlemoraineprocleaners@gmail.com">
                   kettlemoraineprocleaners@gmail.com
                 </a>
-              </p>
+              </p> */}
             </div>
           </div>
         </div>

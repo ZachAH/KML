@@ -196,7 +196,7 @@
 @media (max-width: 700px) {
   .contact-content {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
     width: 100%;
     gap: 28px;
     align-items: center;

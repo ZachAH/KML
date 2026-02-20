@@ -70,7 +70,6 @@ export default function Contact() {
                 referrerPolicy="no-referrer-when-downgrade"
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2899.334015199118!2d-88.1728522!3d43.390947600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880458ab40339a93%3A0x218347a220dbe43f!2sKettle%20Moraine%20Professional%20Cleaners%2C%20Inc.!5e0!3m2!1sen!2sus!4v1771546882204!5m2!1sen!2sus"
               ></iframe>
-              <div className="map-pin"></div>
               <a
                 href="https://maps.google.com/?cid=2414852586862273599&g_mp=CiVnb29nbGUubWFwcy5wbGFjZXMudjEuUGxhY2VzLkdldFBsYWNl"
                 target="_blank"

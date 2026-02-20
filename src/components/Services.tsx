@@ -1,6 +1,5 @@
 import React, { useEffect, useRef, useState, Suspense, lazy } from "react";
 import "./Services.css";
-
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -36,7 +35,7 @@ const servicesData: Service[] = [
     titleTop: "Carpet & Upholstery",
     titleBottom: " Cleaning",
     intro:
-      "Everyday life leaves carpets and furniture holding onto dirt, allergens, and odors that affect the comfort and health of your space. When you’re ready to restore a cleaner, healthier home or workplace, our IICRC-certified technicians step in with a proven 8-step process — from pre-vacuuming and spot treatment to hot water extraction, grooming, and optional 3M Scotchgard protection.",
+      "Everyday life leaves carpets and furniture holding onto dirt, allergens, and odors that affect the comfort and health of your space. When you're ready to restore a cleaner, healthier home or workplace, our IICRC-certified technicians step in with a proven 8-step process — from pre-vacuuming and spot treatment to hot water extraction, grooming, and optional 3M Scotchgard protection.",
     bullets: [
       "Carpets — Hot Water Extraction & Low Moisture Cleaning",
       "Upholstery — Hot Water Extraction, Low Moisture & Dry Cleaning",
@@ -83,16 +82,11 @@ const servicesData: Service[] = [
   },
 ];
 
-const EMAIL_TO = "kettlemoraineprocleaners@gmail.com";
-const PHONE_TEL = "12623341881";
-// 🔑 Replace with your actual Housecall Pro link
-const HOUSECALL_PRO_URL = "https://online-booking.housecallpro.com/your-id-here";
+const WAVE_PATH = "M0,120V20C200,80,400,0,600,40,800,80,1000,20,1200,60V120H0Z"
 
 const Services: React.FC = () => {
   const rootRef = useRef<HTMLDivElement | null>(null);
   const [galleryImages, setGalleryImages] = useState<string[]>([]);
-  const [quoteOpen, setQuoteOpen] = useState(false);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
 
   useEffect(() => {
     const loadGallery = async () => {
@@ -107,40 +101,15 @@ const Services: React.FC = () => {
     loadGallery();
   }, []);
 
-  const openQuoteModal = (service: Service) => {
-    setSelectedService(service);
-    setQuoteOpen(true);
+  // 🔑 SHARED BOOKING FUNCTION (Same as Navbar)
+  const handleBooking = () => {
+    if (window.HCPWidget) {
+      window.HCPWidget.openModal();
+    } else {
+      console.error("Booking widget not loaded yet");
+      // Optional: Fallback to your old modal or a direct link if widget fails
+    }
   };
-
-  const closeQuoteModal = () => {
-    setQuoteOpen(false);
-    setSelectedService(null);
-  };
-
-  // 🔑 Lead to booking portal instead of direct email
-  const handleBookingRedirect = () => {
-    window.open(HOUSECALL_PRO_URL, "_blank");
-  };
-
-  const handleEmailQuote = () => {
-    const serviceName = selectedService
-      ? `${selectedService.titleTop}${selectedService.titleBottom}`.trim()
-      : "Cleaning Service";
-    const subject = encodeURIComponent(`Quote Request: ${serviceName}`);
-    const body = encodeURIComponent(
-      `Hi Kettle Moraine Professional Cleaners,\n\nI’d like to request a quote for: ${serviceName}\n\nName:\nPhone:\nEmail:\nAddress/City:\nBest time to contact me:\nDetails:\n\nThank you!`
-    );
-    window.location.href = `mailto:${EMAIL_TO}?subject=${subject}&body=${body}`;
-  };
-
-  useEffect(() => {
-    if (!quoteOpen) return;
-    const onKeyDown = (e: KeyboardEvent) => {
-      if (e.key === "Escape") closeQuoteModal();
-    };
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [quoteOpen]);
 
   // GSAP Entrance Animations
   useEffect(() => {
@@ -187,26 +156,23 @@ const Services: React.FC = () => {
   return (
     <section className="services-panels" ref={rootRef}>
       {servicesData.map((service, index) => {
-        // Alternating logic: White -> Green -> White
         const isGreen = index === 1;
 
         return (
           <article
             key={service.id}
-            className={`panel service-panel ${isGreen ? "panel-green" : "panel-white"} ${index % 2 === 1 ? "service-panel--reverse" : ""
-              }`}
+            className={`panel service-panel ${isGreen ? "panel-green" : "panel-white"} ${
+              index % 2 === 1 ? "service-panel--reverse" : ""
+            }`}
           >
-            {/* Top Divider: Flowing White into Green */}
-            {isGreen && (
+            {service.id === 3 && (
               <div className="panel-divider divider-top">
                 <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
-                  <path
-                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
-                    fill="#ffffff"  /* 🔑 CHANGE: White path creates the hill on green background */
-                  />
+                  <path d={WAVE_PATH} fill="#ffffff" />
                 </svg>
               </div>
             )}
+
             <div className="service-panel-media">
               <div className="service-image-frame">
                 <img
@@ -228,27 +194,49 @@ const Services: React.FC = () => {
               <p className="service-intro service-body-item">{service.intro}</p>
               <ul className="service-list">
                 {service.bullets.map((item, i) => (
-                  <li key={i} className="service-body-item">{item}</li>
+                  <li key={i} className="service-body-item">
+                    {item}
+                  </li>
                 ))}
               </ul>
-              {/* 🔑 Updated Verbiage */}
+              {/* 🔑 TRIGGER HCP MODAL DIRECTLY */}
               <button
                 className="service-cta-btn service-body-item"
                 type="button"
-                onClick={() => openQuoteModal(service)}
+                onClick={handleBooking}
               >
                 Schedule a Cleaning
               </button>
             </div>
 
-            {/* Bottom Divider: Flowing Green back into White */}
-            {isGreen && (
+            {service.id === 1 && (
               <div className="panel-divider divider-bottom">
-                <svg viewBox="0 0 1200 120" preserveAspectRatio="none" style={{ transform: 'rotate(180deg)' }}>
-                  <path
-                    d="M321.39,56.44c58-10.79,114.16-30.13,172-41.86,82.39-16.72,168.19-17.73,250.45-.39C823.78,31,906.67,72,985.66,92.83c70.05,18.48,146.53,26.09,214.34,3V120H0V0C41.13,38.15,124.26,67.14,213,76.53c45,4.75,90.38,1.44,138.4-1.28Z"
-                    fill="#ffffff" /* 🔑 CHANGE: White path creates the hill on green background */
-                  />
+                <svg
+                  viewBox="0 0 1200 120"
+                  preserveAspectRatio="none"
+                  style={{ background: "#014421" }}
+                >
+                  <path d={WAVE_PATH} fill="#01351d" />
+                </svg>
+              </div>
+            )}
+
+            {service.id === 2 && (
+              <div className="panel-divider divider-bottom">
+                <svg viewBox="0 0 1200 120" preserveAspectRatio="none">
+                  <path d={WAVE_PATH} fill="#ffffff" />
+                </svg>
+              </div>
+            )}
+
+            {service.id === 3 && (
+              <div className="panel-divider divider-bottom">
+                <svg
+                  viewBox="0 0 1200 120"
+                  preserveAspectRatio="none"
+                  style={{ background: "#014421" }}
+                >
+                  <path d={WAVE_PATH} fill="#01351d" />
                 </svg>
               </div>
             )}
@@ -256,51 +244,13 @@ const Services: React.FC = () => {
         );
       })}
 
-      <article className="panel gallery-panel panel-white">
-        <h2 className="gallery-title">Our Work in Action</h2>
+      <article className="panel gallery-panel panel-green">
         <Suspense fallback={<div className="gallery-loading">Loading Gallery...</div>}>
           {galleryImages.length > 0 && <ScrollGallery images={galleryImages} />}
         </Suspense>
       </article>
 
-      {/* 🔑 Booking Modal Logic */}
-      {quoteOpen && (
-        <div
-          className="quote-modal-overlay"
-          role="dialog"
-          aria-modal="true"
-          onClick={closeQuoteModal}
-        >
-          <div className="quote-modal" onClick={(e) => e.stopPropagation()}>
-            <button
-              type="button"
-              className="quote-modal-close"
-              onClick={closeQuoteModal}
-              aria-label="Close"
-            >
-              <span aria-hidden>×</span>
-            </button>
-            <p className="quote-modal-eyebrow">READY TO SCHEDULE?</p>
-            <h3 className="quote-modal-title">How would you like to reach us?</h3>
-            {selectedService && (
-              <p className="quote-modal-sub">
-                For: <strong>{`${selectedService.titleTop}${selectedService.titleBottom}`.trim()}</strong>
-              </p>
-            )}
-            <div className="quote-modal-actions">
-              <button type="button" className="quote-action-btn" onClick={handleBookingRedirect}>
-                Book Online
-              </button>
-              <a className="quote-action-btn" href={`tel:${PHONE_TEL}`}>
-                Call Us
-              </a>
-            </div>
-            <p className="quote-modal-note" style={{ marginTop: '15px', fontSize: '0.9rem', opacity: '0.8' }}>
-              Prefer email? <span onClick={handleEmailQuote} style={{ textDecoration: 'underline', cursor: 'pointer' }}>Send us a message</span> instead.
-            </p>
-          </div>
-        </div>
-      )}
+      {/* 🔑 OLD MODAL REMOVED FOR CLEANER FLOW */}
     </section>
   );
 };

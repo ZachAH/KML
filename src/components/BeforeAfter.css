@@ -1,12 +1,15 @@
-.before-after-section {
-    width: 100%;
-    background-color: #59e5ad;
-    padding: 4rem 0;
-    /* internal spacing */
-    margin-top: 7rem;
-    /* pushes the whole section down */
+.before-after-section,
+.before-after-section *:not([class]) {
+  background-color: #01351d !important;
 }
 
+/* In case the page wrapper is overriding it */
+#before-after,
+[id="before-after"],
+.before-after-page,
+main > .before-after-section {
+  background-color: #01351d !important;
+}
 
 .before-after-cards {
     display: flex;

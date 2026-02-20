@@ -6,7 +6,7 @@
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   color-scheme: light;
   /* 🔑 REMOVE: background-color: var(--brand-green) !important; */
-  background-color: #ffffff; 
+  background-color: #014421; 
   color: #1d1d1d;
 }
 
@@ -15,7 +15,7 @@ html, body {
   width: 100%;
   min-height: 100vh;
   /* 🔑 CHANGE: White is now the default "floor" */
-  background-color: #ffffff; 
+  background-color: #01351d; 
   overflow-x: hidden;
 }
 
@@ -47,7 +47,7 @@ button {
 @media (prefers-color-scheme: dark) {
   :root {
     /* Keep backgrounds consistent so your brand logic stays in control */
-    background-color: #ffffff;
+    background-color: #01351d;
     color: #1d1d1d;
   }
 }

@@ -1,8 +1,11 @@
 .about-section {
-  background: var(--brand-green-light);
+  min-height: 100vh;
+  background: var(--deep-forest-green) !important;
   color: var(--text-light);
-  padding: 100px 6%;
-  text-align: center;
+  padding: 140px 6% 120px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 .about-content {
@@ -45,17 +48,6 @@
   font-size: 1.2rem;
 }
 
-.about-section {
-  min-height: 100vh;
-  /* fills viewport */
-  background: var(--brand-green);
-  color: var(--text-light);
-  padding: 140px 6% 120px;
-  /* room for sticky navbar */
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
 
 .about-container {
   max-width: 900px;

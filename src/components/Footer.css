@@ -1,193 +1,216 @@
 .footer {
-  text-align: center;
+  background-color: #ffffff !important;
   padding: 5rem 6% 3rem;
-  font-size: 0.85rem;
-  color: #e8e8e8;
-  background-color: #01351d !important;
-  margin-top: -1px;
+  color: #01351d;
   position: relative;
   z-index: 5;
 }
 
-.footer a {
-  color: #ffffff;
-  text-decoration: none;
-  font-weight: 600;
-}
-
-.footer a:hover {
-  text-decoration: underline;
-}
-
-/* ── BADGES ── */
-.footer-images {
+.footer-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column; /* Stack the brand row and link columns vertically */
+  max-width: 1200px;
+  margin: 0 auto 4rem;
+  text-align: left;
+}
+
+/* ── TOP LINE: LOGO & ASSETS ── */
+.footer-brand {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 40px;
-  margin-bottom: 3rem;
-}
-
-.footer-images img {
-  height: 72px;
-  width: auto;
-  opacity: 0.9;
-  filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3));
-  transition: opacity 0.2s ease, transform 0.2s ease;
-}
-
-.footer-images img:hover {
-  opacity: 1;
-  transform: translateY(-3px);
-}
-
-/* ── CONTACT BLOCK ── */
-.footer-contact {
-  display: flex;
+  width: 100%;
+  margin-bottom: 4rem;
   flex-wrap: wrap;
-  justify-content: center;
-  align-items: center;
-  gap: 0;
-  margin: 0 auto 3rem;
-  max-width: 900px;
-  background: rgba(255, 255, 255, 0.05);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 16px;
-  padding: 28px 40px;
+  gap: 2rem;
 }
 
-.footer-contact-item {
+.footer-logo {
+  height: 200px;
+  width: auto;
+}
+
+.footer-assets {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+/* Color icon logic for both socials and certs */
+.footer-icon-color {
+  height: 32px;
+  width: auto;
+  transition: transform 0.2s ease, filter 0.2s ease;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
+}
+
+.footer-icon-color:hover {
+  transform: translateY(-3px);
+  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
+}
+
+.footer-asset-divider {
+  width: 1px;
+  height: 28px;
+  background-color: #eee;
+}
+
+.footer-socials, 
+.footer-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+/* ── MIDDLE SECTION: LINK COLUMNS ── */
+.footer-columns {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 3rem;
+  border-top: 1px solid #f9f9f9;
+  padding-top: 3rem;
+}
+
+.footer-col {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 0 40px;
-  flex: 1;
-  min-width: 180px;
+  min-width: 200px;
 }
 
-.footer-contact-label {
+.footer-col h4 {
   font-size: 0.7rem;
-  font-weight: 800;
-  letter-spacing: 0.14em;
+  font-weight: 700;
   text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #888;
+  margin-bottom: 1.5rem;
+}
+
+.footer-link {
+  display: block;
+  font-size: 0.95rem;
+  color: #01351d;
+  text-decoration: none;
+  margin-bottom: 0.85rem;
+  font-weight: 500;
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
   color: #E7C600;
 }
 
-.footer-contact-item a {
-  font-size: 0.95rem;
-  color: rgba(255, 255, 255, 0.85);
-  text-decoration: none;
-  transition: color 0.2s ease;
-  text-align: center;
+.footer-link.address {
+  line-height: 1.6;
+  pointer-events: none; /* Keep address text-only or wrap in <a> in JSX */
 }
 
-.footer-contact-item a:hover {
-  color: #ffffff;
-  text-decoration: underline;
+/* ── BOTTOM BAR: COPYRIGHT & CREDIT ── */
+.footer-bottom {
+  border-top: 1px solid #f0f0f0;
+  padding-top: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.5rem;
+  font-size: 0.8rem;
+  color: #999;
 }
 
-.footer-contact-divider {
-  width: 1px;
-  height: 48px;
-  background: rgba(255, 255, 255, 0.15);
-  align-self: center;
-  flex-shrink: 0;
-}
-
-/* ── COPYRIGHT & CREDIT ── */
 .copyright {
-  opacity: 0.6;
-  margin-bottom: 0.75rem;
-  font-size: 0.82rem;
+  margin: 0;
 }
 
 .credit {
   display: flex;
   align-items: center;
-  justify-content: center;
   gap: 12px;
-  opacity: 0.75;
+}
+
+.credit a {
+  color: #666;
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .tech-stack {
   display: flex;
   align-items: center;
-  gap: 8px;
-  margin-left: 4px;
-  border-left: 1px solid rgba(255, 255, 255, 0.2);
-  padding-left: 12px;
+  gap: 10px;
+  border-left: 1px solid #eee;
+  padding-left: 15px;
 }
 
 .tech-stack img {
-  height: 20px;
-  width: auto;
-  opacity: 0.6;
-  filter: grayscale(1) brightness(1.5);
-  transition: all 0.2s ease;
+  height: 18px;
+  filter: grayscale(1) brightness(0.4);
+  opacity: 0.5;
+  transition: all 0.3s ease;
 }
 
 .tech-stack img:hover {
-  opacity: 1;
   filter: grayscale(0) brightness(1);
-  transform: translateY(-2px);
+  opacity: 1;
 }
 
-/* ── MOBILE ── */
-@media (max-width: 600px) {
+/* ── WAVE TRANSITION — all screen sizes ── */
+.footer {
+  border-top: none;
+  padding-top: 0;
+}
+
+.footer-wave {
+  display: block;
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  line-height: 0;
+  margin-top: -3px;
+  background-color: transparent;
+}
+
+.footer-wave svg {
+  display: block;
+  width: 100%;
+  height: 100px;
+  transform: scaleY(-1);
+}
+
+@media (max-width: 899px) {
   .footer {
-    padding: 3rem 20px 2rem;
+    overflow: visible;
   }
 
-  .footer-images {
-    gap: 24px;
-    margin-bottom: 2rem;
+  /* Stack brand row and columns on mobile */
+  .footer-brand {
+    flex-direction: column;
+    text-align: center;
+    margin-top: 3rem;
   }
 
-  .footer-images img {
-    height: 52px;
-  }
-
-  .footer-contact {
+  .footer-assets {
     flex-direction: column;
     gap: 20px;
-    padding: 24px 20px;
-    border-radius: 12px;
-    margin-bottom: 2rem;
   }
 
-  .footer-contact-divider {
+  .footer-asset-divider {
     display: none;
   }
 
-  .footer-contact-item {
-    padding: 0;
-    min-width: unset;
-  }
-
-  .footer-contact-item a {
-    font-size: 0.95rem;
-  }
-
-  .credit {
+  .footer-columns {
     flex-direction: column;
-    gap: 8px;
+    align-items: center;
+    text-align: center;
+    gap: 2.5rem;
   }
 
-  .tech-stack {
-    border-left: none;
-    padding-left: 0;
+  .footer-bottom {
+    flex-direction: column;
+    text-align: center;
   }
-}
-
-/* ── Clickable badge links ── */
-.footer-badge-link {
-  display: inline-flex;
-  align-items: center;
-  transition: transform 0.2s ease, opacity 0.2s ease;
-}
-
-.footer-badge-link:hover {
-  transform: translateY(-4px);
-  opacity: 1 !important;
 }

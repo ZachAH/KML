@@ -13,7 +13,6 @@ export default function StackSwipedGallery({ images }: Props) {
   const [stack, setStack] = useState(images);
   const [lightbox, setLightbox] = useState<string | null>(null);
 
-  // Detect double tap
   const lastTapRef = useRef<number>(0);
   const DOUBLE_TAP_DELAY = 280;
 
@@ -25,7 +24,6 @@ export default function StackSwipedGallery({ images }: Props) {
     lastTapRef.current = now;
   };
 
-  // Shared rotate-stack logic — moves top card to back
   const rotateStack = useCallback(() => {
     setStack((prev) => {
       const next = [...prev];
@@ -35,7 +33,6 @@ export default function StackSwipedGallery({ images }: Props) {
     });
   }, []);
 
-  // Rotate stack backwards — moves last card to front
   const rotateStackBack = useCallback(() => {
     setStack((prev) => {
       const next = [...prev];
@@ -45,7 +42,6 @@ export default function StackSwipedGallery({ images }: Props) {
     });
   }, []);
 
-  // Swipe confidence
   const swipeConfidence = (offset: number, velocity: number) =>
     Math.abs(offset) * velocity > 2200;
 
@@ -59,84 +55,70 @@ export default function StackSwipedGallery({ images }: Props) {
   );
 
   return (
-    <div className="stack-section">
-      <div className="stack-header">
-        <h2 className="stack-title">Expert Cleaning In Action</h2>
-        <p className="stack-instructions">
-          Use the arrows to scoll through the pictures and double click to see the full image. Optionally you can swipe and double click with your fingers.
-          photo.
-        </p>
+    // 🔑 Wrapper that groups the green section + wave together
+    <div className="stack-section-wrapper">
+      <div className="stack-section">
+        <div className="stack-header">
+          <h2 className="stack-title">Expert Cleaning In Action</h2>
+          <p className="stack-instructions">
+            Use the arrows to scroll through the pictures and double click to see the full image.
+            Optionally you can swipe and double click with your fingers.
+          </p>
 
-        {/* Arrow Controls */}
-        <div className="stack-arrows">
-          <button
-            className="stack-arrow-btn"
-            onClick={rotateStackBack}
-            aria-label="Previous photo"
-          >
-            &#8592;
-          </button>
-          <button
-            className="stack-arrow-btn"
-            onClick={rotateStack}
-            aria-label="Next photo"
-          >
-            &#8594;
-          </button>
+          <div className="stack-arrows">
+            <button className="stack-arrow-btn" onClick={rotateStackBack} aria-label="Previous photo">
+              &#8592;
+            </button>
+            <button className="stack-arrow-btn" onClick={rotateStack} aria-label="Next photo">
+              &#8594;
+            </button>
+          </div>
         </div>
-      </div>
 
-      <div className="stack-gallery-wrapper">
-        <AnimatePresence>
-          {stack.map((src, i) => {
-            const isTop = i === 0;
-            const mvX = useMotionValue(0);
+        <div className="stack-gallery-wrapper">
+          <AnimatePresence>
+            {stack.map((src, i) => {
+              const isTop = i === 0;
+              const mvX = useMotionValue(0);
 
-            return (
-              <motion.div
-                key={src}
-                className="stack-card"
-                style={{
-                  x: mvX,
-                  zIndex: stack.length - i,
-                }}
-                initial={{ opacity: 0, scale: 0.92 }}
-                animate={{
-                  opacity: 1,
-                  scale: 1,
-                  rotate: i === 0 ? 0 : i % 2 === 0 ? -5 : 5,
-                  y: i * 20,
-                  transition: { type: "spring", stiffness: 140, damping: 22 },
-                }}
-                exit={{ opacity: 0, scale: 0.85 }}
-                drag={isTop ? "x" : false}
-                dragConstraints={{ left: 0, right: 0 }}
-                dragElastic={0.25}
-                onDragEnd={(e, info) => handleDragEnd(i, e, info)}
-                onTap={() => handleDoubleTap(src)}
-              >
-                <motion.img
-                  src={src}
-                  className="stack-card-img"
-                  alt=""
-                  draggable={false}
-                />
-              </motion.div>
-            );
-          })}
-        </AnimatePresence>
+              return (
+                <motion.div
+                  key={src}
+                  className="stack-card"
+                  style={{ x: mvX, zIndex: stack.length - i }}
+                  initial={{ opacity: 0, scale: 0.92 }}
+                  animate={{
+                    opacity: 1,
+                    scale: 1,
+                    rotate: i === 0 ? 0 : i % 2 === 0 ? -5 : 5,
+                    y: i * 20,
+                    transition: { type: "spring", stiffness: 140, damping: 22 },
+                  }}
+                  exit={{ opacity: 0, scale: 0.85 }}
+                  drag={isTop ? "x" : false}
+                  dragConstraints={{ left: 0, right: 0 }}
+                  dragElastic={0.25}
+                  onDragEnd={(e, info) => handleDragEnd(i, e, info)}
+                  onTap={() => handleDoubleTap(src)}
+                >
+                  <motion.img src={src} className="stack-card-img" alt="" draggable={false} />
+                </motion.div>
+              );
+            })}
+          </AnimatePresence>
 
-        {lightbox && (
-          <motion.div
-            className="lightbox"
-            onClick={() => setLightbox(null)}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-          >
-            <img src={lightbox} className="lightbox-img" />
-          </motion.div>
-        )}
+          {lightbox && (
+            <motion.div
+              className="lightbox"
+              onClick={() => setLightbox(null)}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+            >
+              <img src={lightbox} className="lightbox-img" alt="Enlarged view" />
+            </motion.div>
+          )}
+        </div>
       </div>
     </div>
   );

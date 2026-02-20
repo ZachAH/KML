@@ -1,238 +1,356 @@
 /* ============================
-   Outer wrapper: green section + wave together
+   Force full-width + centered
 ============================ */
-.stack-section-wrapper {
-    width: 100%;
-    max-width: 100%;
-    background-color: #01351d;
-    margin-top: -5px;
-    overflow: hidden;
-  }
-  
-  /* Override site-level panel-green class that may wrap this component */
-  article.panel-green .stack-section-wrapper,
-  .panel-green .stack-section-wrapper,
-  .gallery-panel .stack-section-wrapper {
-    background-color: #01351d !important;
-  }
-  
-  
-  /* ============================
-     Green section itself
-  ============================ */
-  .stack-section {
-    width: 100%;
-    background-color: #01351d;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    position: relative;
-    /* IMPORTANT: do NOT set overflow:hidden here — cards have absolute y offsets */
-    overflow: visible;
-    z-index: 1;
-  }
-  
-  /* ============================
-     Header block
-  ============================ */
-  .stack-header {
-    text-align: center;
-    margin-bottom: 1.5rem;
-    width: 100%;
-  }
-  
-  .stack-title {
-    font-size: clamp(2rem, 5vw, 2.8rem);
-    font-weight: 800;
-    text-align: center;
-    color: #ffffff;
-    margin: 0 0 0.4rem;
-    line-height: 1.1;
-  }
-  
-  .stack-instructions {
-    color: rgba(255, 255, 255, 0.8);
-    text-align: center;
-    font-size: 0.95rem;
-    line-height: 1.4;
-    max-width: 26rem;
-    margin: 0 auto 1.25rem;
-  }
-  
-  /* ============================
-     Arrow controls
-  ============================ */
-  .stack-arrows {
-    display: flex;
-    justify-content: center;
-    gap: 45px;
-    margin-top: 16px;
-  }
-  
-  .stack-arrow-btn {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    border: 2px solid rgba(255, 255, 255, 0.5);
-    background: rgba(255, 255, 255, 0.12);
-    color: #ffffff;
-    font-size: 2rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    cursor: pointer;
-    transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
-    -webkit-tap-highlight-color: transparent;
-    user-select: none;
-    line-height: 1;
-    padding-bottom: 4px;
-  }
-  
-  .stack-arrow-btn:hover {
-    background: rgba(255, 255, 255, 0.25);
-    border-color: rgba(255, 255, 255, 0.9);
-    transform: scale(1.08);
-  }
-  
-  .stack-arrow-btn:active {
-    transform: scale(0.95);
-    background: rgba(231, 198, 0, 0.3);
-    border-color: #E7C600;
-  }
-  
-  /* ============================
-     Card stack wrapper
-     height must accommodate cards + their staggered y offsets
-  ============================ */
-  .stack-gallery-wrapper {
-    position: relative;
-    width: 100%;
-    max-width: 520px;
-    /* Tall enough for the top card's full image height + all staggered y-offsets beneath */
-    height: 780px;
-    margin: 2rem auto 0;
-    overflow: visible;
-  }
-  
-  /* ============================
-     Individual cards
-  ============================ */
-  .stack-card {
-    position: absolute;
-    width: 90%;
-    max-width: 440px;
-    /* Center horizontally without conflicting with Framer Motion's x transform */
-    left: 0;
-    right: 0;
-    margin: 0 auto;
-    border-radius: 26px;
-    overflow: hidden;
-    background: #01351d;
-    cursor: grab;
-    will-change: transform;
-    touch-action: pan-y;
-  }
-  
-  .stack-card:active {
-    cursor: grabbing;
-  }
-  
-  .stack-card-img {
-    width: 100%;
-    height: auto;
-    display: block;
-    border-radius: 26px;
-    pointer-events: none;
-  }
-  
-  /* ============================
-     Lightbox
-  ============================ */
-  .lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.78);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 99999;
-  }
-  
-  .lightbox-img {
-    width: 92%;
-    max-width: 720px;
-    border-radius: 18px;
-    animation: popIn 0.25s ease;
-  }
-  
-  @keyframes popIn {
-    from { transform: scale(0.85); opacity: 0; }
-    to   { transform: scale(1);    opacity: 1; }
-  }
-  
-  /* ============================
-     Mobile & tablet tweaks (333px–859px)
-     Targets the full problem range confirmed in testing
-  ============================ */
-  @media (max-width: 859px) {
-    .stack-section {
-      padding: 2.5rem 1rem 2rem;
-    }
-  
-    .stack-gallery-wrapper {
-      max-width: 100%;
-      margin-top: 1.5rem;
-      /* image cap + (numCards * 20px stagger offset) */
-      height: calc(360px + 120px);
-    }
-  
-    .stack-card {
-      width: 88%;
-      border-radius: 22px;
-    }
-  
-    .stack-card-img {
-      max-height: 360px;
-      object-fit: cover;
-    }
-  }
-  
-  /* ── Narrower phones (≤ 480px) ── */
-  @media (max-width: 480px) {
-    .stack-gallery-wrapper {
-      height: calc(300px + 120px);
-    }
-  
-    .stack-card-img {
-      max-height: 300px;
-      object-fit: cover;
-    }
-  }
-  
-  /* ── Tiny phones (≤ 390px) ── */
-  @media (max-width: 390px) {
-    .stack-gallery-wrapper {
-      height: calc(260px + 120px);
-    }
-  
-    .stack-card-img {
-      max-height: 260px;
-      object-fit: cover;
-    }
-  }
-  
+.stack-section {
+  width: 100%;
+  /* 🔑 FORCE Deep Forest Green to fill the entire container */
+  background-color: #01351d !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  /* 🔑 The Stitch: Pull up to hide the line from the white section above */
+  margin-top: -5px !important;
+  /* 🔑 Vertical Fill: Adjust top padding to clear the wave above */
+  padding: 120px 1.5rem 0;
+  z-index: 1;
+  overflow: visible;
+}
 
-  /* Mobile: prevent .panel-green overrides from adding padding
-     back to the gallery panel wrapper */
-  @media (max-width: 900px) {
-    .panel.gallery-panel.panel-green {
-      padding: 0 !important;
-      margin-top: -1px !important;
-    }
+
+/* ============================
+   Wrapper for stack
+============================ */
+.stack-gallery-wrapper {
+  position: relative;
+  width: 100%;
+  max-width: 480px;
+  height: 650px;
+  /* increase this to fit all cards + their y offsets */
+  margin: 0 auto;
+  overflow: visible;
+}
+
+/* ============================
+   Stacked Cards
+============================ */
+.stack-card {
+  position: absolute;
+  width: 90%;
+  max-width: 440px;
+
+  border-radius: 26px;
+  overflow: hidden;
+  background: #01351d;
+
+  box-shadow: 0 25px 55px rgba(0, 0, 0, 0.28);
+  cursor: grab;
+
+  will-change: transform;
+  touch-action: pan-y;
+}
+
+.stack-card:active {
+  cursor: grabbing;
+}
+
+/* Actual image inside */
+.stack-card-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  border-radius: 26px;
+  pointer-events: none;
+}
+
+/* ============================
+   Lightbox Popup
+============================ */
+.lightbox {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.78);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 99999;
+}
+
+.lightbox-img {
+  width: 92%;
+  max-width: 720px;
+  border-radius: 18px;
+  animation: popIn 0.25s ease;
+}
+
+/* Zoom animation */
+@keyframes popIn {
+  from {
+      transform: scale(0.85);
+      opacity: 0;
   }
-  
-  @media (max-width: 375px) {
-    .panel.gallery-panel.panel-green {
-      padding: 0 !important;
-    }
+
+  to {
+      transform: scale(1);
+      opacity: 1;
   }
+}
+
+/* ============================
+   Mobile Tweaks
+============================ */
+@media (max-width: 600px) {
+  .stack-gallery-wrapper {
+      height: 480px;
+      padding: 80px 0;
+  }
+
+  .stack-card {
+      width: 94%;
+      border-radius: 22px;
+  }
+
+  .stack-card-img {
+      border-radius: 22px;
+  }
+}
+
+.stack-title {
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+  margin: 0 auto 30px;
+  color: #0b2e15;
+  /* deep green to match brand, or change to #fff if dark background */
+  max-width: 90%;
+  line-height: 1.2;
+  opacity: 0.95;
+}
+
+.stack-section {
+  width: 100%;
+  padding: 40px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.stack-section {
+  padding: 3rem 1.5rem 4rem;
+}
+
+.stack-header {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.stack-title {
+  margin: 0 0 0.35rem;
+  font-size: clamp(1.9rem, 5vw, 2.4rem);
+  /* use your brand green if you want */
+  color: var(--brand-green, #014421);
+}
+
+.stack-instructions {
+  margin: 0 auto;
+  max-width: 26rem;
+  font-size: 0.9rem;
+  line-height: 1.4;
+  color: #1a1a1a;
+  opacity: 0.8;
+}
+
+/* Wrapper around the stacked cards */
+.stack-gallery-wrapper {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  /* this padding pushes the cards down away from the title */
+  padding-top: 1.25rem;
+}
+
+/* Extra breathing room on smaller screens so images don't touch the title */
+@media (max-width: 768px) {
+  .stack-section {
+      padding: 2.5rem 1rem 3.5rem;
+  }
+
+  .stack-gallery-wrapper {
+      padding-top: 2.5rem;
+  }
+}
+
+.stack-section {
+  padding: 3rem 1.5rem 6rem;
+  /* ⬅️ bigger bottom padding */
+}
+
+/* Wrapper around the stacked cards */
+.stack-gallery-wrapper {
+  position: relative;
+  max-width: 520px;
+  margin: 0 auto;
+  padding-top: 1.25rem;
+  padding-bottom: 2rem;
+  /* extra breathing room under cards */
+}
+
+/* Extra space on mobile so the footer never overlaps */
+@media (max-width: 768px) {
+  .stack-section {
+      padding: 2.5rem 1rem 7rem;
+      /* more bottom padding on phones */
+  }
+
+  .stack-gallery-wrapper {
+      padding-bottom: 3rem;
+  }
+}
+
+/* Large smartphones (tall displays like iPhone Pro Max, Galaxy Ultra, Pixel XL) */
+@media (min-width: 430px) and (min-height: 800px) {
+  .stack-section {
+      padding-bottom: 9rem;
+      /* more space so footer never overlaps */
+  }
+
+  .stack-gallery-wrapper {
+      padding-bottom: 4rem;
+  }
+
+  .stack-title {
+      font-size: 2.4rem;
+      /* scale up nicely */
+  }
+
+  .stack-instructions {
+      font-size: 1rem;
+      margin-bottom: 1rem;
+  }
+}
+
+/* Base spacing for normal phones */
+.stack-section {
+  padding: 3rem 1.5rem 12rem;
+  /* ⬅️ huge bottom padding so the stack clears the footer */
+}
+
+/* Larger smartphones (Pro Max / Pixel XL / Samsung Ultra) */
+@media (min-width: 430px) and (min-height: 800px) {
+  .stack-section {
+      padding-bottom: 14rem;
+      /* ⬅️ gives even more breathing room */
+  }
+}
+
+/* Tall devices (anything with extra screen height) */
+@media (min-height: 900px) {
+  .stack-section {
+      padding-bottom: 16rem;
+  }
+}
+
+/* Add more space between the title/instructions and the first image card */
+.stack-gallery-wrapper {
+  margin-top: 2.5rem;
+  /* was too small before */
+}
+
+@media (max-width: 480px) {
+  .stack-gallery-wrapper {
+      margin-top: 3rem;
+      /* more space on smaller phones */
+  }
+}
+
+@media (min-width: 430px) and (min-height: 800px) {
+  .stack-gallery-wrapper {
+      margin-top: 3.5rem;
+      /* larger smartphones need more spacing */
+  }
+}
+
+.stack-title {
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  font-weight: 800;
+  text-align: center;
+  color: #ffffff !important;
+  /* White text on green */
+  margin-bottom: 10px;
+  line-height: 1.1;
+}
+
+.stack-instructions {
+  color: rgba(255, 255, 255, 0.8) !important;
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 1rem;
+}
+
+/* ======================================================
+ STACK GALLERY — ARROW CONTROLS
+====================================================== */
+
+.stack-arrows {
+  display: flex;
+  justify-content: center;
+  gap: 45px;
+  margin-top: 16px;
+}
+
+.stack-arrow-btn {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  background: rgba(255, 255, 255, 0.12);
+  color: #ffffff;
+  font-size: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+  /* Tap-friendly */
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  line-height: 1;
+  padding-bottom: 4px;
+}
+
+.stack-arrow-btn:hover {
+  background: rgba(255, 255, 255, 0.25);
+  border-color: rgba(255, 255, 255, 0.9);
+  transform: scale(1.08);
+}
+
+.stack-arrow-btn:active {
+  transform: scale(0.95);
+  background: rgba(231, 198, 0, 0.3);
+  border-color: #E7C600;
+}
+
+/* ======================================================
+ STACK GALLERY — EXIT WAVE
+====================================================== */
+
+.stack-section {
+  position: relative; /* Essential for absolute positioning of the wave */
+  padding-bottom: 120px; /* Space for the wave to exist without overlapping text */
+  overflow: visible; /* Let the wave "bleed" into the footer */
+}
+
+.stack-exit-wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  line-height: 0;
+  z-index: 10; /* Ensures it stays on top of any background colors */
+}
+
+.stack-exit-wave svg {
+  display: block;
+  width: 100%;
+  height: 100px; /* Match the height used in the rest of your site */
+}

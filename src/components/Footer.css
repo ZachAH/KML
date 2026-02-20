@@ -1,216 +1,115 @@
 .footer {
-  background-color: #ffffff !important;
+  text-align: center;
   padding: 5rem 6% 3rem;
-  color: #01351d;
+  font-size: 0.85rem;
+  color: #e8e8e8;
+  background-color: #01351d !important;
+  /* Original Deep Green */
+  margin-top: -1px;
   position: relative;
   z-index: 5;
 }
 
-.footer-container {
+/* ── CONTACT BLOCK (RESTORED) ── */
+/* ── CONTACT BLOCK ── */
+.footer-contact {
   display: flex;
-  flex-direction: column; /* Stack the brand row and link columns vertically */
-  max-width: 1200px;
-  margin: 0 auto 4rem;
-  text-align: left;
-}
-
-/* ── TOP LINE: LOGO & ASSETS ── */
-.footer-brand {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 100%;
-  margin-bottom: 4rem;
   flex-wrap: wrap;
-  gap: 2rem;
-}
-
-.footer-logo {
-  height: 200px;
-  width: auto;
-}
-
-.footer-assets {
-  display: flex;
+  justify-content: center;
   align-items: center;
-  gap: 24px;
+  gap: 0;
+  margin: 0 auto 3rem;
+  max-width: 960px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 20px;
+  padding: 32px 48px;
 }
 
-/* Color icon logic for both socials and certs */
-.footer-icon-color {
-  height: 32px;
-  width: auto;
-  transition: transform 0.2s ease, filter 0.2s ease;
-  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.05));
-}
-
-.footer-icon-color:hover {
-  transform: translateY(-3px);
-  filter: drop-shadow(0 4px 8px rgba(0,0,0,0.1));
-}
-
-.footer-asset-divider {
-  width: 1px;
-  height: 28px;
-  background-color: #eee;
-}
-
-.footer-socials, 
-.footer-badges-row {
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-
-/* ── MIDDLE SECTION: LINK COLUMNS ── */
-.footer-columns {
-  display: flex;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: 3rem;
-  border-top: 1px solid #f9f9f9;
-  padding-top: 3rem;
-}
-
-.footer-col {
+.footer-contact-item {
   display: flex;
   flex-direction: column;
-  min-width: 200px;
+  align-items: center;
+  gap: 6px;
+  padding: 0 40px;
 }
 
-.footer-col h4 {
-  font-size: 0.7rem;
-  font-weight: 700;
+.footer-contact-label {
+  font-size: 0.65rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
   text-transform: uppercase;
-  letter-spacing: 0.12em;
-  color: #888;
-  margin-bottom: 1.5rem;
-}
-
-.footer-link {
-  display: block;
-  font-size: 0.95rem;
-  color: #01351d;
-  text-decoration: none;
-  margin-bottom: 0.85rem;
-  font-weight: 500;
-  transition: color 0.2s;
-}
-
-.footer-link:hover {
   color: #E7C600;
 }
 
-.footer-link.address {
-  line-height: 1.6;
-  pointer-events: none; /* Keep address text-only or wrap in <a> in JSX */
-}
-
-/* ── BOTTOM BAR: COPYRIGHT & CREDIT ── */
-.footer-bottom {
-  border-top: 1px solid #f0f0f0;
-  padding-top: 2rem;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 1.5rem;
-  font-size: 0.8rem;
-  color: #999;
-}
-
-.copyright {
-  margin: 0;
-}
-
-.credit {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-}
-
-.credit a {
-  color: #666;
-  font-weight: 600;
+.footer-contact-item a {
+  color: rgba(255, 255, 255, 0.9);
   text-decoration: none;
+  font-size: 0.9rem;
 }
 
-.tech-stack {
+.footer-contact-item a:hover {
+  color: #ffffff;
+  text-decoration: underline;
+}
+
+.footer-contact-divider {
+  width: 1px;
+  height: 48px;
+  background: rgba(255, 255, 255, 0.15);
+  flex-shrink: 0;
+}
+
+/* ── BADGE IMAGES ── */
+.footer-images {
   display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
   align-items: center;
-  gap: 10px;
-  border-left: 1px solid #eee;
-  padding-left: 15px;
+  gap: 1.5rem;
+  margin-bottom: 2.5rem;
+}
+
+.footer-badge-link img {
+  height: 60px;
+  width: auto;
+  object-fit: contain;
+  transition: opacity 0.2s ease;
+}
+
+.footer-badge-link:hover img {
+  opacity: 0.85;
+}
+
+/* ── TECH STACK ── */
+.tech-stack {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-left: 4px;
 }
 
 .tech-stack img {
   height: 18px;
-  filter: grayscale(1) brightness(0.4);
-  opacity: 0.5;
-  transition: all 0.3s ease;
+  filter: grayscale(1) brightness(1.8);
+  opacity: 0.7;
+  transition: filter 0.25s ease, opacity 0.25s ease, transform 0.25s ease;
 }
 
 .tech-stack img:hover {
-  filter: grayscale(0) brightness(1);
+  filter: none;
   opacity: 1;
+  transform: translateY(-2px);
 }
 
-/* ── WAVE TRANSITION — all screen sizes ── */
-.footer {
-  border-top: none;
-  padding-top: 0;
+.credit {
+  filter: grayscale(1) brightness(1.5);
+  /* Light icons for dark background */
+  opacity: 0.6;
 }
 
-.footer-wave {
-  display: block;
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  right: 50%;
-  margin-left: -50vw;
-  margin-right: -50vw;
-  line-height: 0;
-  margin-top: -3px;
-  background-color: transparent;
-}
-
-.footer-wave svg {
-  display: block;
-  width: 100%;
-  height: 100px;
-  transform: scaleY(-1);
-}
-
-@media (max-width: 899px) {
-  .footer {
-    overflow: visible;
-  }
-
-  /* Stack brand row and columns on mobile */
-  .footer-brand {
-    flex-direction: column;
-    text-align: center;
-    margin-top: 3rem;
-  }
-
-  .footer-assets {
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .footer-asset-divider {
-    display: none;
-  }
-
-  .footer-columns {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-    gap: 2.5rem;
-  }
-
-  .footer-bottom {
-    flex-direction: column;
-    text-align: center;
-  }
+.zach {
+  filter: grayscale(1) brightness(2);
+  /* Light icons for dark background */
+  opacity: 0.6;
 }

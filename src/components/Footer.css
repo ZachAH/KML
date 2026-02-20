@@ -60,6 +60,63 @@
   flex-shrink: 0;
 }
 
+/* ── TABLET (776px–900px) — awkward wrap zone, force full vertical stack ── */
+@media (max-width: 900px) {
+  .footer-contact {
+    flex-direction: column;
+    padding: 28px 32px;
+    gap: 0;
+  }
+
+  .footer-contact-item {
+    padding: 18px 0;
+    width: 100%;
+  }
+
+  .footer-contact-divider {
+    width: 70%;
+    height: 1px;
+    align-self: center;
+  }
+}
+
+/* ── LARGE PHONE (480px–640px) — tighten padding ── */
+@media (max-width: 640px) {
+  .footer-contact {
+    padding: 20px 16px;
+    border-radius: 16px;
+  }
+
+  .footer-contact-item {
+    padding: 14px 0;
+  }
+
+  .footer-contact-item a {
+    font-size: 0.85rem;
+  }
+
+  .footer-contact-divider {
+    width: 60%;
+  }
+}
+
+/* ── SMALL PHONE (≤480px) — max compression ── */
+@media (max-width: 480px) {
+  .footer-contact {
+    padding: 16px 12px;
+    margin: 0 auto 2rem;
+  }
+
+  .footer-contact-item {
+    padding: 12px 0;
+    gap: 4px;
+  }
+
+  .footer-contact-item a {
+    font-size: 0.8rem;
+  }
+}
+
 /* ── BADGE IMAGES ── */
 .footer-images {
   display: flex;

@@ -68,7 +68,7 @@ export default function Contact() {
                 loading="lazy"
                 allowFullScreen
                 referrerPolicy="no-referrer-when-downgrade"
-                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2907.7348618073277!2d-88.17854392395144!3d43.409041068891556!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8804fdef9e4db2ef%3A0xa9e815281ee4ef0!2s2334%20Stonebridge%20Dr%20Ste%20E%2C%20West%20Bend%2C%20WI%2053095!5e0!3m2!1sen!2us!4v1732580000000!5m2!1sen!2us"
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2899.334015199118!2d-88.1728522!3d43.390947600000004!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x880458ab40339a93%3A0x218347a220dbe43f!2sKettle%20Moraine%20Professional%20Cleaners%2C%20Inc.!5e0!3m2!1sen!2sus!4v1771546882204!5m2!1sen!2sus"
               ></iframe>
               <div className="map-pin"></div>
               <a

@@ -1,0 +1,492 @@
+/* ======================================================
+   SHARED SERVICE PAGE STYLES
+   Used by all three individual service pages
+====================================================== */
+
+:root {
+  --brand-green: #014421;
+  --deep-forest-green: #01351d;
+  --cta-yellow: #E7C600;
+  --text-dark: #1a2e1a;
+}
+
+/* ── Hero ───────────────────────────────────────────── */
+.sp-hero {
+  background: var(--brand-green);
+  padding: 140px 6% 80px;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.sp-hero::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: calc(100% + 1.3px);
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120V20C200,80,400,0,600,40,800,80,1000,20,1200,60V120H0Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat bottom center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.sp-eyebrow {
+  font-size: 0.8rem;
+  letter-spacing: 0.18em;
+  font-weight: 800;
+  color: var(--cta-yellow);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+.sp-hero h1 {
+  font-size: clamp(2.2rem, 5vw, 3.8rem);
+  font-weight: 800;
+  color: #ffffff;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.sp-hero-sub {
+  font-size: clamp(1rem, 2vw, 1.2rem);
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 640px;
+  margin: 0 auto 32px;
+  line-height: 1.7;
+}
+
+.sp-hero-cta {
+  display: inline-block;
+  background: var(--cta-yellow);
+  color: var(--brand-green);
+  border: none;
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.sp-hero-cta:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.35);
+}
+
+/* ── Overview (image + text) ───────────────────────── */
+.sp-overview {
+  background: #ffffff;
+  padding: 100px 6%;
+}
+
+.sp-overview-inner {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.sp-overview-inner.reverse {
+  direction: rtl;
+}
+
+.sp-overview-inner.reverse > * {
+  direction: ltr;
+}
+
+.sp-overview-image {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  border-radius: 40px;
+  overflow: hidden;
+  box-shadow: 0 30px 70px rgba(0, 0, 0, 0.1);
+}
+
+.sp-overview-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.sp-overview-text h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--brand-green);
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-bottom: 20px;
+}
+
+.sp-overview-text p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #374037;
+  margin-bottom: 16px;
+}
+
+.sp-overview-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ── What We Offer (green bg) ──────────────────────── */
+.sp-offer {
+  background: var(--brand-green);
+  padding: 100px 6%;
+  position: relative;
+}
+
+.sp-offer::before {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: 0;
+  width: calc(100% + 1.3px);
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120V20C200,80,400,0,600,40,800,80,1000,20,1200,60V120H0Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat top center;
+  background-size: cover;
+  pointer-events: none;
+  transform: scaleY(-1);
+}
+
+.sp-offer::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: calc(100% + 1.3px);
+  height: 80px;
+  background: url("data:image/svg+xml,%3Csvg viewBox='0 0 1200 120' preserveAspectRatio='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M0,120V20C200,80,400,0,600,40,800,80,1000,20,1200,60V120H0Z' fill='%23ffffff'/%3E%3C/svg%3E") no-repeat bottom center;
+  background-size: cover;
+  pointer-events: none;
+}
+
+.sp-offer-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.sp-offer h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.sp-offer-lead {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.85);
+  max-width: 700px;
+  margin: 0 auto 56px;
+  line-height: 1.7;
+}
+
+.sp-offer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 24px;
+  text-align: left;
+}
+
+.sp-offer-card {
+  background: rgba(255, 255, 255, 0.07);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 16px;
+  padding: 28px 24px;
+  transition: background 0.2s ease;
+}
+
+.sp-offer-card:hover {
+  background: rgba(255, 255, 255, 0.12);
+}
+
+.sp-offer-card-icon {
+  font-size: 1.8rem;
+  margin-bottom: 14px;
+}
+
+.sp-offer-card h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--cta-yellow);
+  margin-bottom: 8px;
+}
+
+.sp-offer-card p {
+  font-size: 0.95rem;
+  color: rgba(255, 255, 255, 0.8);
+  line-height: 1.6;
+}
+
+/* ── Process / Why Us ──────────────────────────────── */
+.sp-why {
+  background: #ffffff;
+  padding: 100px 6%;
+}
+
+.sp-why-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.sp-why h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: var(--brand-green);
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.sp-why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 36px;
+}
+
+.sp-why-item {
+  text-align: center;
+}
+
+.sp-why-item-num {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--brand-green);
+  color: #fff;
+  font-size: 1.2rem;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 16px;
+}
+
+.sp-why-item h3 {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand-green);
+  margin-bottom: 8px;
+}
+
+.sp-why-item p {
+  font-size: 0.95rem;
+  color: #374037;
+  line-height: 1.6;
+}
+
+/* ── FAQ ───────────────────────────────────────────── */
+.sp-faq {
+  background: #f6f4e8;
+  padding: 100px 6%;
+}
+
+.sp-faq-inner {
+  max-width: 820px;
+  margin: 0 auto;
+}
+
+.sp-faq h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.4rem);
+  font-weight: 800;
+  color: var(--brand-green);
+  margin-bottom: 48px;
+  text-align: center;
+}
+
+.sp-faq-item {
+  border-bottom: 1px solid #d4d0be;
+  padding: 28px 0;
+}
+
+.sp-faq-item:first-of-type {
+  border-top: 1px solid #d4d0be;
+}
+
+.sp-faq-q {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand-green);
+  margin-bottom: 12px;
+}
+
+.sp-faq-a {
+  font-size: 0.98rem;
+  color: #374037;
+  line-height: 1.7;
+}
+
+/* ── CTA Banner ────────────────────────────────────── */
+.sp-cta {
+  background: var(--deep-forest-green);
+  padding: 80px 6%;
+  text-align: center;
+}
+
+.sp-cta h2 {
+  font-size: clamp(1.8rem, 3.5vw, 2.6rem);
+  font-weight: 800;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+
+.sp-cta p {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin-bottom: 36px;
+  max-width: 580px;
+  margin-left: auto;
+  margin-right: auto;
+  line-height: 1.7;
+}
+
+.sp-cta-actions {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.sp-cta-btn-primary {
+  background: var(--cta-yellow);
+  color: var(--brand-green);
+  border: none;
+  padding: 16px 40px;
+  border-radius: 999px;
+  font-weight: 800;
+  font-size: 1.05rem;
+  cursor: pointer;
+  box-shadow: 0 10px 24px rgba(0, 0, 0, 0.3);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  font-family: inherit;
+}
+
+.sp-cta-btn-primary:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.38);
+}
+
+.sp-cta-btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: transparent;
+  color: #ffffff;
+  border: 2px solid rgba(255, 255, 255, 0.5);
+  padding: 14px 36px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 1.05rem;
+  text-decoration: none;
+  transition: border-color 0.2s ease, background 0.2s ease;
+}
+
+.sp-cta-btn-secondary:hover {
+  border-color: #ffffff;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+/* ── Also Serves (breadcrumb-style link strip) ──────── */
+.sp-also {
+  background: #ffffff;
+  padding: 40px 6%;
+  border-top: 1px solid #e8e6d8;
+}
+
+.sp-also-inner {
+  max-width: 1100px;
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 24px;
+}
+
+.sp-also p {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--brand-green);
+  white-space: nowrap;
+}
+
+.sp-also a {
+  font-size: 0.9rem;
+  color: #374037;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color 0.2s ease;
+}
+
+.sp-also a:hover {
+  color: var(--brand-green);
+}
+
+/* ── Responsive ─────────────────────────────────────── */
+@media (max-width: 900px) {
+  .sp-hero {
+    padding: 120px 5% 70px;
+  }
+
+  .sp-overview {
+    padding: 70px 5%;
+  }
+
+  .sp-overview-inner {
+    grid-template-columns: 1fr;
+    gap: 36px;
+  }
+
+  .sp-overview-inner.reverse {
+    direction: ltr;
+  }
+
+  .sp-overview-image {
+    aspect-ratio: 16 / 10;
+    border-radius: 20px;
+  }
+
+  .sp-offer {
+    padding: 80px 5%;
+  }
+
+  .sp-offer::before,
+  .sp-offer::after {
+    height: 48px;
+  }
+
+  .sp-why {
+    padding: 70px 5%;
+  }
+
+  .sp-faq {
+    padding: 70px 5%;
+  }
+
+  .sp-cta {
+    padding: 60px 5%;
+  }
+
+  .sp-also {
+    padding: 30px 5%;
+  }
+}
+
+@media (max-width: 500px) {
+  .sp-hero h1 {
+    font-size: clamp(1.8rem, 8vw, 2.4rem);
+  }
+
+  .sp-offer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .sp-why-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
